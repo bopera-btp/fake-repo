@@ -1,0 +1,1668 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="" />
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<style>
+  body { margin: 0; background: #FFFFFF; font-family: "IBM Plex Sans", system-ui, sans-serif; color: #23292F; -webkit-font-smoothing: antialiased; }
+  * { box-sizing: border-box; }
+  a { color: #23292F; text-decoration: none; }
+  a:hover { color: #C9820A; }
+  ::selection { background: #F5A62333; }
+  .rv { opacity: 0; transform: translateY(18px); transition: opacity .8s ease, transform .8s cubic-bezier(.2,.7,.2,1); }
+  .rv.in { opacity: 1; transform: none; }
+  @keyframes floaty { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
+
+  /* états pilotés par data-attributs : React ne réécrit pas ces règles */
+  body[data-sol="0"] [data-sol-node="0"] { background: #F5A623 !important; border-color: #F5A623 !important; color: #23292F !important; opacity: 1 !important; }
+  body[data-sol="0"] :is([data-sol-node="1"],[data-sol-node="4"]) { border-color: #5B6675 !important; opacity: 1 !important; }
+  body[data-sol="1"] [data-sol-node="1"] { background: #F5A623 !important; border-color: #F5A623 !important; color: #23292F !important; opacity: 1 !important; }
+  body[data-sol="1"] :is([data-sol-node="0"],[data-sol-node="2"],[data-sol-node="4"],[data-sol-node="5"],[data-sol-node="7"]) { border-color: #5B6675 !important; opacity: 1 !important; }
+  body[data-sol="2"] [data-sol-node="2"] { background: #F5A623 !important; border-color: #F5A623 !important; color: #23292F !important; opacity: 1 !important; }
+  body[data-sol="2"] :is([data-sol-node="1"],[data-sol-node="3"],[data-sol-node="4"],[data-sol-node="7"]) { border-color: #5B6675 !important; opacity: 1 !important; }
+  body[data-sol="3"] [data-sol-node="3"] { background: #F5A623 !important; border-color: #F5A623 !important; color: #23292F !important; opacity: 1 !important; }
+  body[data-sol="3"] :is([data-sol-node="2"],[data-sol-node="4"],[data-sol-node="6"]) { border-color: #5B6675 !important; opacity: 1 !important; }
+  body[data-sol="4"] [data-sol-node="4"] { background: #F5A623 !important; border-color: #F5A623 !important; color: #23292F !important; opacity: 1 !important; }
+  body[data-sol="4"] :is([data-sol-node="0"],[data-sol-node="1"],[data-sol-node="2"],[data-sol-node="3"],[data-sol-node="5"],[data-sol-node="7"]) { border-color: #5B6675 !important; opacity: 1 !important; }
+  body[data-sol="5"] [data-sol-node="5"] { background: #F5A623 !important; border-color: #F5A623 !important; color: #23292F !important; opacity: 1 !important; }
+  body[data-sol="5"] :is([data-sol-node="1"],[data-sol-node="3"],[data-sol-node="4"]) { border-color: #5B6675 !important; opacity: 1 !important; }
+  body[data-sol="6"] [data-sol-node="6"] { background: #F5A623 !important; border-color: #F5A623 !important; color: #23292F !important; opacity: 1 !important; }
+  body[data-sol="6"] :is([data-sol-node="3"],[data-sol-node="4"],[data-sol-node="7"]) { border-color: #5B6675 !important; opacity: 1 !important; }
+  body[data-sol="7"] [data-sol-node="7"] { background: #F5A623 !important; border-color: #F5A623 !important; color: #23292F !important; opacity: 1 !important; }
+  body[data-sol="7"] :is([data-sol-node="1"],[data-sol-node="2"],[data-sol-node="4"],[data-sol-node="6"]) { border-color: #5B6675 !important; opacity: 1 !important; }
+  body[data-cock="0"] [data-cock-node="0"] { background: #FCEBCC !important; border-color: #F5A623 !important; }
+  body[data-cock="0"] [data-cock-dot="0"] { background: #C9820A !important; }
+  body[data-cock="1"] [data-cock-node="1"] { background: #FCEBCC !important; border-color: #F5A623 !important; }
+  body[data-cock="1"] [data-cock-dot="1"] { background: #C9820A !important; }
+  body[data-cock="2"] [data-cock-node="2"] { background: #FCEBCC !important; border-color: #F5A623 !important; }
+  body[data-cock="2"] [data-cock-dot="2"] { background: #C9820A !important; }
+  body[data-cock="3"] [data-cock-node="3"] { background: #FCEBCC !important; border-color: #F5A623 !important; }
+  body[data-cock="3"] [data-cock-dot="3"] { background: #C9820A !important; }
+  body[data-cock="4"] [data-cock-node="4"] { background: #FCEBCC !important; border-color: #F5A623 !important; }
+  body[data-cock="4"] [data-cock-dot="4"] { background: #C9820A !important; }
+  body[data-cock="5"] [data-cock-node="5"] { background: #FCEBCC !important; border-color: #F5A623 !important; }
+  body[data-cock="5"] [data-cock-dot="5"] { background: #C9820A !important; }
+  body[data-cock="6"] [data-cock-node="6"] { background: #FCEBCC !important; border-color: #F5A623 !important; }
+  body[data-cock="6"] [data-cock-dot="6"] { background: #C9820A !important; }
+  body[data-tl="0"] :is([data-tl-item="0"]) { opacity: 1 !important; }
+  body[data-tl="0"] :is([data-tl-dot="0"]) { background: #F5A623 !important; border-color: #F5A623 !important; }
+  body[data-tl="0"] :is([data-tl-num="0"]) { color: #F5A623 !important; }
+  body[data-how="0"] :is([data-how-card="0"]) { opacity: 1 !important; border-color: #C3C9D0 !important; }
+  body[data-how="0"] :is([data-how-dot="0"]) { background: #F5A623 !important; border-color: #F5A623 !important; color: #1B1F24 !important; }
+  body[data-how="0"] :is([data-how-kicker="0"]) { color: #1B1F24 !important; }
+  body[data-how="0"] :is([data-how-icon="0"]) { color: #C9820A !important; }
+  body[data-wf="0"] :is([data-wf-dot="0"]) { background: #F5A623 !important; border-color: #F5A623 !important; color: #23292F !important; }
+  body[data-wf="0"] :is([data-wf-title="0"],[data-wf-title="1"]) { color: #1B1F24 !important; }
+  body[data-wf="0"] :is([data-wf-status="0"]) { color: #3E7A50 !important; }
+  body[data-wf="0"] [data-wf-status="1"] { color: #C9820A !important; }
+  body[data-tl="1"] :is([data-tl-item="0"],[data-tl-item="1"]) { opacity: 1 !important; }
+  body[data-tl="1"] :is([data-tl-dot="0"],[data-tl-dot="1"]) { background: #F5A623 !important; border-color: #F5A623 !important; }
+  body[data-tl="1"] :is([data-tl-num="0"],[data-tl-num="1"]) { color: #F5A623 !important; }
+  body[data-how="1"] :is([data-how-card="0"],[data-how-card="1"]) { opacity: 1 !important; border-color: #C3C9D0 !important; }
+  body[data-how="1"] :is([data-how-dot="0"],[data-how-dot="1"]) { background: #F5A623 !important; border-color: #F5A623 !important; color: #1B1F24 !important; }
+  body[data-how="1"] :is([data-how-kicker="0"],[data-how-kicker="1"]) { color: #1B1F24 !important; }
+  body[data-how="1"] :is([data-how-icon="0"],[data-how-icon="1"]) { color: #C9820A !important; }
+  body[data-wf="1"] :is([data-wf-dot="0"],[data-wf-dot="1"]) { background: #F5A623 !important; border-color: #F5A623 !important; color: #23292F !important; }
+  body[data-wf="1"] :is([data-wf-title="0"],[data-wf-title="1"],[data-wf-title="2"]) { color: #1B1F24 !important; }
+  body[data-wf="1"] :is([data-wf-status="0"],[data-wf-status="1"]) { color: #3E7A50 !important; }
+  body[data-wf="1"] [data-wf-status="2"] { color: #C9820A !important; }
+  body[data-tl="2"] :is([data-tl-item="0"],[data-tl-item="1"],[data-tl-item="2"]) { opacity: 1 !important; }
+  body[data-tl="2"] :is([data-tl-dot="0"],[data-tl-dot="1"],[data-tl-dot="2"]) { background: #F5A623 !important; border-color: #F5A623 !important; }
+  body[data-tl="2"] :is([data-tl-num="0"],[data-tl-num="1"],[data-tl-num="2"]) { color: #F5A623 !important; }
+  body[data-how="2"] :is([data-how-card="0"],[data-how-card="1"],[data-how-card="2"]) { opacity: 1 !important; border-color: #C3C9D0 !important; }
+  body[data-how="2"] :is([data-how-dot="0"],[data-how-dot="1"],[data-how-dot="2"]) { background: #F5A623 !important; border-color: #F5A623 !important; color: #1B1F24 !important; }
+  body[data-how="2"] :is([data-how-kicker="0"],[data-how-kicker="1"],[data-how-kicker="2"]) { color: #1B1F24 !important; }
+  body[data-how="2"] :is([data-how-icon="0"],[data-how-icon="1"],[data-how-icon="2"]) { color: #C9820A !important; }
+  body[data-wf="2"] :is([data-wf-dot="0"],[data-wf-dot="1"],[data-wf-dot="2"]) { background: #F5A623 !important; border-color: #F5A623 !important; color: #23292F !important; }
+  body[data-wf="2"] :is([data-wf-title="0"],[data-wf-title="1"],[data-wf-title="2"],[data-wf-title="3"]) { color: #1B1F24 !important; }
+  body[data-wf="2"] :is([data-wf-status="0"],[data-wf-status="1"],[data-wf-status="2"]) { color: #3E7A50 !important; }
+  body[data-wf="2"] [data-wf-status="3"] { color: #C9820A !important; }
+  body[data-tl="3"] :is([data-tl-item="0"],[data-tl-item="1"],[data-tl-item="2"],[data-tl-item="3"]) { opacity: 1 !important; }
+  body[data-tl="3"] :is([data-tl-dot="0"],[data-tl-dot="1"],[data-tl-dot="2"],[data-tl-dot="3"]) { background: #F5A623 !important; border-color: #F5A623 !important; }
+  body[data-tl="3"] :is([data-tl-num="0"],[data-tl-num="1"],[data-tl-num="2"],[data-tl-num="3"]) { color: #F5A623 !important; }
+  body[data-how="3"] :is([data-how-card="0"],[data-how-card="1"],[data-how-card="2"],[data-how-card="3"]) { opacity: 1 !important; border-color: #C3C9D0 !important; }
+  body[data-how="3"] :is([data-how-dot="0"],[data-how-dot="1"],[data-how-dot="2"],[data-how-dot="3"]) { background: #F5A623 !important; border-color: #F5A623 !important; color: #1B1F24 !important; }
+  body[data-how="3"] :is([data-how-kicker="0"],[data-how-kicker="1"],[data-how-kicker="2"],[data-how-kicker="3"]) { color: #1B1F24 !important; }
+  body[data-how="3"] :is([data-how-icon="0"],[data-how-icon="1"],[data-how-icon="2"],[data-how-icon="3"]) { color: #C9820A !important; }
+  body[data-wf="3"] :is([data-wf-dot="0"],[data-wf-dot="1"],[data-wf-dot="2"],[data-wf-dot="3"]) { background: #F5A623 !important; border-color: #F5A623 !important; color: #23292F !important; }
+  body[data-wf="3"] :is([data-wf-title="0"],[data-wf-title="1"],[data-wf-title="2"],[data-wf-title="3"],[data-wf-title="4"]) { color: #1B1F24 !important; }
+  body[data-wf="3"] :is([data-wf-status="0"],[data-wf-status="1"],[data-wf-status="2"],[data-wf-status="3"]) { color: #3E7A50 !important; }
+  body[data-wf="3"] [data-wf-status="4"] { color: #C9820A !important; }
+  body[data-tl="4"] :is([data-tl-item="0"],[data-tl-item="1"],[data-tl-item="2"],[data-tl-item="3"],[data-tl-item="4"]) { opacity: 1 !important; }
+  body[data-tl="4"] :is([data-tl-dot="0"],[data-tl-dot="1"],[data-tl-dot="2"],[data-tl-dot="3"],[data-tl-dot="4"]) { background: #F5A623 !important; border-color: #F5A623 !important; }
+  body[data-tl="4"] :is([data-tl-num="0"],[data-tl-num="1"],[data-tl-num="2"],[data-tl-num="3"],[data-tl-num="4"]) { color: #F5A623 !important; }
+  body[data-how="4"] :is([data-how-card="0"],[data-how-card="1"],[data-how-card="2"],[data-how-card="3"],[data-how-card="4"]) { opacity: 1 !important; border-color: #C3C9D0 !important; }
+  body[data-how="4"] :is([data-how-dot="0"],[data-how-dot="1"],[data-how-dot="2"],[data-how-dot="3"],[data-how-dot="4"]) { background: #F5A623 !important; border-color: #F5A623 !important; color: #1B1F24 !important; }
+  body[data-how="4"] :is([data-how-kicker="0"],[data-how-kicker="1"],[data-how-kicker="2"],[data-how-kicker="3"],[data-how-kicker="4"]) { color: #1B1F24 !important; }
+  body[data-how="4"] :is([data-how-icon="0"],[data-how-icon="1"],[data-how-icon="2"],[data-how-icon="3"],[data-how-icon="4"]) { color: #C9820A !important; }
+  body[data-wf="4"] :is([data-wf-dot="0"],[data-wf-dot="1"],[data-wf-dot="2"],[data-wf-dot="3"],[data-wf-dot="4"]) { background: #F5A623 !important; border-color: #F5A623 !important; color: #23292F !important; }
+  body[data-wf="4"] :is([data-wf-title="0"],[data-wf-title="1"],[data-wf-title="2"],[data-wf-title="3"],[data-wf-title="4"],[data-wf-title="5"]) { color: #1B1F24 !important; }
+  body[data-wf="4"] :is([data-wf-status="0"],[data-wf-status="1"],[data-wf-status="2"],[data-wf-status="3"],[data-wf-status="4"]) { color: #3E7A50 !important; }
+  body[data-wf="4"] [data-wf-status="5"] { color: #C9820A !important; }
+  body[data-wf="5"] :is([data-wf-dot="0"],[data-wf-dot="1"],[data-wf-dot="2"],[data-wf-dot="3"],[data-wf-dot="4"],[data-wf-dot="5"]) { background: #F5A623 !important; border-color: #F5A623 !important; color: #23292F !important; }
+  body[data-wf="5"] :is([data-wf-title="0"],[data-wf-title="1"],[data-wf-title="2"],[data-wf-title="3"],[data-wf-title="4"],[data-wf-title="5"]) { color: #1B1F24 !important; }
+  body[data-wf="5"] :is([data-wf-status="0"],[data-wf-status="1"],[data-wf-status="2"],[data-wf-status="3"],[data-wf-status="4"],[data-wf-status="5"]) { color: #3E7A50 !important; }
+  body:not([data-how="-1"]) [data-how-bullet] { background: #F5A623 !important; }
+  [data-hub-chip="0"] { grid-area: 1 / 1 / 2 / 2; transition-delay: 0ms; }
+  [data-hub-chip="1"] { grid-area: 1 / 2 / 2 / 3; transition-delay: 90ms; }
+  [data-hub-chip="2"] { grid-area: 1 / 3 / 2 / 4; transition-delay: 180ms; }
+  [data-hub-chip="3"] { grid-area: 2 / 1 / 3 / 2; transition-delay: 270ms; }
+  [data-hub-chip="4"] { grid-area: 2 / 3 / 3 / 4; transition-delay: 360ms; }
+  [data-hub-chip="5"] { grid-area: 3 / 1 / 4 / 2; transition-delay: 450ms; }
+  [data-hub-chip="6"] { grid-area: 3 / 2 / 4 / 3; transition-delay: 540ms; }
+  [data-hub-chip="7"] { grid-area: 3 / 3 / 4 / 4; transition-delay: 630ms; }
+  body[data-how="3"] [data-hub-chip], body[data-how="4"] [data-hub-chip] { opacity: 1 !important; transform: none !important; border-color: #C3C9D0 !important; }
+  body[data-how="4"] [data-dash-bar="0"] { width: 100% !important; background: #C3C9D0 !important; }
+  body[data-how="4"] [data-dash-bar="1"] { width: 75% !important; background: #F5A623 !important; }
+  body[data-how="4"] [data-dash-bar="2"] { width: 56% !important; background: #C9820A !important; }
+  [data-dash-bar="1"] { background: #F5A623 !important; }
+  [data-dash-bar="2"] { background: #C9820A !important; }
+  body[data-pers="0"] [data-pers-tab="0"] { color: #1B1F24 !important; border-bottom-color: #F5A623 !important; }
+  body[data-pers="1"] [data-pers-tab="1"] { color: #1B1F24 !important; border-bottom-color: #F5A623 !important; }
+  body[data-pers="2"] [data-pers-tab="2"] { color: #1B1F24 !important; border-bottom-color: #F5A623 !important; }
+  body[data-pers="3"] [data-pers-tab="3"] { color: #1B1F24 !important; border-bottom-color: #F5A623 !important; }
+  body[data-pers="4"] [data-pers-tab="4"] { color: #1B1F24 !important; border-bottom-color: #F5A623 !important; }
+  [data-field][data-invalid="1"] { border-color: #C05A45 !important; }
+  [data-field][data-filled="1"] { border-color: #3E7A50 !important; }
+  [data-hint][data-invalid="1"] { color: #C05A45 !important; }
+  [data-module="05"] { flex: 1.3 1 0 !important; }
+  [data-module="01"] { flex: 1.12 1 0 !important; }
+  [data-persona-img], [data-sol-preview] { transition: opacity .3s ease, transform .3s ease; }
+  [data-persona-img][data-fade="1"], [data-sol-preview][data-fade="1"] { opacity: 0; transform: translateY(6px); }
+
+  body[data-how="1"] :is([data-how-kicker="0"]) { color: #1B1F24 !important; }
+  body[data-how="1"] :is([data-how-dot="0"]) { background: #1B1F24 !important; border-color: #1B1F24 !important; color: #FFFFFF !important; }
+  body[data-how="2"] :is([data-how-kicker="0"],[data-how-kicker="1"]) { color: #1B1F24 !important; }
+  body[data-how="2"] :is([data-how-dot="0"],[data-how-dot="1"]) { background: #1B1F24 !important; border-color: #1B1F24 !important; color: #FFFFFF !important; }
+  body[data-how="3"] :is([data-how-kicker="0"],[data-how-kicker="1"],[data-how-kicker="2"]) { color: #1B1F24 !important; }
+  body[data-how="3"] :is([data-how-dot="0"],[data-how-dot="1"],[data-how-dot="2"]) { background: #1B1F24 !important; border-color: #1B1F24 !important; color: #FFFFFF !important; }
+  body[data-how="4"] :is([data-how-kicker="0"],[data-how-kicker="1"],[data-how-kicker="2"],[data-how-kicker="3"]) { color: #1B1F24 !important; }
+  body[data-how="4"] :is([data-how-dot="0"],[data-how-dot="1"],[data-how-dot="2"],[data-how-dot="3"]) { background: #1B1F24 !important; border-color: #1B1F24 !important; color: #FFFFFF !important; }
+  body[data-how="0"] [data-how-dot="0"] { background: #F5A623 !important; border-color: #F5A623 !important; color: #23292F !important; }
+  body[data-how="1"] [data-how-dot="1"] { background: #F5A623 !important; border-color: #F5A623 !important; color: #23292F !important; }
+  body[data-how="2"] [data-how-dot="2"] { background: #F5A623 !important; border-color: #F5A623 !important; color: #23292F !important; }
+  body[data-how="3"] [data-how-dot="3"] { background: #F5A623 !important; border-color: #F5A623 !important; color: #23292F !important; }
+  body[data-how="4"] [data-how-dot="4"] { background: #F5A623 !important; border-color: #F5A623 !important; color: #23292F !important; }
+  body[data-how="0"] [data-how-kicker="0"] { color: #C9820A !important; }
+  body[data-how="1"] [data-how-kicker="1"] { color: #C9820A !important; }
+  body[data-how="2"] [data-how-kicker="2"] { color: #C9820A !important; }
+  body[data-how="3"] [data-how-kicker="3"] { color: #C9820A !important; }
+  body[data-how="4"] [data-how-kicker="4"] { color: #C9820A !important; }
+  [data-how-layer] { position: absolute; inset: 0; opacity: 0; transform: translateY(16px); pointer-events: none; transition: opacity .55s ease, transform .55s ease; }
+  [data-reveal] { opacity: 0; transform: translateY(12px); transition: opacity .5s ease, transform .5s ease; }
+  [data-draw] { stroke-dasharray: 260; stroke-dashoffset: 260; transition: stroke-dashoffset .9s cubic-bezier(.3,.7,.2,1); }
+  body[data-how="-1"] [data-how-layer="0"] { opacity: 1; transform: none; pointer-events: auto; }
+  body[data-how="-1"] [data-how-layer="0"] [data-reveal] { opacity: 1; transform: none; }
+  body[data-how="0"] [data-how-layer="0"] { opacity: 1; transform: none; pointer-events: auto; }
+  body[data-how="0"] [data-how-layer="0"] [data-reveal] { opacity: 1; transform: none; }
+  body[data-how="0"] [data-how-layer="0"] [data-draw] { stroke-dashoffset: 0; }
+  body[data-how="1"] [data-how-layer="1"] { opacity: 1; transform: none; pointer-events: auto; }
+  body[data-how="1"] [data-how-layer="1"] [data-reveal] { opacity: 1; transform: none; }
+  body[data-how="1"] [data-how-layer="1"] [data-draw] { stroke-dashoffset: 0; }
+  body[data-how="2"] [data-how-layer="2"] { opacity: 1; transform: none; pointer-events: auto; }
+  body[data-how="2"] [data-how-layer="2"] [data-reveal] { opacity: 1; transform: none; }
+  body[data-how="2"] [data-how-layer="2"] [data-draw] { stroke-dashoffset: 0; }
+  body[data-how="3"] [data-how-layer="3"] { opacity: 1; transform: none; pointer-events: auto; }
+  body[data-how="3"] [data-how-layer="3"] [data-reveal] { opacity: 1; transform: none; }
+  body[data-how="3"] [data-how-layer="3"] [data-draw] { stroke-dashoffset: 0; }
+  body[data-how="4"] [data-how-layer="4"] { opacity: 1; transform: none; pointer-events: auto; }
+  body[data-how="4"] [data-how-layer="4"] [data-reveal] { opacity: 1; transform: none; }
+  body[data-how="4"] [data-how-layer="4"] [data-draw] { stroke-dashoffset: 0; }
+  [data-how-layer] [data-reveal][data-d="0"], [data-how-layer] [data-draw][data-d="0"] { transition-delay: 0ms; }
+  [data-how-layer] [data-reveal][data-d="1"], [data-how-layer] [data-draw][data-d="1"] { transition-delay: 95ms; }
+  [data-how-layer] [data-reveal][data-d="2"], [data-how-layer] [data-draw][data-d="2"] { transition-delay: 190ms; }
+  [data-how-layer] [data-reveal][data-d="3"], [data-how-layer] [data-draw][data-d="3"] { transition-delay: 285ms; }
+  [data-how-layer] [data-reveal][data-d="4"], [data-how-layer] [data-draw][data-d="4"] { transition-delay: 380ms; }
+  [data-how-layer] [data-reveal][data-d="5"], [data-how-layer] [data-draw][data-d="5"] { transition-delay: 475ms; }
+  [data-how-layer] [data-reveal][data-d="6"], [data-how-layer] [data-draw][data-d="6"] { transition-delay: 570ms; }
+  [data-how-layer] [data-reveal][data-d="7"], [data-how-layer] [data-draw][data-d="7"] { transition-delay: 665ms; }
+  [data-how-layer] [data-reveal][data-d="8"], [data-how-layer] [data-draw][data-d="8"] { transition-delay: 760ms; }
+  @media (max-height: 720px) and (min-width: 901px) {
+    [data-how-pin] { padding: 28px 40px 32px !important; }
+    [data-how-pin] > div > p { display: none; }
+    [data-how-pin] h2 { font-size: 28px !important; margin-bottom: 20px !important; }
+  }
+  @media (prefers-reduced-motion: reduce), (max-width: 900px) {
+    [data-how-track] { height: auto !important; }
+    [data-how-pin] { position: static !important; min-height: 0 !important; padding: 88px 40px 96px !important; }
+    [data-how-stage] { height: auto !important; max-height: none !important; min-height: 0 !important; display: grid; gap: 1px; background: #E7EAED !important; }
+    [data-how-layer] { position: relative !important; inset: auto !important; opacity: 1 !important; transform: none !important; pointer-events: auto !important; background: #FBFBFC; min-height: 380px; }
+    [data-how-layer] [data-reveal] { opacity: 1 !important; transform: none !important; }
+    [data-how-layer] [data-draw] { stroke-dashoffset: 0 !important; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .rv { opacity: 1 !important; transform: none !important; transition: none; }
+    * { animation: none !important; }
+  }
+</style>
+</helmet>
+
+<header style="position: sticky; top: 0; z-index: 60; background: rgba(255,255,255,.94); backdropFilter: blur(8px); borderBottom: 1px solid #E7EAED;">
+  <div style="max-width: 1340px; margin: 0 auto; padding: 16px 40px; display: flex; alignItems: center; gap: 40px;">
+    <a href="#top" style="display: flex; alignItems: center; gap: 10px;">
+      <img src="assets/bopera-mark.png" alt="Bopera" style="height: 25px; width: auto; display: block;" />
+      <img src="assets/bopera-word.png" alt="" style="height: 18px; width: auto; display: block;" />
+    </a>
+    <nav style="display: flex; alignItems: center; gap: 28px;">
+      <a href="#solution" style="fontSize: 14.5px; fontWeight: 500; color: #4A5460;" style-hover="color: #23292F;">Produit</a>
+      <a href="#modules" style="fontSize: 14.5px; fontWeight: 500; color: #4A5460;" style-hover="color: #23292F;">Modules</a>
+      <a href="#pourqui" style="fontSize: 14.5px; fontWeight: 500; color: #4A5460;" style-hover="color: #23292F;">Pour qui ?</a>
+      <a href="#pourquoi" style="fontSize: 14.5px; fontWeight: 500; color: #4A5460;" style-hover="color: #23292F;">Pourquoi Bopera ?</a>
+    </nav>
+    <div style="marginLeft: auto; display: flex; alignItems: center; gap: 22px;">
+      <a href="#login" style="fontSize: 14px; fontWeight: 500; color: #6B7684;" style-hover="color: #23292F;">Se connecter</a>
+      <a href="#formulaire" style="background: #F5A623; color: #23292F; fontSize: 14.5px; fontWeight: 600; padding: 12px 20px; borderRadius: 2px; boxShadow: inset 0 -2px 0 rgba(0,0,0,.10);" style-hover="background: #FFB93A;">Demander une démo</a>
+    </div>
+  </div>
+</header>
+
+<main id="top">
+
+  <section style="position: relative; padding: 84px 40px 96px; overflow: hidden;">
+    <svg viewBox="0 0 1440 900" preserveAspectRatio="xMidYMid slice" aria-hidden="true" style="position: absolute; inset: 0; width: 100%; height: 100%; pointerEvents: none;">
+      <defs><pattern id="bpgrid" width="88" height="88" patternUnits="userSpaceOnUse"><path d="M88 0H0V88" fill="none" stroke="#23292F" stroke-width="1" opacity="0.05" /></pattern></defs>
+      <rect width="1440" height="900" fill="url(#bpgrid)" />
+      <line x1="0" y1="264" x2="1440" y2="264" stroke="#F5A623" stroke-width="1" opacity="0.25" />
+      <line x1="1056" y1="0" x2="1056" y2="900" stroke="#23292F" stroke-width="1" opacity="0.08" />
+    </svg>
+    <div style="position: relative; max-width: 1340px; margin: 0 auto; display: grid; gridTemplateColumns: 45fr 55fr; gap: 48px; alignItems: center;">
+      <div class="rv">
+        <div style="display: flex; alignItems: center; gap: 10px; marginBottom: 28px;">
+          <span style="width: 22px; height: 2px; background: #F5A623; display: block;"></span>
+          <span style="fontFamily: 'IBM Plex Mono', monospace; fontSize: 11.5px; letterSpacing: 0.14em; textTransform: uppercase; color: #5B6675;">La plateforme de pilotage dédiée au BTP</span>
+        </div>
+        <h1 style="fontFamily: Archivo, sans-serif; fontWeight: 700; fontSize: 60px; lineHeight: 1.04; letterSpacing: -0.034em; margin: 0 0 26px; color: #1B1F24;">
+          Pilotez vos <span style="color: #C9820A;">chantiers</span><br />
+          Maîtrisez vos <span style="color: #C9820A;">coûts</span><br />
+          Protégez vos <span style="color: #C9820A;">marges</span>
+        </h1>
+        <p style="fontSize: 18px; lineHeight: 1.62; color: #4A5460; margin: 0 0 14px; maxWidth: 548px; textWrap: pretty;">Bopera centralise le chiffrage, les achats, la sous-traitance, les ressources, les stocks, le budget et l'avancement de vos chantiers sur une seule plateforme.</p>
+        <p style="fontSize: 16px; lineHeight: 1.62; color: #6B7684; margin: 0 0 36px; maxWidth: 530px; textWrap: pretty;">Du bureau jusqu'au terrain, toute votre entreprise travaille avec la même information, en temps réel.</p>
+        <div style="display: flex; alignItems: center; gap: 14px; marginBottom: 28px;">
+          <a href="#formulaire" style="background: #F5A623; color: #23292F; fontSize: 16px; fontWeight: 600; padding: 16px 28px; borderRadius: 2px; boxShadow: inset 0 -2px 0 rgba(0,0,0,.10);" style-hover="background: #FFB93A;">Demander une démo</a>
+          <a href="#promesse" style="color: #23292F; fontSize: 16px; fontWeight: 600; padding: 16px 24px; borderRadius: 2px; border: 1px solid #D6DBE0; background: #FFFFFF;" style-hover="border: 1px solid #23292F; background: #F6F7F8;">Découvrir Bopera <span style="color: #C9820A;">↓</span></a>
+        </div>
+        <div style="display: flex; alignItems: center; gap: 13px; fontFamily: 'IBM Plex Mono', monospace; fontSize: 11.5px; letterSpacing: 0.11em; textTransform: uppercase; color: #5B6675;">
+          <span>Visibilité</span><span style="color: #F5A623;">•</span><span>Maîtrise</span><span style="color: #F5A623;">•</span><span>Performance</span>
+        </div>
+      </div>
+
+      <div class="rv" style="position: relative;">
+        <div style="border: 1px solid #DDE1E6; background: #FFFFFF; boxShadow: 0 34px 80px -36px rgba(27,31,36,.34);">
+          <div style="display: flex; alignItems: center; gap: 12px; padding: 10px 14px; borderBottom: 1px solid #E7EAED; background: #F6F7F8;">
+            <span style="display: flex; gap: 6px;">
+              <span style="width: 8px; height: 8px; borderRadius: 50%; background: #CFD5DB; display: block;"></span>
+              <span style="width: 8px; height: 8px; borderRadius: 50%; background: #CFD5DB; display: block;"></span>
+              <span style="width: 8px; height: 8px; borderRadius: 50%; background: #CFD5DB; display: block;"></span>
+            </span>
+            <span style="fontFamily: 'IBM Plex Mono', monospace; fontSize: 10.5px; color: #8A949F;">bopera · affaire / Résidence Al Kawtar</span>
+          </div>
+          <img src="assets/ui-affaire-cockpit-desktop.png" alt="Bopera — dashboard de l'affaire Résidence Al Kawtar : budget, engagé, consommé, avancement, écart, achats récents, approbations et alertes stock" style="width: 100%; height: auto; display: block;" />
+        </div>
+        <div style="marginTop: 18px; display: flex; alignItems: stretch; gap: 22px;">
+          <div style="flex: 1.5 1 0; minWidth: 0; border: 1px solid #DDE1E6; background: #FFFFFF; boxShadow: 0 20px 44px -30px rgba(27,31,36,.34);">
+            <div style="fontFamily: 'IBM Plex Mono', monospace; fontSize: 9px; letterSpacing: 0.12em; textTransform: uppercase; color: #8A949F; padding: 8px 11px 7px; borderBottom: 1px solid #E7EAED;">Devis &amp; chiffrage</div>
+            <img src="assets/ui-chiffrage-desktop.png" alt="Bopera — devis et chiffrage : DPGF, sous-détail de prix et marges" style="width: 100%; height: auto; display: block;" />
+          </div>
+          <div style="flex: 1 1 0; minWidth: 0; display: flex; flexDirection: column; alignItems: center; justifyContent: flex-end; gap: 10px;">
+            <img src="assets/hero-couches.png" alt="Les couches Bopera : chantier, exécution, budget, ressources, pilotage" style="width: 100%; maxWidth: 208px; height: auto; display: block;" />
+            <div style="fontFamily: 'IBM Plex Mono', monospace; fontSize: 9px; letterSpacing: 0.1em; textTransform: uppercase; color: #8A949F; textAlign: center; lineHeight: 1.7;">Chantier → Exécution → Budget<br />→ Ressources → Pilotage</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="produit" style="padding: 42px 40px; borderTop: 1px solid #E7EAED; borderBottom: 1px solid #E7EAED; background: #FBFBFC;">
+    <div class="rv" style="max-width: 1340px; margin: 0 auto; display: flex; alignItems: center; gap: 56px; flexWrap: wrap;">
+      <h2 style="fontFamily: Archivo, sans-serif; fontWeight: 600; fontSize: 21px; letterSpacing: -0.025em; margin: 0; color: #1B1F24;">Conçu pour les entreprises qui construisent.</h2>
+      <div style="display: flex; alignItems: center; gap: 44px; marginLeft: auto; flexWrap: wrap;">
+        <div style="display: flex; alignItems: center; gap: 12px;">
+          <img src="assets/icon-batiment.png" alt="" style="width: 26px; height: 26px; display: block; opacity: .82;" />
+          <span style="fontSize: 16.5px; fontWeight: 700; letterSpacing: -0.015em; color: #1B1F24;">Bâtiment</span>
+        </div>
+        <div style="display: flex; alignItems: center; gap: 12px;">
+          <img src="assets/icon-route.png" alt="" style="width: 26px; height: 26px; display: block; opacity: .82;" />
+          <span style="fontSize: 16.5px; fontWeight: 700; letterSpacing: -0.015em; color: #1B1F24;">Travaux publics</span>
+        </div>
+        <div style="display: flex; alignItems: center; gap: 12px;">
+          <img src="assets/icon-pont.png" alt="" style="width: 26px; height: 26px; display: block; opacity: .82;" />
+          <span style="fontSize: 16.5px; fontWeight: 700; letterSpacing: -0.015em; color: #1B1F24;">Génie civil &amp; infrastructure</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section style="padding: 104px 40px 112px;">
+    <div style="max-width: 1340px; margin: 0 auto;">
+      <div class="rv" style="display: grid; gridTemplateColumns: 1fr 1fr; gap: 64px; alignItems: end; marginBottom: 64px;">
+        <div>
+          <div style="fontFamily: 'IBM Plex Mono', monospace; fontSize: 11.5px; letterSpacing: 0.14em; textTransform: uppercase; color: #8A949F; marginBottom: 20px;">Le problème</div>
+          <h2 style="fontFamily: Archivo, sans-serif; fontWeight: 700; fontSize: 45px; lineHeight: 1.08; letterSpacing: -0.03em; margin: 0; color: #1B1F24;">Votre chantier avance.<br />Vos données doivent suivre.</h2>
+        </div>
+        <p style="fontSize: 17.5px; lineHeight: 1.65; color: #5B6675; margin: 0; maxWidth: 520px; textWrap: pretty;">Excel, WhatsApp, e-mails, documents papier et logiciels déconnectés rendent le pilotage du chantier complexe.</p>
+      </div>
+
+      <div class="rv" style="border: 1px solid #E7EAED; background: #FFFFFF; display: grid; gridTemplateColumns: 0.82fr 1.18fr; gap: 0; alignItems: stretch;">
+        <div style="padding: 46px 48px 46px; display: flex; flexDirection: column; justifyContent: center; borderRight: 1px solid #E7EAED;">
+          <div style="display: flex; alignItems: baseline; gap: 14px; marginBottom: 18px;">
+            <span style="fontFamily: 'IBM Plex Mono', monospace; fontSize: 12px; color: #C9820A;">01</span>
+            <h3 style="fontFamily: Archivo, sans-serif; fontWeight: 700; fontSize: 30px; letterSpacing: -0.026em; margin: 0; color: #1B1F24;">Données dispersées</h3>
+          </div>
+          <p style="fontSize: 17px; lineHeight: 1.62; color: #5B6675; margin: 0; maxWidth: 420px; textWrap: pretty;">Les informations du chantier sont réparties entre plusieurs outils, personnes et services.</p>
+        </div>
+        <div style="padding: 26px 30px; display: flex; alignItems: center; justifyContent: center; background: #FBFBFC;">
+          <img src="assets/pb-dispersees.png" alt="Excel, WhatsApp, e-mails, papier, documents épars et logiciels multiples convergeant vers un conducteur de travaux débordé" style="width: 100%; maxWidth: 620px; height: auto; display: block;" />
+        </div>
+      </div>
+
+      <div style="display: grid; gridTemplateColumns: 1fr 1fr; gap: 28px; marginTop: 28px;">
+        <div class="rv" style="border: 1px solid #E7EAED; background: #FFFFFF; display: flex; flexDirection: column;">
+          <div style="padding: 34px 34px 24px;">
+            <div style="display: flex; alignItems: baseline; gap: 14px; marginBottom: 14px;">
+              <span style="fontFamily: 'IBM Plex Mono', monospace; fontSize: 12px; color: #C9820A;">02</span>
+              <h3 style="fontFamily: Archivo, sans-serif; fontWeight: 600; fontSize: 24px; letterSpacing: -0.024em; margin: 0; color: #1B1F24;">Processus déconnectés</h3>
+            </div>
+            <p style="fontSize: 16px; lineHeight: 1.6; color: #5B6675; margin: 0;">Les processus se suivent, mais la donnée ne suit pas.</p>
+          </div>
+          <div style="marginTop: auto; padding: 0 22px 22px; background: #FBFBFC; paddingTop: 22px; borderTop: 1px solid #F0F2F4;">
+            <img src="assets/pb-deconnectes.png" alt="Chantier, service achats, chantier et finance reliés par des maillons rompus : difficultés de communication entre les services" style="width: 100%; height: auto; display: block;" />
+          </div>
+        </div>
+        <div class="rv" style="border: 1px solid #E7EAED; background: #FFFFFF; display: grid; gridTemplateColumns: 1fr 236px; alignItems: stretch;">
+          <div style="padding: 34px 30px 30px;">
+            <div style="display: flex; alignItems: baseline; gap: 14px; marginBottom: 14px;">
+              <span style="fontFamily: 'IBM Plex Mono', monospace; fontSize: 12px; color: #C9820A;">03</span>
+              <h3 style="fontFamily: Archivo, sans-serif; fontWeight: 600; fontSize: 24px; letterSpacing: -0.024em; margin: 0; color: #1B1F24; textWrap: pretty;">Manque de contrôle de performance</h3>
+            </div>
+            <p style="fontSize: 16px; lineHeight: 1.6; color: #5B6675; margin: 0; textWrap: pretty;">Sans KPI consolidés, les écarts de budget, de consommation, de productivité et d'avancement sont difficiles à identifier à temps.</p>
+          </div>
+          <div style="background: #FBFBFC; borderLeft: 1px solid #F0F2F4; display: flex; alignItems: center; justifyContent: center; padding: 18px 16px; overflow: hidden;">
+            <img src="assets/pb-kpi.png" alt="Suivi de performance sans valeurs : budget, dépenses, avancement, consommations, écart et productivité non consolidés" style="width: 100%; height: auto; display: block;" />
+          </div>
+        </div>
+      </div>
+
+      <div class="rv" style="marginTop: 64px; borderTop: 1px solid #E7EAED; paddingTop: 44px; display: grid; gridTemplateColumns: 56px 1fr; gap: 26px; alignItems: start;">
+        <span style="width: 56px; height: 3px; background: #F5A623; display: block; marginTop: 16px;"></span>
+        <p style="fontFamily: Archivo, sans-serif; fontWeight: 700; fontSize: 34px; letterSpacing: -0.03em; lineHeight: 1.22; margin: 0; color: #1B1F24; maxWidth: 1000px; textWrap: pretty;">Le problème n'est pas le manque de données. C'est qu'elles ne sont pas <span style="color: #C9820A;">connectées</span> et transformées en information exploitable.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="solution" style="padding: 104px 40px 112px; background: #FBFBFC; borderTop: 1px solid #E7EAED; borderBottom: 1px solid #E7EAED;">
+  <div style="max-width: 1340px; margin: 0 auto;">
+    <h2 class="rv" style="fontFamily: Archivo, sans-serif; fontWeight: 700; fontSize: 45px; lineHeight: 1.08; letterSpacing: -0.03em; margin: 0 0 18px; color: #1B1F24; maxWidth: 780px;">Tous vos processus BTP.<br />Une seule plateforme.</h2>
+    <p class="rv" style="fontSize: 17.5px; lineHeight: 1.65; color: #5B6675; margin: 0 0 64px; maxWidth: 640px; textWrap: pretty;">Bopera centralise, connecte et pilote les processus de vos projets, du chiffrage jusqu'à l'exécution et au contrôle.</p>
+
+    <div class="rv" style="display: grid; gridTemplateColumns: minmax(260px, 340px) minmax(0, 1fr); gap: 56px; alignItems: start;">
+      <div>
+        <div style="borderTop: 1px solid #23292F;">
+          <sc-for list="{{ benefits }}" as="b" hint-placeholder-count="4">
+            <div style="borderBottom: 1px solid #E7EAED; padding: 26px 0 24px; display: flex; gap: 18px;">
+              <span style="flexShrink: 0; width: 34px; height: 34px; border: 1px solid #DDE1E6; display: flex; alignItems: center; justifyContent: center; color: #5B6675;">
+                <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true">
+                  <sc-if value="{{ b.isData }}" hint-placeholder-val="{{ false }}">
+                    <g><rect x="4" y="4" width="16" height="5" /><rect x="4" y="10" width="16" height="5" /><rect x="4" y="16" width="16" height="4" /></g>
+                  </sc-if>
+                  <sc-if value="{{ b.isLink }}" hint-placeholder-val="{{ false }}">
+                    <g><circle cx="6" cy="7" r="2.4" /><circle cx="18" cy="12" r="2.4" /><circle cx="6" cy="17" r="2.4" /><path d="M8.2 8.3l7.6 2.8M8.2 15.7l7.6-2.8" /></g>
+                  </sc-if>
+                  <sc-if value="{{ b.isTime }}" hint-placeholder-val="{{ false }}">
+                    <g><circle cx="12" cy="12" r="8" /><path d="M12 7.5V12l3.2 2" /></g>
+                  </sc-if>
+                  <sc-if value="{{ b.isMargin }}" hint-placeholder-val="{{ false }}">
+                    <g><path d="M4 19h16" /><rect x="6" y="12" width="3.4" height="7" /><rect x="12" y="8" width="3.4" height="11" /><path d="M5 8l5-4 4 2.5L20 3" /></g>
+                  </sc-if>
+                </svg>
+              </span>
+              <div>
+                <div style="fontFamily: 'IBM Plex Mono', monospace; fontSize: 11px; letterSpacing: 0.13em; textTransform: uppercase; color: #23292F; marginBottom: 9px;">{{ b.label }}</div>
+                <p style="fontSize: 15px; lineHeight: 1.6; color: #5B6675; margin: 0;">{{ b.text }}</p>
+              </div>
+            </div>
+          </sc-for>
+        </div>
+        <div style="marginTop: 26px; borderLeft: 2px solid #F5A623; paddingLeft: 18px;">
+          <p style="fontSize: 15.5px; lineHeight: 1.6; color: #1B1F24; margin: 0; fontWeight: 500;">Moins d'Excel. Moins de relances. Plus de contrôle, de traçabilité et de rentabilité.</p>
+        </div>
+      </div>
+
+      <div>
+        <div style="position: relative; width: 100%; maxWidth: 760px; margin: 0 auto; aspectRatio: 1 / 1;">
+          <svg viewBox="0 0 100 100" aria-hidden="true" style="position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible;">
+            <circle cx="50" cy="50" r="34" fill="none" stroke="#E7EAED" stroke-width="0.25" />
+            <circle cx="50" cy="50" r="21" fill="none" stroke="#EEF0F2" stroke-width="0.25" stroke-dasharray="1 1.4" />
+            <path data-sol-chord="0-1" d="M50.00 25.20 Q57.12 32.81 67.54 32.46" fill="none" stroke="#C3C9D0" stroke-width="0.18" opacity="0.28" style="transition: stroke .3s ease, opacity .3s ease;" />
+            <path data-sol-chord="0-4" d="M50.00 25.20 Q50.00 50.00 50.00 74.80" fill="none" stroke="#C3C9D0" stroke-width="0.18" opacity="0.28" style="transition: stroke .3s ease, opacity .3s ease;" />
+            <path data-sol-chord="1-2" d="M67.54 32.46 Q67.19 42.88 74.80 50.00" fill="none" stroke="#C3C9D0" stroke-width="0.18" opacity="0.28" style="transition: stroke .3s ease, opacity .3s ease;" />
+            <path data-sol-chord="1-4" d="M67.54 32.46 Q60.37 54.29 50.00 74.80" fill="none" stroke="#C3C9D0" stroke-width="0.18" opacity="0.28" style="transition: stroke .3s ease, opacity .3s ease;" />
+            <path data-sol-chord="1-5" d="M67.54 32.46 Q50.00 50.00 32.46 67.54" fill="none" stroke="#C3C9D0" stroke-width="0.18" opacity="0.28" style="transition: stroke .3s ease, opacity .3s ease;" />
+            <path data-sol-chord="1-7" d="M67.54 32.46 Q50.00 34.36 32.46 32.46" fill="none" stroke="#C3C9D0" stroke-width="0.18" opacity="0.28" style="transition: stroke .3s ease, opacity .3s ease;" />
+            <path data-sol-chord="2-3" d="M74.80 50.00 Q67.19 57.12 67.54 67.54" fill="none" stroke="#C3C9D0" stroke-width="0.18" opacity="0.28" style="transition: stroke .3s ease, opacity .3s ease;" />
+            <path data-sol-chord="2-4" d="M74.80 50.00 Q61.06 61.06 50.00 74.80" fill="none" stroke="#C3C9D0" stroke-width="0.18" opacity="0.28" style="transition: stroke .3s ease, opacity .3s ease;" />
+            <path data-sol-chord="2-7" d="M74.80 50.00 Q54.29 39.63 32.46 32.46" fill="none" stroke="#C3C9D0" stroke-width="0.18" opacity="0.28" style="transition: stroke .3s ease, opacity .3s ease;" />
+            <path data-sol-chord="3-4" d="M67.54 67.54 Q57.12 67.19 50.00 74.80" fill="none" stroke="#C3C9D0" stroke-width="0.18" opacity="0.28" style="transition: stroke .3s ease, opacity .3s ease;" />
+            <path data-sol-chord="3-6" d="M67.54 67.54 Q45.71 60.37 25.20 50.00" fill="none" stroke="#C3C9D0" stroke-width="0.18" opacity="0.28" style="transition: stroke .3s ease, opacity .3s ease;" />
+            <path data-sol-chord="4-5" d="M50.00 74.80 Q42.88 67.19 32.46 67.54" fill="none" stroke="#C3C9D0" stroke-width="0.18" opacity="0.28" style="transition: stroke .3s ease, opacity .3s ease;" />
+            <path data-sol-chord="4-7" d="M50.00 74.80 Q39.63 54.29 32.46 32.46" fill="none" stroke="#C3C9D0" stroke-width="0.18" opacity="0.28" style="transition: stroke .3s ease, opacity .3s ease;" />
+            <path data-sol-chord="3-5" d="M67.54 67.54 Q50.00 65.64 32.46 67.54" fill="none" stroke="#C3C9D0" stroke-width="0.18" opacity="0.28" style="transition: stroke .3s ease, opacity .3s ease;" />
+            <path data-sol-chord="4-6" d="M50.00 74.80 Q38.94 61.06 25.20 50.00" fill="none" stroke="#C3C9D0" stroke-width="0.18" opacity="0.28" style="transition: stroke .3s ease, opacity .3s ease;" />
+            <path data-sol-chord="6-7" d="M25.20 50.00 Q32.81 42.88 32.46 32.46" fill="none" stroke="#C3C9D0" stroke-width="0.18" opacity="0.28" style="transition: stroke .3s ease, opacity .3s ease;" />
+            <line data-sol-spoke="0" x1="50.00" y1="35.90" x2="50.00" y2="25.40" stroke="#C3C9D0" stroke-width="0.24" opacity="0.4" style="transition: stroke .3s ease, opacity .3s ease;" />
+            <line data-sol-spoke="1" x1="59.97" y1="40.03" x2="67.39" y2="32.61" stroke="#C3C9D0" stroke-width="0.24" opacity="0.4" style="transition: stroke .3s ease, opacity .3s ease;" />
+            <line data-sol-spoke="2" x1="64.10" y1="50.00" x2="74.60" y2="50.00" stroke="#C3C9D0" stroke-width="0.24" opacity="0.4" style="transition: stroke .3s ease, opacity .3s ease;" />
+            <line data-sol-spoke="3" x1="59.97" y1="59.97" x2="67.39" y2="67.39" stroke="#C3C9D0" stroke-width="0.24" opacity="0.4" style="transition: stroke .3s ease, opacity .3s ease;" />
+            <line data-sol-spoke="4" x1="50.00" y1="64.10" x2="50.00" y2="74.60" stroke="#C3C9D0" stroke-width="0.24" opacity="0.4" style="transition: stroke .3s ease, opacity .3s ease;" />
+            <line data-sol-spoke="5" x1="40.03" y1="59.97" x2="32.61" y2="67.39" stroke="#C3C9D0" stroke-width="0.24" opacity="0.4" style="transition: stroke .3s ease, opacity .3s ease;" />
+            <line data-sol-spoke="6" x1="35.90" y1="50.00" x2="25.40" y2="50.00" stroke="#C3C9D0" stroke-width="0.24" opacity="0.4" style="transition: stroke .3s ease, opacity .3s ease;" />
+            <line data-sol-spoke="7" x1="40.03" y1="40.03" x2="32.61" y2="32.61" stroke="#C3C9D0" stroke-width="0.24" opacity="0.4" style="transition: stroke .3s ease, opacity .3s ease;" />
+          </svg>
+
+          <div style="position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); width: 27%; aspectRatio: 1 / 1; borderRadius: 50%; background: #FFFFFF; border: 1px solid #23292F; display: flex; flexDirection: column; alignItems: center; justifyContent: center; gap: 7px; boxShadow: 0 18px 44px -26px rgba(27,31,36,.4);">
+            <img src="assets/bopera-mark.png" alt="Bopera" style="width: 34%; height: auto; display: block;" />
+            <img src="assets/bopera-word.png" alt="" style="width: 52%; height: auto; display: block;" />
+          </div>
+
+          <div data-sol-node="0" style="position: absolute; left: 50.00%; top: 16.00%; transform: translate(-50%, -50%); width: 17.6%; aspectRatio: 1 / 1; borderRadius: 50%; background: #FFFFFF; border: 1px solid #DDE1E6; color: #1B1F24; display: flex; flexDirection: column; alignItems: center; justifyContent: center; gap: 6px; padding: 6px; textAlign: center; cursor: default; opacity: 0.82; transition: background .3s ease, border-color .3s ease, color .3s ease, opacity .3s ease;">
+            <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><g><rect x="5" y="3" width="14" height="18" /><path d="M8 8h8M8 12h8M8 16h4" /></g></svg>
+            <span style="fontFamily: 'IBM Plex Sans', sans-serif; fontWeight: 700; fontSize: 12.5px; letterSpacing: -0.005em; lineHeight: 1.22;">Chiffrage & devis</span>
+          </div>
+          <div data-sol-node="1" style="position: absolute; left: 74.04%; top: 25.96%; transform: translate(-50%, -50%); width: 17.6%; aspectRatio: 1 / 1; borderRadius: 50%; background: #FFFFFF; border: 1px solid #DDE1E6; color: #1B1F24; display: flex; flexDirection: column; alignItems: center; justifyContent: center; gap: 6px; padding: 6px; textAlign: center; cursor: default; opacity: 0.82; transition: background .3s ease, border-color .3s ease, color .3s ease, opacity .3s ease;">
+            <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><g><path d="M3 5h3l2.5 10h10" /><circle cx="10" cy="19" r="1.5" /><circle cx="17" cy="19" r="1.5" /><path d="M9 7h11l-1.6 6H10" /></g></svg>
+            <span style="fontFamily: 'IBM Plex Sans', sans-serif; fontWeight: 700; fontSize: 12.5px; letterSpacing: -0.005em; lineHeight: 1.22;">Achats</span>
+          </div>
+          <div data-sol-node="2" style="position: absolute; left: 84.00%; top: 50.00%; transform: translate(-50%, -50%); width: 17.6%; aspectRatio: 1 / 1; borderRadius: 50%; background: #FFFFFF; border: 1px solid #DDE1E6; color: #1B1F24; display: flex; flexDirection: column; alignItems: center; justifyContent: center; gap: 6px; padding: 6px; textAlign: center; cursor: default; opacity: 0.82; transition: background .3s ease, border-color .3s ease, color .3s ease, opacity .3s ease;">
+            <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><g><path d="M3 12l4-4 5 4 5-4 4 4" /><path d="M3 17h18" /></g></svg>
+            <span style="fontFamily: 'IBM Plex Sans', sans-serif; fontWeight: 700; fontSize: 12.5px; letterSpacing: -0.005em; lineHeight: 1.22;">Sous-traitance</span>
+          </div>
+          <div data-sol-node="3" style="position: absolute; left: 74.04%; top: 74.04%; transform: translate(-50%, -50%); width: 17.6%; aspectRatio: 1 / 1; borderRadius: 50%; background: #FFFFFF; border: 1px solid #DDE1E6; color: #1B1F24; display: flex; flexDirection: column; alignItems: center; justifyContent: center; gap: 6px; padding: 6px; textAlign: center; cursor: default; opacity: 0.82; transition: background .3s ease, border-color .3s ease, color .3s ease, opacity .3s ease;">
+            <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><g><path d="M4 19h16" /><path d="M5 15l4-5 4 3 6-8" /></g></svg>
+            <span style="fontFamily: 'IBM Plex Sans', sans-serif; fontWeight: 700; fontSize: 12.5px; letterSpacing: -0.005em; lineHeight: 1.22;">Avancement</span>
+          </div>
+          <div data-sol-node="4" style="position: absolute; left: 50.00%; top: 84.00%; transform: translate(-50%, -50%); width: 17.6%; aspectRatio: 1 / 1; borderRadius: 50%; background: #FFFFFF; border: 1px solid #DDE1E6; color: #1B1F24; display: flex; flexDirection: column; alignItems: center; justifyContent: center; gap: 6px; padding: 6px; textAlign: center; cursor: default; opacity: 0.82; transition: background .3s ease, border-color .3s ease, color .3s ease, opacity .3s ease;">
+            <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><g><rect x="3" y="6" width="18" height="13" /><path d="M3 10h18" /><path d="M7 14h5" /></g></svg>
+            <span style="fontFamily: 'IBM Plex Sans', sans-serif; fontWeight: 700; fontSize: 12.5px; letterSpacing: -0.005em; lineHeight: 1.22;">Budget</span>
+          </div>
+          <div data-sol-node="5" style="position: absolute; left: 25.96%; top: 74.04%; transform: translate(-50%, -50%); width: 17.6%; aspectRatio: 1 / 1; borderRadius: 50%; background: #FFFFFF; border: 1px solid #DDE1E6; color: #1B1F24; display: flex; flexDirection: column; alignItems: center; justifyContent: center; gap: 6px; padding: 6px; textAlign: center; cursor: default; opacity: 0.82; transition: background .3s ease, border-color .3s ease, color .3s ease, opacity .3s ease;">
+            <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><g><path d="M4 8l8-4 8 4v9l-8 4-8-4z" /><path d="M4 8l8 4 8-4M12 12v9" /></g></svg>
+            <span style="fontFamily: 'IBM Plex Sans', sans-serif; fontWeight: 700; fontSize: 12.5px; letterSpacing: -0.005em; lineHeight: 1.22;">Stock</span>
+          </div>
+          <div data-sol-node="6" style="position: absolute; left: 16.00%; top: 50.00%; transform: translate(-50%, -50%); width: 17.6%; aspectRatio: 1 / 1; borderRadius: 50%; background: #FFFFFF; border: 1px solid #DDE1E6; color: #1B1F24; display: flex; flexDirection: column; alignItems: center; justifyContent: center; gap: 6px; padding: 6px; textAlign: center; cursor: default; opacity: 0.82; transition: background .3s ease, border-color .3s ease, color .3s ease, opacity .3s ease;">
+            <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><g><circle cx="9" cy="8" r="3" /><circle cx="17" cy="9.5" r="2.2" /><path d="M3.5 19c0-3 2.5-5 5.5-5s5.5 2 5.5 5" /><path d="M16 14.5c2.4.3 4 2.2 4 4.5" /></g></svg>
+            <span style="fontFamily: 'IBM Plex Sans', sans-serif; fontWeight: 700; fontSize: 12.5px; letterSpacing: -0.005em; lineHeight: 1.22;">Ressources</span>
+          </div>
+          <div data-sol-node="7" style="position: absolute; left: 25.96%; top: 25.96%; transform: translate(-50%, -50%); width: 17.6%; aspectRatio: 1 / 1; borderRadius: 50%; background: #FFFFFF; border: 1px solid #DDE1E6; color: #1B1F24; display: flex; flexDirection: column; alignItems: center; justifyContent: center; gap: 6px; padding: 6px; textAlign: center; cursor: default; opacity: 0.82; transition: background .3s ease, border-color .3s ease, color .3s ease, opacity .3s ease;">
+            <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><g><circle cx="12" cy="12" r="8" /><path d="M9 9.5h6M9 14.5h6M13.5 7v10" /></g></svg>
+            <span style="fontFamily: 'IBM Plex Sans', sans-serif; fontWeight: 700; fontSize: 12.5px; letterSpacing: -0.005em; lineHeight: 1.22;">Comptabilité & finance</span>
+          </div>
+
+        </div>
+
+        <div style="marginTop: 18px; border: 1px solid #E7EAED; background: #FFFFFF; padding: 22px 26px; display: flex; flexWrap: wrap; gap: 24px 28px; alignItems: center;">
+          <div style="flex: 1 1 170px; minWidth: 150px;">
+            <div style="fontFamily: 'IBM Plex Mono', monospace; fontSize: 9.5px; letterSpacing: 0.12em; textTransform: uppercase; color: #8A949F; marginBottom: 8px;">Module survolé</div>
+            <div style="fontFamily: Archivo, sans-serif; fontWeight: 600; fontSize: 19px; letterSpacing: -0.022em; color: #1B1F24; lineHeight: 1.2;">{{ solActive.label }}</div>
+          </div>
+          <div style="flex: 3 1 260px; minWidth: 230px;">
+            <div style="display: flex; alignItems: center; flexWrap: wrap; gap: 9px; marginBottom: 12px;">
+              <sc-for list="{{ solActive.chain }}" as="c" hint-placeholder-count="5">
+                <span style="fontFamily: 'IBM Plex Mono', monospace; fontSize: 10.5px; letterSpacing: 0.06em; textTransform: uppercase; color: #3E4650; border: 1px solid #DDE1E6; padding: 6px 10px; background: #FFFFFF;">{{ c.label }}</span>
+              </sc-for>
+            </div>
+            <div style="fontFamily: 'IBM Plex Mono', monospace; fontSize: 10.5px; color: #6B7684;">Connecté à : <span style="color: #C9820A;">{{ solActive.related }}</span></div>
+          </div>
+          <div style="flex: 2 1 240px; minWidth: 210px; border: 1px solid #DDE1E6; background: #FFFFFF; boxShadow: 0 16px 36px -24px rgba(27,31,36,.3);">
+            <div style="display: flex; alignItems: center; gap: 7px; padding: 7px 10px; borderBottom: 1px solid #E7EAED; background: #F6F7F8;">
+              <span style="width: 6px; height: 6px; borderRadius: 50%; background: #CFD5DB; display: block;"></span>
+              <span style="fontFamily: 'IBM Plex Mono', monospace; fontSize: 9px; color: #8A949F;">aperçu de l'environnement</span>
+            </div>
+            <img data-sol-preview="1" src="assets/ui-affaire-cockpit-desktop.png" alt="{{ solActive.previewAlt }}" style="width: 100%; height: auto; display: block; transition: opacity .3s ease, transform .3s ease;" />
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  </section>
+
+  <section id="promesse" style="background: #1B1F24; padding: 84px 40px 88px; color: #FFFFFF;">
+    <div style="max-width: 1340px; margin: 0 auto;">
+      <div class="rv" style="display: flex; alignItems: baseline; gap: 48px; flexWrap: wrap; marginBottom: 52px;">
+        <h2 style="fontFamily: Archivo, sans-serif; fontWeight: 700; fontSize: 42px; lineHeight: 1.1; letterSpacing: -0.032em; margin: 0;">Une donnée. Un processus. <span style="color: #F5A623;">Une vision.</span></h2>
+        <p style="fontSize: 16px; lineHeight: 1.6; color: #A8B0B9; margin: 0; maxWidth: 420px;">La même information circule d'une étape à la suivante.</p>
+      </div>
+
+      <div data-timeline="1" style="position: relative;">
+        <div style="position: absolute; left: 0; right: 0; top: 21px; height: 1px; background: #343B43;"></div>
+        <div data-timeline-fill="1" style="position: absolute; left: 0; top: 20px; height: 3px; width: 0%; background: #F5A623; transition: width .18s linear;"></div>
+        <div style="display: grid; gridTemplateColumns: repeat(5, 1fr); gap: 28px; position: relative;">
+          <sc-for list="{{ steps }}" as="st" hint-placeholder-count="5">
+            <div data-tl-item="{{ $index }}" style="paddingTop: 46px; opacity: 0.42; transition: opacity .5s ease;">
+              <span data-tl-dot="{{ $index }}" style="position: absolute; top: 14px; width: 15px; height: 15px; borderRadius: 50%; background: #1B1F24; border: 2px solid #4A5460; display: block; transition: background .4s ease, border-color .4s ease;"></span>
+              <div data-tl-num="{{ $index }}" style="fontFamily: 'IBM Plex Mono', monospace; fontSize: 11px; letterSpacing: 0.12em; color: #8A949F; marginBottom: 12px; transition: color .4s ease;">{{ st.num }} — {{ st.title }}</div>
+              <p style="fontSize: 14.5px; lineHeight: 1.55; color: #C0C6CD; margin: 0;">{{ st.text }}</p>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="modules" style="padding: 100px 40px 40px;">
+    <div style="max-width: 1340px; margin: 0 auto;">
+      <div class="rv" style="fontFamily: 'IBM Plex Mono', monospace; fontSize: 11.5px; letterSpacing: 0.14em; textTransform: uppercase; color: #8A949F; marginBottom: 20px;">Les modules</div>
+      <h2 class="rv" style="fontFamily: Archivo, sans-serif; fontWeight: 700; fontSize: 45px; lineHeight: 1.1; letterSpacing: -0.03em; margin: 0 0 16px; color: #1B1F24; maxWidth: 860px;">Les modules au cœur de vos opérations.</h2>
+      <p class="rv" style="fontSize: 17px; lineHeight: 1.65; color: #5B6675; margin: 0; maxWidth: 620px;">Chaque module travaille sur la même affaire et partage la même donnée.</p>
+    </div>
+  </section>
+
+  <sc-for list="{{ modules }}" as="m" hint-placeholder-count="6">
+    <section style="padding: 60px 40px 64px; background: {{ m.bg }};">
+      <div class="rv" style="max-width: 1340px; margin: 0 auto; display: flex; flexDirection: {{ m.dir }}; gap: 72px; alignItems: center;">
+        <div style="flex: 1 1 0; minWidth: 0;">
+          <div style="display: flex; alignItems: center; gap: 12px; marginBottom: 22px;">
+            <span style="fontFamily: 'IBM Plex Mono', monospace; fontSize: 11.5px; letterSpacing: 0.14em; color: #C9820A;">{{ m.num }}</span>
+            <span style="width: 18px; height: 1px; background: #C3C9D0; display: block;"></span>
+            <span style="fontFamily: 'IBM Plex Mono', monospace; fontSize: 11.5px; letterSpacing: 0.14em; textTransform: uppercase; color: #5B6675;">{{ m.label }}</span>
+          </div>
+          <h3 style="fontFamily: Archivo, sans-serif; fontWeight: 700; fontSize: 34px; lineHeight: 1.14; letterSpacing: -0.028em; margin: 0 0 20px; color: #1B1F24; maxWidth: 520px; textWrap: pretty;">{{ m.title }}</h3>
+          <p style="fontSize: 16.5px; lineHeight: 1.66; color: #5B6675; margin: 0 0 26px; maxWidth: 520px; textWrap: pretty;">{{ m.text }}</p>
+          <div style="display: flex; flexWrap: wrap; gap: 8px; marginBottom: 24px;">
+            <sc-for list="{{ m.tags }}" as="t" hint-placeholder-count="5">
+              <span style="fontFamily: 'IBM Plex Mono', monospace; fontSize: 10.5px; letterSpacing: 0.08em; textTransform: uppercase; color: #3E4650; border: 1px solid #DDE1E6; padding: 7px 11px; background: #FFFFFF;">{{ t }}</span>
+            </sc-for>
+          </div>
+          <sc-if value="{{ m.hasFlow }}" hint-placeholder-val="{{ true }}">
+            <div style="display: flex; alignItems: center; flexWrap: wrap; gap: 10px; borderTop: 1px solid #E7EAED; paddingTop: 22px; marginBottom: 24px;">
+              <sc-for list="{{ m.flow }}" as="f" hint-placeholder-count="5">
+                <span style="fontFamily: 'IBM Plex Mono', monospace; fontSize: 10.5px; letterSpacing: 0.06em; textTransform: uppercase; color: {{ f.color }};">{{ f.label }}</span>
+              </sc-for>
+            </div>
+          </sc-if>
+          <a href="#formulaire" style="fontSize: 15px; fontWeight: 600; color: #23292F; borderBottom: 1px solid #F5A623; paddingBottom: 3px;" style-hover="color: #C9820A;">{{ m.cta }}</a>
+        </div>
+        <div data-module="{{ m.num }}" style="flex: 1 1 0; minWidth: 0; display: flex; justifyContent: center;">
+          <div style="width: 100%; maxWidth: 620px;">
+            <div style="border: 1px solid #DDE1E6; background: #FFFFFF; boxShadow: 0 26px 60px -34px rgba(27,31,36,.3);">
+              <div style="display: flex; alignItems: center; gap: 10px; padding: 9px 13px; borderBottom: 1px solid #E7EAED; background: #F6F7F8;">
+                <span style="width: 7px; height: 7px; borderRadius: 50%; background: #CFD5DB; display: block;"></span>
+                <span style="width: 7px; height: 7px; borderRadius: 50%; background: #CFD5DB; display: block;"></span>
+                <span style="fontFamily: 'IBM Plex Mono', monospace; fontSize: 10px; color: #8A949F; marginLeft: 4px;">{{ m.frame }}</span>
+              </div>
+              <sc-if value="{{ m.ready }}" hint-placeholder-val="{{ false }}">
+                <img src="{{ m.file }}" alt="{{ m.alt }}" style="width: 100%; height: auto; display: block;" />
+              </sc-if>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </sc-for>
+
+  <section id="fonctionnement" style="background: #FFFFFF; borderTop: 1px solid #E7EAED;">
+  <div data-how-track="1" style="height: 460vh; position: relative;">
+  <div data-how-pin="1" style="position: sticky; top: 0; minHeight: 100vh; display: flex; flexDirection: column; justifyContent: center; padding: 44px 40px 48px; background: #FFFFFF;">
+  <div style="max-width: 1340px; margin: 0 auto; width: 100%;">
+    <div style="fontFamily: 'IBM Plex Mono', monospace; fontSize: 11.5px; letterSpacing: 0.14em; textTransform: uppercase; color: #8A949F; marginBottom: 14px;">Le parcours Bopera</div>
+    <h2 style="fontFamily: Archivo, sans-serif; fontWeight: 700; fontSize: 36px; lineHeight: 1.1; letterSpacing: -0.03em; margin: 0 0 10px; color: #1B1F24; maxWidth: 880px;">De votre organisation au pilotage du chantier</h2>
+    <p style="fontSize: 16.5px; lineHeight: 1.6; color: #5B6675; margin: 0 0 28px; maxWidth: 700px; textWrap: pretty;">Bopera structure votre environnement, puis connecte les processus autour de chaque affaire.</p>
+
+    <div data-steps="1">
+      <div style="marginBottom: 30px;">
+        <div style="position: relative;">
+          <div style="position: absolute; left: 16px; right: 16px; top: 15px; height: 1px; background: #E4E7EA;">
+            <div data-steps-fill="1" style="position: absolute; left: 0; top: -1px; height: 3px; width: 0%; background: #F5A623; transition: width .35s ease;"></div>
+          </div>
+          <div style="position: relative; display: grid; gridTemplateColumns: repeat(5, 1fr); gap: 20px;">
+          <div style="display: flex; justifyContent: flex-start;">
+            <span data-how-dot="0" style="width: 32px; height: 32px; borderRadius: 50%; background: #FFFFFF; border: 1px solid #C3C9D0; color: #5B6675; display: flex; alignItems: center; justifyContent: center; fontFamily: 'IBM Plex Mono', monospace; fontSize: 11.5px; fontWeight: 500; transition: background .4s ease, color .4s ease, border-color .4s ease;">01</span>
+          </div>
+          <div style="display: flex; justifyContent: flex-start;">
+            <span data-how-dot="1" style="width: 32px; height: 32px; borderRadius: 50%; background: #FFFFFF; border: 1px solid #C3C9D0; color: #5B6675; display: flex; alignItems: center; justifyContent: center; fontFamily: 'IBM Plex Mono', monospace; fontSize: 11.5px; fontWeight: 500; transition: background .4s ease, color .4s ease, border-color .4s ease;">02</span>
+          </div>
+          <div style="display: flex; justifyContent: flex-start;">
+            <span data-how-dot="2" style="width: 32px; height: 32px; borderRadius: 50%; background: #FFFFFF; border: 1px solid #C3C9D0; color: #5B6675; display: flex; alignItems: center; justifyContent: center; fontFamily: 'IBM Plex Mono', monospace; fontSize: 11.5px; fontWeight: 500; transition: background .4s ease, color .4s ease, border-color .4s ease;">03</span>
+          </div>
+          <div style="display: flex; justifyContent: flex-start;">
+            <span data-how-dot="3" style="width: 32px; height: 32px; borderRadius: 50%; background: #FFFFFF; border: 1px solid #C3C9D0; color: #5B6675; display: flex; alignItems: center; justifyContent: center; fontFamily: 'IBM Plex Mono', monospace; fontSize: 11.5px; fontWeight: 500; transition: background .4s ease, color .4s ease, border-color .4s ease;">04</span>
+          </div>
+          <div style="display: flex; justifyContent: flex-start;">
+            <span data-how-dot="4" style="width: 32px; height: 32px; borderRadius: 50%; background: #FFFFFF; border: 1px solid #C3C9D0; color: #5B6675; display: flex; alignItems: center; justifyContent: center; fontFamily: 'IBM Plex Mono', monospace; fontSize: 11.5px; fontWeight: 500; transition: background .4s ease, color .4s ease, border-color .4s ease;">05</span>
+          </div>
+          </div>
+        </div>
+        <div style="display: grid; gridTemplateColumns: repeat(5, 1fr); gap: 20px; marginTop: 16px;">
+          <span data-how-kicker="0" style="fontSize: 12.5px; fontWeight: 700; letterSpacing: 0.07em; textTransform: uppercase; color: #5B6675; transition: color .4s ease;">Paramétrage</span>
+          <span data-how-kicker="1" style="fontSize: 12.5px; fontWeight: 700; letterSpacing: 0.07em; textTransform: uppercase; color: #5B6675; transition: color .4s ease;">Référentiels</span>
+          <span data-how-kicker="2" style="fontSize: 12.5px; fontWeight: 700; letterSpacing: 0.07em; textTransform: uppercase; color: #5B6675; transition: color .4s ease;">Affaire</span>
+          <span data-how-kicker="3" style="fontSize: 12.5px; fontWeight: 700; letterSpacing: 0.07em; textTransform: uppercase; color: #5B6675; transition: color .4s ease;">Modules</span>
+          <span data-how-kicker="4" style="fontSize: 12.5px; fontWeight: 700; letterSpacing: 0.07em; textTransform: uppercase; color: #5B6675; transition: color .4s ease;">Pilotage</span>
+        </div>
+      </div>
+
+      <div data-how-stage="1" style="position: relative; border: 1px solid #E7EAED; background: #FBFBFC; height: clamp(300px, 46vh, 452px); overflow: hidden;">
+        <div style="position: absolute; inset: 0; backgroundImage: linear-gradient(#EEF0F2 1px, transparent 1px), linear-gradient(90deg, #EEF0F2 1px, transparent 1px); backgroundSize: 44px 44px; opacity: .5;"></div>
+
+        <div data-how-layer="0" style="padding: 46px 48px; display: flex; flexDirection: column; alignItems: center; justifyContent: center; gap: 30px; textAlign: center;">
+          <p data-reveal="1" data-d="0" style="fontSize: 19px; lineHeight: 1.5; color: #1B1F24; margin: 0; maxWidth: 560px; fontWeight: 500;">Configurez votre organisation, vos utilisateurs et vos règles.</p>
+          <div style="display: flex; alignItems: center; gap: 14px; flexWrap: wrap; justifyContent: center;">
+            <div data-reveal="1" data-d="1" style="border: 1px solid #DDE1E6; background: #FFFFFF; padding: 12px 16px; fontFamily: 'IBM Plex Mono', monospace; fontSize: 11px; letterSpacing: 0.08em; textTransform: uppercase; color: #23292F; whiteSpace: nowrap;">Entreprise</div>
+            <div data-reveal="1" data-d="2" style="border: 1px solid #DDE1E6; background: #FFFFFF; padding: 12px 16px; fontFamily: 'IBM Plex Mono', monospace; fontSize: 11px; letterSpacing: 0.08em; textTransform: uppercase; color: #23292F; whiteSpace: nowrap;">Utilisateurs</div>
+            <div data-reveal="1" data-d="3" style="border: 1px solid #DDE1E6; background: #FFFFFF; padding: 12px 16px; fontFamily: 'IBM Plex Mono', monospace; fontSize: 11px; letterSpacing: 0.08em; textTransform: uppercase; color: #23292F; whiteSpace: nowrap;">Rôles</div>
+            <div data-reveal="1" data-d="4" style="border: 1px solid #DDE1E6; background: #FFFFFF; padding: 12px 16px; fontFamily: 'IBM Plex Mono', monospace; fontSize: 11px; letterSpacing: 0.08em; textTransform: uppercase; color: #23292F; whiteSpace: nowrap;">Permissions</div>
+            <div data-reveal="1" data-d="5" style="border: 1px solid #DDE1E6; background: #FFFFFF; padding: 12px 16px; fontFamily: 'IBM Plex Mono', monospace; fontSize: 11px; letterSpacing: 0.08em; textTransform: uppercase; color: #23292F; whiteSpace: nowrap;">Workflows</div>
+          </div>
+          <div data-reveal="1" data-d="6" style="fontFamily: 'IBM Plex Mono', monospace; fontSize: 10.5px; letterSpacing: 0.1em; textTransform: uppercase; color: #8A949F;">Un environnement propre à votre entreprise</div>
+        </div>
+
+        <div data-how-layer="1" style="padding: 40px 48px; display: flex; flexDirection: column; alignItems: center; justifyContent: center;">
+          <p data-reveal="1" data-d="0" style="fontSize: 19px; lineHeight: 1.5; color: #1B1F24; margin: 0 0 26px; fontWeight: 500; textAlign: center;">Constituez une base commune pour toutes vos affaires.</p>
+          <div style="display: flex; alignItems: center; gap: 14px; flexWrap: wrap; justifyContent: center;">
+            <div data-reveal="1" data-d="1" style="border: 1px solid #DDE1E6; background: #FFFFFF; padding: 12px 16px; fontFamily: 'IBM Plex Mono', monospace; fontSize: 11px; letterSpacing: 0.08em; textTransform: uppercase; color: #23292F; whiteSpace: nowrap;">Clients</div>
+            <div data-reveal="1" data-d="2" style="border: 1px solid #DDE1E6; background: #FFFFFF; padding: 12px 16px; fontFamily: 'IBM Plex Mono', monospace; fontSize: 11px; letterSpacing: 0.08em; textTransform: uppercase; color: #23292F; whiteSpace: nowrap;">Fournisseurs</div>
+            <div data-reveal="1" data-d="3" style="border: 1px solid #DDE1E6; background: #FFFFFF; padding: 12px 16px; fontFamily: 'IBM Plex Mono', monospace; fontSize: 11px; letterSpacing: 0.08em; textTransform: uppercase; color: #23292F; whiteSpace: nowrap;">Sous-traitants</div>
+            <div data-reveal="1" data-d="4" style="border: 1px solid #DDE1E6; background: #FFFFFF; padding: 12px 16px; fontFamily: 'IBM Plex Mono', monospace; fontSize: 11px; letterSpacing: 0.08em; textTransform: uppercase; color: #23292F; whiteSpace: nowrap;">Articles</div>
+            <div data-reveal="1" data-d="5" style="border: 1px solid #DDE1E6; background: #FFFFFF; padding: 12px 16px; fontFamily: 'IBM Plex Mono', monospace; fontSize: 11px; letterSpacing: 0.08em; textTransform: uppercase; color: #23292F; whiteSpace: nowrap;">Ressources</div>
+          </div>
+          <svg viewBox="0 0 600 92" preserveAspectRatio="none" aria-hidden="true" style="width: 100%; maxWidth: 720px; height: 82px; display: block; marginTop: 6px;">
+            <path data-draw="1" data-d="2" d="M60 6 C60 60 300 40 300 88" fill="none" stroke="#F5A623" stroke-width="1.5" opacity=".85" />
+            <path data-draw="1" data-d="3" d="M180 6 C180 56 300 46 300 88" fill="none" stroke="#F5A623" stroke-width="1.5" opacity=".85" />
+            <path data-draw="1" data-d="4" d="M300 6 L300 88" fill="none" stroke="#F5A623" stroke-width="1.5" opacity=".85" />
+            <path data-draw="1" data-d="5" d="M420 6 C420 56 300 46 300 88" fill="none" stroke="#F5A623" stroke-width="1.5" opacity=".85" />
+            <path data-draw="1" data-d="6" d="M540 6 C540 60 300 40 300 88" fill="none" stroke="#F5A623" stroke-width="1.5" opacity=".85" />
+          </svg>
+          <div data-reveal="1" data-d="7" style="border: 1px solid #23292F; background: #FFFFFF; padding: 14px 26px; display: flex; alignItems: center; gap: 12px; boxShadow: 0 18px 40px -28px rgba(27,31,36,.4);">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#C9820A" stroke-width="1.6" aria-hidden="true"><ellipse cx="12" cy="6" rx="7.5" ry="2.8" /><path d="M4.5 6v6c0 1.5 3.4 2.8 7.5 2.8s7.5-1.3 7.5-2.8V6" /><path d="M4.5 12v5c0 1.5 3.4 2.8 7.5 2.8s7.5-1.3 7.5-2.8v-5" /></svg>
+            <span style="fontFamily: Archivo, sans-serif; fontWeight: 600; fontSize: 17px; letterSpacing: -0.02em; color: #1B1F24;">Base commune Bopera</span>
+          </div>
+        </div>
+
+        <div data-how-layer="2" style="padding: 40px 48px; display: flex; flexDirection: column; alignItems: center; justifyContent: center; gap: 26px;">
+          <p data-reveal="1" data-d="0" style="fontSize: 19px; lineHeight: 1.5; color: #1B1F24; margin: 0; fontWeight: 500; textAlign: center;">Chaque chantier devient un espace unique de pilotage.</p>
+          <div data-reveal="1" data-d="0" style="border: 1px solid #23292F; background: #FFFFFF; boxShadow: 0 22px 50px -30px rgba(27,31,36,.4); width: 460px;">
+            <div style="display: flex; alignItems: center; gap: 9px; padding: 9px 13px; borderBottom: 1px solid #E7EAED; background: #F6F7F8;">
+              <img src="assets/bopera-mark.png" alt="" style="height: 13px; width: auto; display: block;" />
+              <span style="fontFamily: 'IBM Plex Mono', monospace; fontSize: 9px; letterSpacing: 0.1em; textTransform: uppercase; color: #8A949F;">Affaire</span>
+            </div>
+            <div style="padding: 22px 24px 24px;">
+              <div style="fontFamily: Archivo, sans-serif; fontWeight: 700; fontSize: 22px; letterSpacing: -0.024em; color: #1B1F24;">Résidence Al Kawtar</div>
+              <div style="marginTop: 18px; display: grid; gap: 1px; background: #E7EAED; border: 1px solid #E7EAED;">
+                <div style="background: #FFFFFF; padding: 10px 13px; display: flex; justifyContent: space-between; fontFamily: 'IBM Plex Mono', monospace; fontSize: 11px; color: #5B6675;"><span>Budget prévisionnel</span><span style="color: #1B1F24;">1 250 000 MAD</span></div>
+                <div style="background: #FFFFFF; padding: 10px 13px; display: flex; justifyContent: space-between; fontFamily: 'IBM Plex Mono', monospace; fontSize: 11px; color: #5B6675;"><span>Équipe projet</span><span style="color: #1B1F24;">6 intervenants</span></div>
+                <div style="background: #FFFFFF; padding: 10px 13px; display: flex; justifyContent: space-between; fontFamily: 'IBM Plex Mono', monospace; fontSize: 11px; color: #5B6675;"><span>Documents clés</span><span style="color: #1B1F24;">Marché · DPGF · plans</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div data-how-layer="3" style="padding: 32px 48px; display: flex; flexDirection: column; alignItems: center; justifyContent: center;">
+          <p data-reveal="1" data-d="0" style="fontSize: 19px; lineHeight: 1.5; color: #1B1F24; margin: 0 0 22px; fontWeight: 500; textAlign: center;">Les modules se connectent à l'affaire et échangent leurs données.</p>
+          <div style="position: relative; width: 100%; maxWidth: 760px;">
+            <svg viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true" style="position: absolute; inset: 0; width: 100%; height: 100%;">
+              <line data-draw="1" data-d="1" x1="50" y1="50" x2="16" y2="16" stroke="#F5A623" stroke-width="0.5" />
+              <line data-draw="1" data-d="2" x1="50" y1="50" x2="50" y2="16" stroke="#F5A623" stroke-width="0.5" />
+              <line data-draw="1" data-d="3" x1="50" y1="50" x2="84" y2="16" stroke="#F5A623" stroke-width="0.5" />
+              <line data-draw="1" data-d="4" x1="50" y1="50" x2="16" y2="50" stroke="#F5A623" stroke-width="0.5" />
+              <line data-draw="1" data-d="5" x1="50" y1="50" x2="84" y2="50" stroke="#F5A623" stroke-width="0.5" />
+              <line data-draw="1" data-d="6" x1="50" y1="50" x2="16" y2="84" stroke="#F5A623" stroke-width="0.5" />
+              <line data-draw="1" data-d="7" x1="50" y1="50" x2="50" y2="84" stroke="#F5A623" stroke-width="0.5" />
+              <line data-draw="1" data-d="8" x1="50" y1="50" x2="84" y2="84" stroke="#F5A623" stroke-width="0.5" />
+            </svg>
+            <div style="position: relative; display: grid; gridTemplateColumns: 1fr 1.15fr 1fr; gridTemplateRows: auto auto auto; gap: 16px 22px; alignItems: center; justifyItems: center;">
+            <div style="gridArea: 1 / 1 / 2 / 2;"><div data-reveal="1" data-d="1" style="border: 1px solid #DDE1E6; background: #FFFFFF; padding: 11px 8px; textAlign: center; fontSize: 12.5px; fontWeight: 600; color: #23292F; boxShadow: 0 8px 18px -14px rgba(27,31,36,.3);">Chiffrage</div></div>
+            <div style="gridArea: 1 / 2 / 2 / 3;"><div data-reveal="1" data-d="2" style="border: 1px solid #DDE1E6; background: #FFFFFF; padding: 11px 8px; textAlign: center; fontSize: 12.5px; fontWeight: 600; color: #23292F; boxShadow: 0 8px 18px -14px rgba(27,31,36,.3);">Achats</div></div>
+            <div style="gridArea: 1 / 3 / 2 / 4;"><div data-reveal="1" data-d="3" style="border: 1px solid #DDE1E6; background: #FFFFFF; padding: 11px 8px; textAlign: center; fontSize: 12.5px; fontWeight: 600; color: #23292F; boxShadow: 0 8px 18px -14px rgba(27,31,36,.3);">Sous-traitance</div></div>
+            <div style="gridArea: 2 / 1 / 3 / 2;"><div data-reveal="1" data-d="4" style="border: 1px solid #DDE1E6; background: #FFFFFF; padding: 11px 8px; textAlign: center; fontSize: 12.5px; fontWeight: 600; color: #23292F; boxShadow: 0 8px 18px -14px rgba(27,31,36,.3);">Stock</div></div>
+            <div style="gridArea: 2 / 3 / 3 / 4;"><div data-reveal="1" data-d="5" style="border: 1px solid #DDE1E6; background: #FFFFFF; padding: 11px 8px; textAlign: center; fontSize: 12.5px; fontWeight: 600; color: #23292F; boxShadow: 0 8px 18px -14px rgba(27,31,36,.3);">Pointage</div></div>
+            <div style="gridArea: 3 / 1 / 4 / 2;"><div data-reveal="1" data-d="6" style="border: 1px solid #DDE1E6; background: #FFFFFF; padding: 11px 8px; textAlign: center; fontSize: 12.5px; fontWeight: 600; color: #23292F; boxShadow: 0 8px 18px -14px rgba(27,31,36,.3);">Budget</div></div>
+            <div style="gridArea: 3 / 2 / 4 / 3;"><div data-reveal="1" data-d="7" style="border: 1px solid #DDE1E6; background: #FFFFFF; padding: 11px 8px; textAlign: center; fontSize: 12.5px; fontWeight: 600; color: #23292F; boxShadow: 0 8px 18px -14px rgba(27,31,36,.3);">Avancement</div></div>
+            <div style="gridArea: 3 / 3 / 4 / 4;"><div data-reveal="1" data-d="8" style="border: 1px solid #DDE1E6; background: #FFFFFF; padding: 11px 8px; textAlign: center; fontSize: 12.5px; fontWeight: 600; color: #23292F; boxShadow: 0 8px 18px -14px rgba(27,31,36,.3);">Finance</div></div>
+              <div style="gridArea: 2 / 2 / 3 / 3;"><div data-reveal="1" data-d="0" style="border: 1px solid #23292F; background: #FFFFFF; boxShadow: 0 22px 50px -30px rgba(27,31,36,.4); width: 244px;">
+            <div style="display: flex; alignItems: center; gap: 9px; padding: 9px 13px; borderBottom: 1px solid #E7EAED; background: #F6F7F8;">
+              <img src="assets/bopera-mark.png" alt="" style="height: 13px; width: auto; display: block;" />
+              <span style="fontFamily: 'IBM Plex Mono', monospace; fontSize: 9px; letterSpacing: 0.1em; textTransform: uppercase; color: #8A949F;">Affaire</span>
+            </div>
+            <div style="padding: 14px 15px 15px;">
+              <div style="fontFamily: Archivo, sans-serif; fontWeight: 700; fontSize: 15px; letterSpacing: -0.024em; color: #1B1F24;">Résidence Al Kawtar</div>
+              
+            </div>
+          </div></div>
+            </div>
+          </div>
+        </div>
+
+        <div data-how-layer="4" style="padding: 40px 48px; display: flex; flexDirection: column; alignItems: center; justifyContent: center;">
+          <p data-reveal="1" data-d="0" style="fontSize: 19px; lineHeight: 1.5; color: #1B1F24; margin: 0 0 8px; fontWeight: 500; textAlign: center;">Les données opérationnelles deviennent des décisions.</p>
+          <svg viewBox="0 0 600 56" preserveAspectRatio="none" aria-hidden="true" style="width: 100%; maxWidth: 700px; height: 50px; display: block;">
+            <path data-draw="1" data-d="1" d="M300 2 L300 40 M292 32 L300 42 L308 32" fill="none" stroke="#F5A623" stroke-width="1.6" />
+          </svg>
+          <div style="display: grid; gridTemplateColumns: repeat(3, minmax(0, 1fr)); gap: 14px; width: 100%; maxWidth: 720px;">
+            <div data-reveal="1" data-d="2" style="border: 1px solid #DDE1E6; background: #FFFFFF; padding: 15px 16px 16px;">
+              <div style="fontFamily: 'IBM Plex Mono', monospace; fontSize: 9px; letterSpacing: 0.12em; textTransform: uppercase; color: #8A949F;">Budget</div>
+              <div style="fontFamily: Archivo, sans-serif; fontWeight: 600; fontSize: 17px; letterSpacing: -0.022em; color: #1B1F24; marginTop: 7px; whiteSpace: nowrap;">1 250 000 MAD</div>
+            </div>
+            <div data-reveal="1" data-d="3" style="border: 1px solid #DDE1E6; background: #FFFFFF; padding: 15px 16px 16px;">
+              <div style="fontFamily: 'IBM Plex Mono', monospace; fontSize: 9px; letterSpacing: 0.12em; textTransform: uppercase; color: #8A949F;">Engagé</div>
+              <div style="fontFamily: Archivo, sans-serif; fontWeight: 600; fontSize: 17px; letterSpacing: -0.022em; color: #1B1F24; marginTop: 7px; whiteSpace: nowrap;">936 000 MAD</div>
+            </div>
+            <div data-reveal="1" data-d="4" style="border: 1px solid #DDE1E6; background: #FFFFFF; padding: 15px 16px 16px;">
+              <div style="fontFamily: 'IBM Plex Mono', monospace; fontSize: 9px; letterSpacing: 0.12em; textTransform: uppercase; color: #8A949F;">Réalisé</div>
+              <div style="fontFamily: Archivo, sans-serif; fontWeight: 600; fontSize: 17px; letterSpacing: -0.022em; color: #1B1F24; marginTop: 7px; whiteSpace: nowrap;">703 700 MAD</div>
+            </div>
+            <div data-reveal="1" data-d="5" style="border: 1px solid #DDE1E6; background: #FFFFFF; padding: 15px 16px 16px;">
+              <div style="fontFamily: 'IBM Plex Mono', monospace; fontSize: 9px; letterSpacing: 0.12em; textTransform: uppercase; color: #8A949F;">Avancement</div>
+              <div style="fontFamily: Archivo, sans-serif; fontWeight: 600; fontSize: 17px; letterSpacing: -0.022em; color: #1B1F24; marginTop: 7px; whiteSpace: nowrap;">68 %</div>
+            </div>
+            <div data-reveal="1" data-d="6" style="border: 1px solid #F5A623; background: #FFFFFF; padding: 15px 16px 16px;">
+              <div style="fontFamily: 'IBM Plex Mono', monospace; fontSize: 9px; letterSpacing: 0.12em; textTransform: uppercase; color: #8A949F;">Écart</div>
+              <div style="fontFamily: Archivo, sans-serif; fontWeight: 600; fontSize: 17px; letterSpacing: -0.022em; color: #1B1F24; marginTop: 7px; whiteSpace: nowrap;">2,4 %</div>
+            </div>
+            <div data-reveal="1" data-d="7" style="border: 1px solid #DDE1E6; background: #FFFFFF; padding: 15px 16px 16px;">
+              <div style="fontFamily: 'IBM Plex Mono', monospace; fontSize: 9px; letterSpacing: 0.12em; textTransform: uppercase; color: #8A949F;">Performance</div>
+              <div style="fontFamily: Archivo, sans-serif; fontWeight: 600; fontSize: 17px; letterSpacing: -0.022em; color: #1B1F24; marginTop: 7px; whiteSpace: nowrap;">suivie par affaire</div>
+            </div>
+          </div>
+          <div data-reveal="1" data-d="8" style="marginTop: 18px; fontFamily: 'IBM Plex Mono', monospace; fontSize: 10px; letterSpacing: 0.1em; textTransform: uppercase; color: #8A949F;">Valeurs d'exemple issues d'un environnement de démonstration</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  </div>
+  </div>
+  </section>
+
+  <section id="workflows" style="padding: 104px 40px 108px; background: #FBFBFC; borderTop: 1px solid #E7EAED; borderBottom: 1px solid #E7EAED;">
+    <div style="max-width: 1340px; margin: 0 auto;">
+      <div class="rv" style="display: grid; gridTemplateColumns: 1fr 1fr; gap: 64px; alignItems: end; marginBottom: 56px;">
+        <div>
+          <div style="fontFamily: 'IBM Plex Mono', monospace; fontSize: 11.5px; letterSpacing: 0.14em; textTransform: uppercase; color: #8A949F; marginBottom: 20px;">Gouvernance</div>
+          <h2 style="fontFamily: Archivo, sans-serif; fontWeight: 700; fontSize: 45px; lineHeight: 1.08; letterSpacing: -0.03em; margin: 0; color: #1B1F24;">Vos processus suivent vos règles.</h2>
+        </div>
+        <p style="fontSize: 17px; lineHeight: 1.65; color: #5B6675; margin: 0; maxWidth: 520px;">Paramétrez les rôles, permissions et circuits de validation selon l'organisation de votre entreprise.</p>
+      </div>
+
+      <div style="display: grid; gridTemplateColumns: 1.35fr 1fr; gap: 64px; alignItems: start;">
+        <div class="rv" data-wf="1" style="border: 1px solid #E7EAED; background: #FFFFFF; padding: 30px 34px 34px;">
+          <div style="display: flex; alignItems: center; justifyContent: space-between; marginBottom: 26px;">
+            <span style="fontFamily: 'IBM Plex Mono', monospace; fontSize: 10.5px; letterSpacing: 0.12em; textTransform: uppercase; color: #8A949F;">Circuit de validation · DA-2026-045</span>
+            <span style="fontFamily: 'IBM Plex Mono', monospace; fontSize: 10px; letterSpacing: 0.08em; textTransform: uppercase; color: #23292F; border: 1px solid #DDE1E6; padding: 5px 9px;">{{ wfStatus }}</span>
+          </div>
+          <div style="position: relative;">
+            <div style="position: absolute; left: 17px; top: 12px; bottom: 12px; width: 2px; background: #E7EAED;"></div>
+            <div data-wf-fill="1" style="position: absolute; left: 17px; top: 12px; width: 2px; height: 0%; background: #F5A623; transition: height .3s linear;"></div>
+            <div style="display: grid; gap: 22px; position: relative;">
+              <sc-for list="{{ wfSteps }}" as="w" hint-placeholder-count="6">
+                <div style="display: flex; alignItems: center; gap: 18px;">
+                  <span data-wf-dot="{{ $index }}" style="width: 36px; height: 36px; flexShrink: 0; borderRadius: 50%; background: #FFFFFF; border: 1px solid #DDE1E6; color: #8A949F; display: flex; alignItems: center; justifyContent: center; fontFamily: 'IBM Plex Mono', monospace; fontSize: 12px; transition: background .4s ease, color .4s ease;">{{ w.icon }}</span>
+                  <div style="flex: 1 1 0; minWidth: 0;">
+                    <div data-wf-title="{{ $index }}" style="fontSize: 15.5px; fontWeight: 600; color: #9AA4AF; transition: color .4s ease;">{{ w.role }}</div>
+                    <div style="fontFamily: 'IBM Plex Mono', monospace; fontSize: 10.5px; color: #8A949F; marginTop: 3px;">{{ w.action }}</div>
+                  </div>
+                  <div style="textAlign: right; flexShrink: 0;">
+                    <div data-wf-status="{{ $index }}" style="fontFamily: 'IBM Plex Mono', monospace; fontSize: 10px; letterSpacing: 0.08em; textTransform: uppercase; color: #B4BCC4; transition: color .4s ease;">{{ w.status }}</div>
+                    <div style="fontFamily: 'IBM Plex Mono', monospace; fontSize: 9.5px; color: #B4BCC4; marginTop: 3px;">{{ w.time }}</div>
+                  </div>
+                </div>
+              </sc-for>
+            </div>
+          </div>
+        </div>
+
+        <div class="rv" style="display: grid; gap: 1px; background: #E7EAED; border: 1px solid #E7EAED;">
+          <sc-for list="{{ wfFacts }}" as="g" hint-placeholder-count="4">
+            <div style="background: #FFFFFF; padding: 22px 24px;">
+              <div style="fontFamily: 'IBM Plex Mono', monospace; fontSize: 10.5px; letterSpacing: 0.12em; textTransform: uppercase; color: #C9820A; marginBottom: 9px;">{{ g.label }}</div>
+              <p style="fontSize: 15px; lineHeight: 1.6; color: #5B6675; margin: 0;">{{ g.text }}</p>
+            </div>
+          </sc-for>
+          <div style="background: #FFFFFF; padding: 22px 24px;">
+            <div style="fontFamily: 'IBM Plex Mono', monospace; fontSize: 10.5px; letterSpacing: 0.12em; textTransform: uppercase; color: #8A949F; marginBottom: 12px;">Statuts disponibles</div>
+            <div style="display: flex; flexWrap: wrap; gap: 8px;">
+              <span style="fontFamily: 'IBM Plex Mono', monospace; fontSize: 10px; letterSpacing: 0.08em; textTransform: uppercase; padding: 6px 10px; border: 1px solid #F5A623; color: #23292F;">En attente</span>
+              <span style="fontFamily: 'IBM Plex Mono', monospace; fontSize: 10px; letterSpacing: 0.08em; textTransform: uppercase; padding: 6px 10px; border: 1px solid #DDE1E6; color: #3E7A50;">Validé</span>
+              <span style="fontFamily: 'IBM Plex Mono', monospace; fontSize: 10px; letterSpacing: 0.08em; textTransform: uppercase; padding: 6px 10px; border: 1px solid #DDE1E6; color: #B4543C;">Rejeté</span>
+              <span style="fontFamily: 'IBM Plex Mono', monospace; fontSize: 10px; letterSpacing: 0.08em; textTransform: uppercase; padding: 6px 10px; border: 1px solid #DDE1E6; color: #5B6675;">Relancé</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="cockpit" style="padding: 104px 40px 112px; background: #FBFBFC; borderTop: 1px solid #E7EAED; borderBottom: 1px solid #E7EAED;">
+  <div style="max-width: 1340px; margin: 0 auto;">
+    <div class="rv" style="display: grid; gridTemplateColumns: 1fr 1fr; gap: 64px; alignItems: end; marginBottom: 56px;">
+      <h2 style="fontFamily: Archivo, sans-serif; fontWeight: 700; fontSize: 42px; lineHeight: 1.08; letterSpacing: -0.03em; margin: 0; color: #1B1F24;">Chaque chantier devient un cockpit de pilotage.</h2>
+      <p style="fontSize: 17px; lineHeight: 1.65; color: #5B6675; margin: 0; maxWidth: 520px;">Une seule affaire. Une seule donnée. Tous les processus convergent vers le même chantier — ici, l'affaire elle-même est au centre, pas la plateforme.</p>
+    </div>
+
+    <div class="rv" style="position: relative; width: 100%; aspectRatio: 1340 / 640;">
+      <svg viewBox="0 0 1340 640" aria-hidden="true" style="position: absolute; inset: 0; width: 100%; height: 100%;">
+        <defs>
+          <marker id="bp-arrow" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+            <path d="M0 1.5 L9 5 L0 8.5 z" fill="#C3C9D0" />
+          </marker>
+          <marker id="bp-arrow-on" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+            <path d="M0 1.5 L9 5 L0 8.5 z" fill="#F5A623" />
+          </marker>
+        </defs>
+        <rect x="404" y="52" width="532" height="436" fill="none" stroke="#EEF0F2" stroke-width="1" />
+        <path data-cock-line="0" d="M238 110 Q361 130 404 149" fill="none" stroke="#C3C9D0" stroke-width="1.2" opacity="0.55" marker-end="url(#bp-arrow)" style="transition: stroke .3s ease, opacity .3s ease;" />
+        <path data-cock-line="1" d="M238 270 Q361 267 404 264" fill="none" stroke="#C3C9D0" stroke-width="1.2" opacity="0.55" marker-end="url(#bp-arrow)" style="transition: stroke .3s ease, opacity .3s ease;" />
+        <path data-cock-line="2" d="M238 430 Q361 405 404 380" fill="none" stroke="#C3C9D0" stroke-width="1.2" opacity="0.55" marker-end="url(#bp-arrow)" style="transition: stroke .3s ease, opacity .3s ease;" />
+        <path data-cock-line="3" d="M1102 110 Q979 130 936 149" fill="none" stroke="#C3C9D0" stroke-width="1.2" opacity="0.55" marker-end="url(#bp-arrow)" style="transition: stroke .3s ease, opacity .3s ease;" />
+        <path data-cock-line="4" d="M1102 270 Q979 267 936 264" fill="none" stroke="#C3C9D0" stroke-width="1.2" opacity="0.55" marker-end="url(#bp-arrow)" style="transition: stroke .3s ease, opacity .3s ease;" />
+        <path data-cock-line="5" d="M1102 430 Q979 405 936 380" fill="none" stroke="#C3C9D0" stroke-width="1.2" opacity="0.55" marker-end="url(#bp-arrow)" style="transition: stroke .3s ease, opacity .3s ease;" />
+        <path data-cock-line="6" d="M670 538 Q670 513 670 488" fill="none" stroke="#C3C9D0" stroke-width="1.2" opacity="0.55" marker-end="url(#bp-arrow)" style="transition: stroke .3s ease, opacity .3s ease;" />
+      </svg>
+
+      <div style="position: absolute; left: 29%; top: 8%; width: 42%; border: 1px solid #23292F; background: #FFFFFF; boxShadow: 0 30px 70px -34px rgba(27,31,36,.35);">
+        <div style="display: flex; alignItems: center; gap: 10px; padding: 10px 13px; borderBottom: 1px solid #E7EAED; background: #F6F7F8;">
+          <span style="width: 7px; height: 7px; borderRadius: 50%; background: #CFD5DB; display: block;"></span>
+          <span style="width: 7px; height: 7px; borderRadius: 50%; background: #CFD5DB; display: block;"></span>
+          <span style="fontFamily: 'IBM Plex Mono', monospace; fontSize: 10px; color: #8A949F; marginLeft: 4px;">bopera · affaire / Résidence Al Kawtar</span>
+          <span style="marginLeft: auto; fontFamily: 'IBM Plex Mono', monospace; fontSize: 9px; letterSpacing: 0.1em; textTransform: uppercase; color: #23292F; border: 1px solid #DDE1E6; padding: 4px 7px;">Cockpit</span>
+        </div>
+        <img src="assets/ui-affaire-cockpit-desktop.png" alt="Bopera — dashboard de l'affaire Résidence Al Kawtar" style="width: 100%; height: auto; display: block;" />
+      </div>
+
+      <div data-cock-node="0" style="position: absolute; left: 11.19%; top: 17.19%; transform: translate(-50%, -50%); width: 170px; border: 1px solid #DDE1E6; background: #FFFFFF; padding: 13px 14px; cursor: default; transition: border-color .3s ease, background .3s ease;">
+        <div style="display: flex; alignItems: center; gap: 9px;">
+          <span data-cock-dot="0" style="width: 6px; height: 6px; background: #C3C9D0; display: block; flexShrink: 0; transition: background .3s ease;"></span>
+          <span style="fontFamily: 'IBM Plex Mono', monospace; fontSize: 10.5px; letterSpacing: 0.1em; textTransform: uppercase; color: #1B1F24;">Budget</span>
+        </div>
+        <div style="fontFamily: 'IBM Plex Mono', monospace; fontSize: 9.5px; color: #8A949F; marginTop: 7px; lineHeight: 1.5;">prévu · engagé · réel</div>
+      </div>
+      <div data-cock-node="1" style="position: absolute; left: 11.19%; top: 42.19%; transform: translate(-50%, -50%); width: 170px; border: 1px solid #DDE1E6; background: #FFFFFF; padding: 13px 14px; cursor: default; transition: border-color .3s ease, background .3s ease;">
+        <div style="display: flex; alignItems: center; gap: 9px;">
+          <span data-cock-dot="1" style="width: 6px; height: 6px; background: #C3C9D0; display: block; flexShrink: 0; transition: background .3s ease;"></span>
+          <span style="fontFamily: 'IBM Plex Mono', monospace; fontSize: 10.5px; letterSpacing: 0.1em; textTransform: uppercase; color: #1B1F24;">Achats</span>
+        </div>
+        <div style="fontFamily: 'IBM Plex Mono', monospace; fontSize: 9.5px; color: #8A949F; marginTop: 7px; lineHeight: 1.5;">DA · consultation · BC</div>
+      </div>
+      <div data-cock-node="2" style="position: absolute; left: 11.19%; top: 67.19%; transform: translate(-50%, -50%); width: 170px; border: 1px solid #DDE1E6; background: #FFFFFF; padding: 13px 14px; cursor: default; transition: border-color .3s ease, background .3s ease;">
+        <div style="display: flex; alignItems: center; gap: 9px;">
+          <span data-cock-dot="2" style="width: 6px; height: 6px; background: #C3C9D0; display: block; flexShrink: 0; transition: background .3s ease;"></span>
+          <span style="fontFamily: 'IBM Plex Mono', monospace; fontSize: 10.5px; letterSpacing: 0.1em; textTransform: uppercase; color: #1B1F24;">Sous-traitance</span>
+        </div>
+        <div style="fontFamily: 'IBM Plex Mono', monospace; fontSize: 9.5px; color: #8A949F; marginTop: 7px; lineHeight: 1.5;">contrats · attachements</div>
+      </div>
+      <div data-cock-node="3" style="position: absolute; left: 88.81%; top: 17.19%; transform: translate(-50%, -50%); width: 170px; border: 1px solid #DDE1E6; background: #FFFFFF; padding: 13px 14px; cursor: default; transition: border-color .3s ease, background .3s ease;">
+        <div style="display: flex; alignItems: center; gap: 9px;">
+          <span data-cock-dot="3" style="width: 6px; height: 6px; background: #C3C9D0; display: block; flexShrink: 0; transition: background .3s ease;"></span>
+          <span style="fontFamily: 'IBM Plex Mono', monospace; fontSize: 10.5px; letterSpacing: 0.1em; textTransform: uppercase; color: #1B1F24;">Stock</span>
+        </div>
+        <div style="fontFamily: 'IBM Plex Mono', monospace; fontSize: 9.5px; color: #8A949F; marginTop: 7px; lineHeight: 1.5;">entrées · sorties · transferts</div>
+      </div>
+      <div data-cock-node="4" style="position: absolute; left: 88.81%; top: 42.19%; transform: translate(-50%, -50%); width: 170px; border: 1px solid #DDE1E6; background: #FFFFFF; padding: 13px 14px; cursor: default; transition: border-color .3s ease, background .3s ease;">
+        <div style="display: flex; alignItems: center; gap: 9px;">
+          <span data-cock-dot="4" style="width: 6px; height: 6px; background: #C3C9D0; display: block; flexShrink: 0; transition: background .3s ease;"></span>
+          <span style="fontFamily: 'IBM Plex Mono', monospace; fontSize: 10.5px; letterSpacing: 0.1em; textTransform: uppercase; color: #1B1F24;">Ressources</span>
+        </div>
+        <div style="fontFamily: 'IBM Plex Mono', monospace; fontSize: 9.5px; color: #8A949F; marginTop: 7px; lineHeight: 1.5;">affectations · pointage</div>
+      </div>
+      <div data-cock-node="5" style="position: absolute; left: 88.81%; top: 67.19%; transform: translate(-50%, -50%); width: 170px; border: 1px solid #DDE1E6; background: #FFFFFF; padding: 13px 14px; cursor: default; transition: border-color .3s ease, background .3s ease;">
+        <div style="display: flex; alignItems: center; gap: 9px;">
+          <span data-cock-dot="5" style="width: 6px; height: 6px; background: #C3C9D0; display: block; flexShrink: 0; transition: background .3s ease;"></span>
+          <span style="fontFamily: 'IBM Plex Mono', monospace; fontSize: 10.5px; letterSpacing: 0.1em; textTransform: uppercase; color: #1B1F24;">Avancement</span>
+        </div>
+        <div style="fontFamily: 'IBM Plex Mono', monospace; fontSize: 9.5px; color: #8A949F; marginTop: 7px; lineHeight: 1.5;">quantités réalisées</div>
+      </div>
+      <div data-cock-node="6" style="position: absolute; left: 50.00%; top: 90.63%; transform: translate(-50%, -50%); width: 170px; border: 1px solid #DDE1E6; background: #FFFFFF; padding: 13px 14px; cursor: default; transition: border-color .3s ease, background .3s ease;">
+        <div style="display: flex; alignItems: center; gap: 9px;">
+          <span data-cock-dot="6" style="width: 6px; height: 6px; background: #C3C9D0; display: block; flexShrink: 0; transition: background .3s ease;"></span>
+          <span style="fontFamily: 'IBM Plex Mono', monospace; fontSize: 10.5px; letterSpacing: 0.1em; textTransform: uppercase; color: #1B1F24;">Performance</span>
+        </div>
+        <div style="fontFamily: 'IBM Plex Mono', monospace; fontSize: 9.5px; color: #8A949F; marginTop: 7px; lineHeight: 1.5;">écarts · rentabilité</div>
+      </div>
+    </div>
+
+    <div class="rv" style="marginTop: 26px; border: 1px solid #E7EAED; padding: 20px 24px; display: grid; gridTemplateColumns: 190px 1fr; gap: 32px; alignItems: center;">
+      <div style="fontFamily: 'IBM Plex Mono', monospace; fontSize: 9.5px; letterSpacing: 0.12em; textTransform: uppercase; color: #8A949F;">Processus survolé</div>
+      <p style="fontSize: 15.5px; lineHeight: 1.6; color: #1B1F24; margin: 0;">{{ cockCaption }}</p>
+    </div>
+  </div>
+  </section>
+
+  <section id="pourqui" style="padding: 100px 40px 108px; background: #FFFFFF;">
+    <div style="max-width: 1340px; margin: 0 auto;">
+      <div class="rv" style="marginBottom: 44px;">
+        <div style="fontFamily: 'IBM Plex Mono', monospace; fontSize: 11.5px; letterSpacing: 0.14em; textTransform: uppercase; color: #8A949F; marginBottom: 20px;">Pour qui ?</div>
+        <h2 style="fontFamily: Archivo, sans-serif; fontWeight: 700; fontSize: 45px; lineHeight: 1.08; letterSpacing: -0.03em; margin: 0; color: #1B1F24;">Bopera accompagne chaque acteur du projet.</h2>
+      </div>
+      <div class="rv" style="display: flex; borderBottom: 1px solid #DDE1E6; marginBottom: 44px; flexWrap: wrap;">
+        <sc-for list="{{ personaTabs }}" as="p" hint-placeholder-count="5">
+          <button data-pers-tab="{{ $index }}" type="button" onClick="{{ p.select }}" style="background: transparent; border: none; borderBottom: 2px solid transparent; padding: 14px 20px 14px 0; marginRight: 28px; cursor: pointer; fontFamily: 'IBM Plex Mono', monospace; fontSize: 11.5px; letterSpacing: 0.12em; textTransform: uppercase; color: #8A949F; transition: color .3s ease, border-color .3s ease;">{{ p.num }} · {{ p.label }}</button>
+        </sc-for>
+      </div>
+      <div class="rv" style="display: grid; gridTemplateColumns: 1fr 1fr; gap: 64px; alignItems: center;">
+        <div>
+          <h3 style="fontFamily: Archivo, sans-serif; fontWeight: 700; fontSize: 32px; lineHeight: 1.16; letterSpacing: -0.028em; margin: 0 0 20px; color: #1B1F24; maxWidth: 480px; textWrap: pretty;">{{ persona.headline }}</h3>
+          <p style="fontSize: 16.5px; lineHeight: 1.66; color: #5B6675; margin: 0 0 26px; maxWidth: 480px;">{{ persona.text }}</p>
+          <div style="display: grid; gap: 10px;">
+            <sc-for list="{{ persona.points }}" as="pt" hint-placeholder-count="3">
+              <div style="display: flex; alignItems: baseline; gap: 12px;">
+                <span style="width: 5px; height: 5px; background: #F5A623; display: block; flexShrink: 0; transform: translateY(-3px);"></span>
+                <span style="fontSize: 15px; color: #3E4650;">{{ pt }}</span>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+        <div style="border: 1px solid #DDE1E6; background: #FFFFFF; boxShadow: 0 24px 56px -34px rgba(27,31,36,.28);">
+          <div style="display: flex; alignItems: center; gap: 10px; padding: 9px 13px; borderBottom: 1px solid #E7EAED; background: #F6F7F8;">
+            <span style="width: 7px; height: 7px; borderRadius: 50%; background: #CFD5DB; display: block;"></span>
+            <span style="fontFamily: 'IBM Plex Mono', monospace; fontSize: 10px; color: #8A949F; marginLeft: 4px;">{{ persona.frame }}</span>
+          </div>
+          <sc-if value="{{ personaReady }}" hint-placeholder-val="{{ false }}">
+            <img data-persona-img="1" src="{{ persona.file }}" alt="{{ persona.alt }}" style="width: 100%; height: auto; display: block;" />
+          </sc-if>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="pourquoi" style="background: #1B1F24; padding: 100px 40px 108px; color: #FFFFFF;">
+    <div style="max-width: 1340px; margin: 0 auto;">
+      <div class="rv" style="display: flex; alignItems: end; justifyContent: space-between; gap: 48px; marginBottom: 52px; flexWrap: wrap;">
+        <h2 style="fontFamily: Archivo, sans-serif; fontWeight: 700; fontSize: 44px; lineHeight: 1.08; letterSpacing: -0.03em; margin: 0; color: #FFFFFF;">Pourquoi Bopera ?</h2>
+        <p style="fontSize: 16.5px; lineHeight: 1.62; color: #A8B0B9; margin: 0; maxWidth: 460px;">Un ERP construit autour du chantier, pas adapté après coup.</p>
+      </div>
+      <div class="rv" style="display: grid; gridTemplateColumns: repeat(4, minmax(0, 1fr)); gap: 1px; background: #343B43; border: 1px solid #343B43;">
+        <div style="background: #23292F; padding: 34px 30px 36px; display: flex; flexDirection: column;">
+          <img src="assets/icon-pq-btp.png" alt="" style="width: 62px; height: 62px; display: block; marginBottom: 26px;" />
+          <h3 style="fontFamily: Archivo, sans-serif; fontWeight: 600; fontSize: 21px; letterSpacing: -0.022em; lineHeight: 1.25; margin: 0 0 14px; color: #FFFFFF; textWrap: pretty;">Conçu pour le BTP</h3>
+          <p style="fontSize: 15px; lineHeight: 1.65; color: #A8B0B9; margin: 0; textWrap: pretty;">Des workflows, budgets, achats, stocks, pointages et situations pensés autour du fonctionnement réel des chantiers.</p>
+          <span style="marginTop: auto; paddingTop: 26px; fontFamily: 'IBM Plex Mono', monospace; fontSize: 10px; letterSpacing: 0.12em; color: #F5A623;">01</span>
+        </div>
+        <div style="background: #23292F; padding: 34px 30px 36px; display: flex; flexDirection: column;">
+          <img src="assets/icon-pq-processus.png" alt="" style="width: 62px; height: 62px; display: block; marginBottom: 26px;" />
+          <h3 style="fontFamily: Archivo, sans-serif; fontWeight: 600; fontSize: 21px; letterSpacing: -0.022em; lineHeight: 1.25; margin: 0 0 14px; color: #FFFFFF; textWrap: pretty;">Des processus connectés</h3>
+          <p style="fontSize: 15px; lineHeight: 1.65; color: #A8B0B9; margin: 0; textWrap: pretty;">Du chiffrage jusqu'à l'exécution, chaque information alimente les étapes suivantes sans ressaisie inutile.</p>
+          <span style="marginTop: auto; paddingTop: 26px; fontFamily: 'IBM Plex Mono', monospace; fontSize: 10px; letterSpacing: 0.12em; color: #F5A623;">02</span>
+        </div>
+        <div style="background: #23292F; padding: 34px 30px 36px; display: flex; flexDirection: column;">
+          <img src="assets/icon-pq-performance.png" alt="" style="width: 62px; height: 62px; display: block; marginBottom: 26px;" />
+          <h3 style="fontFamily: Archivo, sans-serif; fontWeight: 600; fontSize: 21px; letterSpacing: -0.022em; lineHeight: 1.25; margin: 0 0 14px; color: #FFFFFF; textWrap: pretty;">Maîtrisez coûts et marges</h3>
+          <p style="fontSize: 15px; lineHeight: 1.65; color: #A8B0B9; margin: 0; textWrap: pretty;">Budget, engagements, consommations, avancement et performance sont rapprochés pour détecter les écarts avant qu'ils ne deviennent des pertes.</p>
+          <span style="marginTop: auto; paddingTop: 26px; fontFamily: 'IBM Plex Mono', monospace; fontSize: 10px; letterSpacing: 0.12em; color: #F5A623;">03</span>
+        </div>
+        <div style="background: #23292F; padding: 34px 30px 36px; display: flex; flexDirection: column;">
+          <img src="assets/icon-pq-configuration.png" alt="" style="width: 62px; height: 62px; display: block; marginBottom: 26px;" />
+          <h3 style="fontFamily: Archivo, sans-serif; fontWeight: 600; fontSize: 21px; letterSpacing: -0.022em; lineHeight: 1.25; margin: 0 0 14px; color: #FFFFFF; textWrap: pretty;">S'adapte à votre organisation</h3>
+          <p style="fontSize: 15px; lineHeight: 1.65; color: #A8B0B9; margin: 0; textWrap: pretty;">Rôles, permissions, circuits de validation, modèles de documents et règles de gestion s'adaptent à votre entreprise.</p>
+          <span style="marginTop: auto; paddingTop: 26px; fontFamily: 'IBM Plex Mono', monospace; fontSize: 10px; letterSpacing: 0.12em; color: #F5A623;">04</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="preuve" style="padding: 100px 40px 108px; background: #FBFBFC; borderTop: 1px solid #E7EAED; borderBottom: 1px solid #E7EAED;">
+    <div style="max-width: 1340px; margin: 0 auto;">
+      <div class="rv" style="display: flex; alignItems: end; justifyContent: space-between; gap: 48px; marginBottom: 44px; flexWrap: wrap;">
+        <div>
+          <div style="fontFamily: 'IBM Plex Mono', monospace; fontSize: 11.5px; letterSpacing: 0.14em; textTransform: uppercase; color: #8A949F; marginBottom: 20px;">Aperçu produit</div>
+          <h2 style="fontFamily: Archivo, sans-serif; fontWeight: 700; fontSize: 42px; lineHeight: 1.08; letterSpacing: -0.03em; margin: 0; color: #1B1F24;">Aperçu de Bopera.</h2>
+        </div>
+        <a href="#formulaire" style="fontSize: 15px; fontWeight: 600; color: #23292F; borderBottom: 1px solid #F5A623; paddingBottom: 3px;" style-hover="color: #C9820A;">Demander une démonstration →</a>
+      </div>
+      <div class="rv" style="border: 1px solid #DDE1E6; background: #FFFFFF; boxShadow: 0 34px 80px -40px rgba(27,31,36,.3);">
+        <div style="display: flex; alignItems: center; gap: 12px; padding: 10px 14px; borderBottom: 1px solid #E7EAED; background: #F6F7F8;">
+          <span style="display: flex; gap: 6px;">
+            <span style="width: 8px; height: 8px; borderRadius: 50%; background: #CFD5DB; display: block;"></span>
+            <span style="width: 8px; height: 8px; borderRadius: 50%; background: #CFD5DB; display: block;"></span>
+            <span style="width: 8px; height: 8px; borderRadius: 50%; background: #CFD5DB; display: block;"></span>
+          </span>
+          <span style="fontFamily: 'IBM Plex Mono', monospace; fontSize: 10.5px; color: #8A949F;">bopera · pilotage &amp; reporting</span>
+        </div>
+        <img src="assets/ui-pilotage-desktop.png" alt="Bopera — pilotage et reporting : indicateurs consolidés par affaire" style="width: 100%; height: auto; display: block;" />
+      </div>
+      <div class="rv" style="marginTop: 26px; display: flex; alignItems: center; flexWrap: wrap; gap: 12px;">
+        <sc-for list="{{ journey }}" as="j" hint-placeholder-count="8">
+          <span style="fontFamily: 'IBM Plex Mono', monospace; fontSize: 10.5px; letterSpacing: 0.08em; textTransform: uppercase; color: #5B6675; border: 1px solid #DDE1E6; background: #FFFFFF; padding: 8px 12px;">{{ j }}</span>
+        </sc-for>
+      </div>
+    </div>
+  </section>
+
+  <section id="demo" style="background: #1B1F24; color: #FFFFFF; padding: 128px 40px 132px;">
+    <div class="rv" style="max-width: 1340px; margin: 0 auto; display: grid; gridTemplateColumns: 1.2fr 1fr; gap: 96px; alignItems: end;">
+      <div>
+        <h2 style="fontFamily: Archivo, sans-serif; fontWeight: 700; fontSize: 50px; lineHeight: 1.08; letterSpacing: -0.032em; margin: 0 0 26px;">Vos chantiers génèrent déjà les données.<br /><span style="color: #F5A623;">Bopera vous aide à les transformer en décisions.</span></h2>
+        <p style="fontSize: 17.5px; lineHeight: 1.65; color: #A8B0B9; margin: 0; maxWidth: 560px;">Découvrez comment Bopera peut connecter les processus de votre entreprise.</p>
+      </div>
+      <div>
+        <div style="display: flex; alignItems: center; gap: 14px; marginBottom: 20px; flexWrap: wrap;">
+          <a href="#formulaire" style="background: #F5A623; color: #23292F; fontSize: 16px; fontWeight: 600; padding: 16px 28px; borderRadius: 2px; boxShadow: inset 0 -2px 0 rgba(0,0,0,.10);" style-hover="background: #FFB93A;">Demander une démo</a>
+          <a href="#formulaire" style="color: #FFFFFF; fontSize: 16px; fontWeight: 600; padding: 16px 24px; borderRadius: 2px; border: 1px solid #4A5460;" style-hover="border: 1px solid #FFFFFF;">Nous contacter</a>
+        </div>
+        <p style="fontFamily: 'IBM Plex Mono', monospace; fontSize: 11.5px; lineHeight: 1.7; color: #8A949F; margin: 0;">Démonstration personnalisée selon votre organisation et vos processus.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="formulaire" style="padding: 104px 40px 112px;">
+    <div style="max-width: 1340px; margin: 0 auto; display: grid; gridTemplateColumns: 1fr 1.3fr; gap: 96px; alignItems: start;">
+      <div class="rv">
+        <div style="fontFamily: 'IBM Plex Mono', monospace; fontSize: 11.5px; letterSpacing: 0.14em; textTransform: uppercase; color: #8A949F; marginBottom: 20px;">Demande de démo</div>
+        <h2 style="fontFamily: Archivo, sans-serif; fontWeight: 700; fontSize: 42px; lineHeight: 1.08; letterSpacing: -0.03em; margin: 0 0 20px; color: #1B1F24;">Parlez-nous de votre entreprise.</h2>
+        <p style="fontSize: 16.5px; lineHeight: 1.66; color: #5B6675; margin: 0 0 28px; maxWidth: 420px;">Nous préparons la démonstration à partir de votre organisation, de vos processus et de vos modules prioritaires.</p>
+        <div style="borderTop: 1px solid #E7EAED; paddingTop: 22px; display: grid; gap: 12px;">
+          <sc-for list="{{ formPromises }}" as="fp" hint-placeholder-count="3">
+            <div style="display: flex; alignItems: baseline; gap: 12px;">
+              <span style="width: 5px; height: 5px; background: #F5A623; display: block; flexShrink: 0; transform: translateY(-3px);"></span>
+              <span style="fontSize: 14.5px; color: #3E4650;">{{ fp }}</span>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+
+      <div class="rv" style="border: 1px solid #E7EAED; background: #FFFFFF; padding: 38px 40px 40px;">
+        <sc-if value="{{ formSent }}" hint-placeholder-val="{{ false }}">
+          <div style="padding: 28px 0;">
+            <div style="width: 40px; height: 40px; background: #1B1F24; color: #F5A623; display: flex; alignItems: center; justifyContent: center; fontSize: 18px; marginBottom: 20px;">✓</div>
+            <h3 style="fontFamily: Archivo, sans-serif; fontWeight: 700; fontSize: 26px; letterSpacing: -0.026em; margin: 0 0 12px; color: #1B1F24;">Demande envoyée.</h3>
+            <p style="fontSize: 15.5px; lineHeight: 1.65; color: #5B6675; margin: 0;">Nous revenons vers vous pour convenir d'un créneau de démonstration.</p>
+          </div>
+        </sc-if>
+        <sc-if value="{{ formOpen }}" hint-placeholder-val="{{ true }}">
+          <div>
+            <div style="display: grid; gridTemplateColumns: 1fr 1fr; gap: 18px;">
+              <sc-for list="{{ formFields }}" as="fd" hint-placeholder-count="9">
+                <div style="gridColumn: {{ fd.span }};">
+                  <label for="{{ fd.id }}" style="display: block; fontFamily: 'IBM Plex Mono', monospace; fontSize: 10px; letterSpacing: 0.12em; textTransform: uppercase; color: #5B6675; marginBottom: 7px;">{{ fd.label }}</label>
+                  <sc-if value="{{ fd.isSelect }}" hint-placeholder-val="{{ false }}">
+                    <select id="{{ fd.id }}" data-field="{{ fd.id }}" onChange="{{ fd.onChange }}" style="width: 100%; fontFamily: 'IBM Plex Sans', sans-serif; fontSize: 14.5px; color: #23292F; padding: 12px 12px; borderRadius: 2px; border: 1px solid #DDE1E6; background: #FFFFFF;" style-focus="border: 1px solid #F5A623; boxShadow: 0 0 0 3px rgba(245,166,35,.18);">
+                      <sc-for list="{{ fd.options }}" as="op" hint-placeholder-count="4">
+                        <option value="{{ op }}">{{ op }}</option>
+                      </sc-for>
+                    </select>
+                  </sc-if>
+                  <sc-if value="{{ fd.isText }}" hint-placeholder-val="{{ true }}">
+                    <input id="{{ fd.id }}" data-field="{{ fd.id }}" type="{{ fd.type }}" placeholder="{{ fd.placeholder }}" onInput="{{ fd.onChange }}" style="width: 100%; fontFamily: 'IBM Plex Sans', sans-serif; fontSize: 14.5px; color: #23292F; padding: 12px 12px; borderRadius: 2px; border: 1px solid #DDE1E6; background: #FFFFFF;" style-focus="border: 1px solid #F5A623; boxShadow: 0 0 0 3px rgba(245,166,35,.18);" />
+                  </sc-if>
+                  <sc-if value="{{ fd.isArea }}" hint-placeholder-val="{{ false }}">
+                    <textarea id="{{ fd.id }}" data-field="{{ fd.id }}" rows="3" placeholder="{{ fd.placeholder }}" onInput="{{ fd.onChange }}" style="width: 100%; fontFamily: 'IBM Plex Sans', sans-serif; fontSize: 14.5px; color: #23292F; padding: 12px 12px; borderRadius: 2px; border: 1px solid #DDE1E6; background: #FFFFFF; resize: vertical;" style-focus="border: 1px solid #F5A623; boxShadow: 0 0 0 3px rgba(245,166,35,.18);"></textarea>
+                  </sc-if>
+                  <div data-hint="{{ fd.id }}" style="fontFamily: 'IBM Plex Mono', monospace; fontSize: 10px; color: #3E7A50; marginTop: 6px; minHeight: 13px;">{{ fd.hint }}</div>
+                </div>
+              </sc-for>
+            </div>
+            <div style="display: flex; alignItems: center; gap: 20px; marginTop: 22px; flexWrap: wrap;">
+              <button type="button" onClick="{{ submitForm }}" style="background: #F5A623; color: #23292F; fontSize: 15.5px; fontWeight: 600; padding: 15px 26px; borderRadius: 2px; border: none; cursor: pointer; boxShadow: inset 0 -2px 0 rgba(0,0,0,.10); fontFamily: 'IBM Plex Sans', sans-serif;" style-hover="background: #FFB93A;">Planifier ma démo</button>
+              <span style="fontFamily: 'IBM Plex Mono', monospace; fontSize: 10.5px; color: #8A949F; lineHeight: 1.6; maxWidth: 320px;">Vos informations sont utilisées uniquement pour traiter votre demande.</span>
+            </div>
+          </div>
+        </sc-if>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer style="background: #1B1F24; color: #FFFFFF; padding: 84px 40px 40px;">
+    <div style="max-width: 1340px; margin: 0 auto;">
+      <div style="display: grid; gridTemplateColumns: 1.4fr repeat(4, 1fr); gap: 56px; paddingBottom: 56px; borderBottom: 1px solid #343B43;">
+        <div>
+          <div style="display: flex; alignItems: center; gap: 10px; marginBottom: 20px;">
+            <img src="assets/bopera-mark.png" alt="Bopera" style="height: 28px; width: auto; display: block;" />
+            <img src="assets/bopera-word-light.png" alt="" style="height: 20px; width: auto; display: block;" />
+          </div>
+          <p style="fontSize: 15px; lineHeight: 1.66; color: #A8B0B9; margin: 0; maxWidth: 320px;">Bopera — La plateforme de pilotage dédiée au BTP.</p>
+        </div>
+        <sc-for list="{{ footerCols }}" as="col" hint-placeholder-count="4">
+          <div>
+            <div style="fontFamily: 'IBM Plex Mono', monospace; fontSize: 10.5px; letterSpacing: 0.14em; textTransform: uppercase; color: #F5A623; marginBottom: 18px;">{{ col.title }}</div>
+            <div style="display: grid; gap: 11px;">
+              <sc-for list="{{ col.items }}" as="it" hint-placeholder-count="5">
+                <a href="#top" style="fontSize: 14.5px; color: #A8B0B9;" style-hover="color: #FFFFFF;">{{ it }}</a>
+              </sc-for>
+            </div>
+          </div>
+        </sc-for>
+      </div>
+      <div style="paddingTop: 26px; display: flex; justifyContent: space-between; gap: 24px; flexWrap: wrap; fontFamily: 'IBM Plex Mono', monospace; fontSize: 10.5px; color: #7C858F;">
+        <span>© 2026 Bopera. Tous droits réservés.</span>
+        <span>Visibilité · Maîtrise · Performance</span>
+      </div>
+    </div>
+  </footer>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1440}}">
+class Component extends DCLogic {
+  state = { active: -1, wfActive: -1, persona: 0, form: {}, errors: {}, sent: false, sol: 0, howStep: -1, cock: 0 };
+
+  setField = (k) => (e) => {
+    const v = e.target.value;
+    this.setState(s => {
+      const form = Object.assign({}, s.form, { [k]: v });
+      const errors = Object.assign({}, s.errors);
+      if (errors[k]) delete errors[k];
+      return { form, errors };
+    });
+  };
+
+  submitForm = () => {
+    const f = this.state.form || {};
+    const errors = {};
+    ['prenom', 'nom', 'entreprise'].forEach(k => { if (!(f[k] || '').trim()) errors[k] = 'Champ requis'; });
+    const mail = (f.email || '').trim();
+    if (!mail) errors.email = 'Champ requis';
+    else if (!/^[^@\s]+@[^@\s]+\.[a-z]{2}$/i.test(mail)) errors.email = 'Adresse professionnelle invalide';
+    if (Object.keys(errors).length) { this.setState({ errors }); return; }
+    this.setState({ sent: true, errors: {} });
+  };
+
+  _rel = [[1,4],[0,2,4,5,7],[1,3,4,7],[2,4,6],[0,1,2,3,5,7],[1,3,4],[3,4,7],[1,2,4,6]];
+
+  _solPreview = [
+    ['assets/ui-chiffrage-desktop.png', 'Bopera — devis & chiffrage : DPGF, sous-détail de prix, marges'],
+    ['assets/ui-achats-desktop.png', "Bopera — achat & sous-traitance : demandes d'achat et workflow de validation"],
+    ['assets/ui-soustraitance-desktop.png', 'Bopera — attachements, situations et décomptes'],
+    ['assets/ui-avancement-desktop.png', 'Bopera — avancement chantier par lot et quantités physiques'],
+    ['assets/ui-budget-desktop.png', 'Bopera — budget & avancement : prévu, engagé, consommé, écarts'],
+    ['assets/ui-stock-desktop.png', 'Bopera — stock & flux magasin : mouvements et alertes'],
+    ['assets/ui-ressources-desktop.png', "Bopera — pointage main-d'œuvre et matériel"],
+    ['assets/ui-finance-desktop.png', 'Bopera — comptabilité & finance : paiements et rapprochements']
+  ];
+
+  _swap(el, src) {
+    if (!el) return;
+    if (el.getAttribute('src') === src) { el.setAttribute('data-fade', '0'); return; }
+    el.setAttribute('data-fade', '1');
+    setTimeout(() => {
+      el.setAttribute('src', src);
+      requestAnimationFrame(() => el.setAttribute('data-fade', '0'));
+    }, 160);
+  }
+
+  _q(sel) { return Array.prototype.slice.call(document.querySelectorAll(sel)); }
+
+  paint = () => {
+    const st = this.state, b = document.body;
+    b.dataset.tl = String(st.active);
+    b.dataset.how = String(st.howStep);
+    b.dataset.wf = String(st.wfActive);
+    b.dataset.sol = String(st.sol);
+    b.dataset.cock = String(st.cock);
+    b.dataset.pers = String(st.persona);
+
+    const ACC = '#F5A623', DEEP = '#C9820A';
+    const rel = this._rel[st.sol] || [];
+    this._q('[data-sol-spoke]').forEach(el => {
+      const i = +el.dataset.solSpoke, on = i === st.sol, near = rel.indexOf(i) >= 0;
+      el.setAttribute('stroke', on ? ACC : (near ? DEEP : '#C3C9D0'));
+      el.setAttribute('stroke-width', on ? '0.6' : (near ? '0.34' : '0.24'));
+      el.setAttribute('opacity', on ? '1' : (near ? '0.75' : '0.4'));
+    });
+    this._q('[data-sol-chord]').forEach(el => {
+      const p = el.dataset.solChord.split('-').map(Number);
+      const on = p[0] === st.sol || p[1] === st.sol;
+      el.setAttribute('stroke', on ? ACC : '#C3C9D0');
+      el.setAttribute('stroke-width', on ? '0.34' : '0.18');
+      el.setAttribute('opacity', on ? '0.9' : '0.28');
+    });
+    this._q('[data-cock-line]').forEach(el => {
+      const on = +el.dataset.cockLine === st.cock;
+      el.setAttribute('stroke', on ? ACC : '#C3C9D0');
+      el.setAttribute('stroke-width', on ? '2.4' : '1.2');
+      el.setAttribute('opacity', on ? '1' : '0.55');
+      el.setAttribute('marker-end', on ? 'url(#bp-arrow-on)' : 'url(#bp-arrow)');
+    });
+    const ring = document.querySelector('[data-ring]');
+    if (ring) {
+      const c = 2 * Math.PI * 16;
+      ring.setAttribute('stroke-dasharray', (st.howStep >= 4 ? c * 0.68 : 0).toFixed(1) + ' ' + c.toFixed(1));
+    }
+
+    const sp = this._solPreview[st.sol];
+    if (sp) this._swap(document.querySelector('[data-sol-preview]'), sp[0]);
+    const pf = (this._personaFiles || [])[st.persona];
+    if (pf) this._swap(document.querySelector('[data-persona-img]'), pf);
+
+    const f = st.form || {}, er = st.errors || {};
+    this._q('[data-field]').forEach(el => {
+      const id = el.dataset.field, bad = !!er[id];
+      const filled = ((f[id] || '') + '').trim().length > 0;
+      el.setAttribute('data-invalid', bad ? '1' : '0');
+      el.setAttribute('data-filled', !bad && filled ? '1' : '0');
+    });
+    this._q('[data-hint]').forEach(el => { el.setAttribute('data-invalid', er[el.dataset.hint] ? '1' : '0'); });
+  };
+
+  componentDidUpdate() { this.paint(); }
+
+  componentDidMount() {
+    this._tl = document.querySelector('[data-timeline]');
+    this._fill = document.querySelector('[data-timeline-fill]');
+    const io = new IntersectionObserver((es) => {
+      es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+    }, { threshold: 0.14, rootMargin: '0px 0px -8% 0px' });
+    document.querySelectorAll('.rv').forEach(n => io.observe(n));
+    setTimeout(() => document.querySelectorAll('.rv').forEach(n => n.classList.add('in')), 1600);
+
+    this._onScroll = () => {
+      const el = this._tl || (this._tl = document.querySelector('[data-timeline]'));
+      if (!el) return;
+      const r = el.getBoundingClientRect();
+      const vh = window.innerHeight;
+      const start = vh * 0.86, end = vh * 0.28;
+      const p = Math.max(0, Math.min(1, (start - r.top) / (start - end)));
+      const f = this._fill || (this._fill = document.querySelector('[data-timeline-fill]'));
+      if (f) f.style.width = (p * 100).toFixed(1) + '%';
+      const active = p <= 0.02 ? -1 : Math.min(4, Math.floor(p * 5.4));
+      if (active !== this.state.active) this.setState({ active });
+
+      const track = this._track || (this._track = document.querySelector('[data-how-track]'));
+      if (track) {
+        const tr = track.getBoundingClientRect();
+        const span = Math.max(1, track.offsetHeight - vh);
+        let hs;
+        if (tr.top > 0) hs = 0;
+        else if (tr.bottom <= vh) hs = 4;
+        else {
+          const hp = Math.max(0, Math.min(1, -tr.top / span));
+          hs = Math.max(0, Math.min(4, Math.floor(hp * 5.25)));
+        }
+        const hfill = this._howFill || (this._howFill = document.querySelector('[data-steps-fill]'));
+        if (hfill) hfill.style.width = (hs / 4 * 100).toFixed(1) + '%';
+        if (hs !== this.state.howStep) this.setState({ howStep: hs });
+      }
+
+      const wf = this._wf || (this._wf = document.querySelector('[data-wf]'));
+      if (wf) {
+        const wr = wf.getBoundingClientRect();
+        const wp = Math.max(0, Math.min(1, (vh * 0.82 - wr.top) / (vh * 0.62)));
+        const wa = wp <= 0.02 ? -1 : Math.min(5, Math.floor(wp * 6.4));
+        const f2 = this._wfFill || (this._wfFill = document.querySelector('[data-wf-fill]'));
+        if (f2) f2.style.height = Math.max(0, (wa + 1) / 6 * 100 - 6).toFixed(1) + '%';
+        if (wa !== this.state.wfActive) this.setState({ wfActive: wa });
+      }
+    };
+    this._onOver = (ev) => {
+      const t = ev.target;
+      if (!t || !t.closest) return;
+      const sol = t.closest('[data-sol-node]');
+      if (sol) { const i = +sol.dataset.solNode; if (i !== this.state.sol) this.setState({ sol: i }); return; }
+      const cock = t.closest('[data-cock-node]');
+      if (cock) { const i = +cock.dataset.cockNode; if (i !== this.state.cock) this.setState({ cock: i }); return; }
+    };
+    document.addEventListener('mouseover', this._onOver);
+    window.addEventListener('scroll', this._onScroll, { passive: true });
+    this._onScroll();
+    this.paint();
+    setTimeout(this.paint, 400);
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('scroll', this._onScroll);
+    document.removeEventListener('mouseover', this._onOver);
+  }
+
+  renderVals() {
+    const stepData = [
+      ['01', 'CHIFFRER', "Prix, déboursés secs, frais et marges."],
+      ['02', 'ENGAGER', "Demandes, consultations, commandes, contrats."],
+      ['03', 'EXÉCUTER', "Réceptions, stocks, ressources, avancement."],
+      ['04', 'CONTRÔLER', "Budget, engagements, consommations, réel."],
+      ['05', 'PILOTER', "Les écarts détectés assez tôt pour agir."]
+    ];
+    const steps = stepData.map((s, i) => {
+      const on = i <= this.state.active;
+      return {
+        num: s[0], title: s[1], text: s[2],
+        opacity: on ? 1 : 0.42,
+        dotBg: on ? '#F5A623' : '#1B1F24',
+        dotBorder: on ? '#F5A623' : '#4A5460',
+        numColor: on ? '#F5A623' : '#8A949F'
+      };
+    });
+
+    const ACC = '#F5A623';
+    const ACC_DEEP = '#C9820A';
+    const INK = '#1B1F24';
+
+    // ---------- Système 01 · schéma radial ----------
+    const mods = [
+      { label: 'Chiffrage & devis', rel: [1, 4], chain: ['DPGF', 'Sous-détail', 'Déboursé sec', 'Frais', 'Prix de vente'] },
+      { label: 'Achats', rel: [0, 2, 4, 5, 7], chain: ['Demande', 'Consultation', 'Comparatif', 'Validation', 'Commande'] },
+      { label: 'Sous-traitance', rel: [1, 3, 4, 7], chain: ['Contrat', 'Ordre de service', 'Attachement', 'Décompte'] },
+      { label: 'Avancement', rel: [2, 4, 6], chain: ['Saisie', 'Quantités réalisées', '% avancement', 'Comparaison budget'] },
+      { label: 'Budget', rel: [0, 1, 2, 3, 5, 7], chain: ['Prévu', 'Engagé', 'Consommé', 'Réel', 'Écart'] },
+      { label: 'Stock', rel: [1, 3, 4], chain: ['Réception', 'Entrée', 'Sortie', 'Transfert', 'Consommation'] },
+      { label: 'Ressources', rel: [3, 4, 7], chain: ['Affectation', 'Pointage', 'Heures', "Coût main-d'œuvre"] },
+      { label: 'Comptabilité & finance', rel: [1, 2, 4, 6], chain: ['Facture', 'Rapprochement', 'Imputation', 'Paiement'] }
+    ];
+    const R = 34, NODE_R = 8.8, HUB_R = 13.5;
+    const ang = i => (-90 + i * 45) * Math.PI / 180;
+    const pt = (i, r) => ({ x: 50 + r * Math.cos(ang(i)), y: 50 + r * Math.sin(ang(i)) });
+    const si = this.state.sol;
+
+    const solNodes = mods.map((m, i) => {
+      const p = pt(i, R);
+      const on = i === si;
+      const near = mods[si].rel.indexOf(i) >= 0;
+      const icons = {};
+      for (let k = 0; k < 8; k++) icons['i' + k] = (k === i);
+      return Object.assign({
+        label: m.label,
+        left: p.x.toFixed(2) + '%',
+        top: p.y.toFixed(2) + '%',
+        bg: on ? ACC : '#FFFFFF',
+        border: on ? ACC : (near ? '#9AA4AF' : '#DDE1E6'),
+        color: on ? INK : (near ? INK : '#5B6675'),
+        dim: on || near ? 1 : 0.55,
+        enter: () => this.setState({ sol: i })
+      }, icons);
+    });
+
+    const solSpokes = mods.map((m, i) => {
+      const a = pt(i, HUB_R + 0.6), b = pt(i, R - NODE_R - 0.6);
+      const on = i === si, near = mods[si].rel.indexOf(i) >= 0;
+      return {
+        x1: a.x.toFixed(2), y1: a.y.toFixed(2), x2: b.x.toFixed(2), y2: b.y.toFixed(2),
+        stroke: on ? ACC : (near ? ACC_DEEP : '#C3C9D0'),
+        w: on ? 0.6 : (near ? 0.34 : 0.24),
+        o: on ? 1 : (near ? 0.75 : 0.4)
+      };
+    });
+
+    const pairs = [];
+    mods.forEach((m, i) => m.rel.forEach(j => {
+      const key = Math.min(i, j) + '-' + Math.max(i, j);
+      if (pairs.indexOf(key) < 0) pairs.push(key);
+    }));
+    const solChords = pairs.map(k => {
+      const [i, j] = k.split('-').map(Number);
+      const a = pt(i, R - NODE_R - 0.4), b = pt(j, R - NODE_R - 0.4);
+      const mid = { x: (a.x + b.x) / 2, y: (a.y + b.y) / 2 };
+      const dx = mid.x - 50, dy = mid.y - 50;
+      const len = Math.max(0.001, Math.hypot(dx, dy));
+      const ctrl = { x: 50 + dx / len * (len * 0.55 + 6), y: 50 + dy / len * (len * 0.55 + 6) };
+      const on = i === si || j === si;
+      return {
+        d: 'M' + a.x.toFixed(2) + ' ' + a.y.toFixed(2) + ' Q' + ctrl.x.toFixed(2) + ' ' + ctrl.y.toFixed(2) + ' ' + b.x.toFixed(2) + ' ' + b.y.toFixed(2),
+        stroke: on ? ACC : '#C3C9D0',
+        w: on ? 0.34 : 0.18,
+        o: on ? 0.9 : 0.28
+      };
+    });
+
+    const solMod = mods[si];
+    const solActive = {
+      label: solMod.label,
+      related: solMod.rel.map(i => mods[i].label).join(' · '),
+      chain: solMod.chain.map((c, k) => ({
+        label: c,
+        color: k === 0 ? INK : '#3E4650',
+        border: k === 0 ? ACC : '#DDE1E6',
+        bg: k === solMod.chain.length - 1 ? '#FCEBCC' : '#FFFFFF'
+      }))
+    };
+
+    // ---------- Système 02 · comment ça fonctionne ----------
+    const st = this.state.howStep;
+    // ---------- Système 03 · cockpit affaire ----------
+    const cockData = [
+      { label: 'Budget', note: 'prévu · engagé · réel', x: 150, y: 110, side: 'l' },
+      { label: 'Achats', note: 'DA · consultation · BC', x: 150, y: 270, side: 'l' },
+      { label: 'Sous-traitance', note: 'contrats · attachements', x: 150, y: 430, side: 'l' },
+      { label: 'Stock', note: 'entrées · sorties · transferts', x: 1190, y: 110, side: 'r' },
+      { label: 'Ressources', note: 'affectations · pointage', x: 1190, y: 270, side: 'r' },
+      { label: 'Avancement', note: 'quantités réalisées', x: 1190, y: 430, side: 'r' },
+      { label: 'Performance', note: 'écarts · rentabilité', x: 670, y: 580, side: 'b' }
+    ];
+    const captions = [
+      "Le budget de l'affaire est la référence : chaque engagement et chaque dépense s'y rattache.",
+      "Demandes, consultations et commandes de ce chantier restent liées à sa ligne budgétaire.",
+      "Contrats, attachements et décomptes des sous-traitants sont rattachés à la même affaire.",
+      "Réceptions, sorties et transferts alimentent la consommation matière de l'affaire.",
+      "Affectations et pointages rapprochent les heures réalisées des ressources prévues.",
+      "L'avancement physique daté du chantier alimente directement la comparaison budgétaire.",
+      "Écarts et rentabilité sont calculés sur les données de l'affaire, sans reconstruction."
+    ];
+    const ci = this.state.cock;
+    const cockNodes = cockData.map((c, i) => {
+      const on = i === ci;
+      return {
+        label: c.label, note: c.note,
+        left: (c.x / 1340 * 100).toFixed(2) + '%',
+        top: (c.y / 640 * 100).toFixed(2) + '%',
+        border: on ? ACC : '#DDE1E6',
+        bg: on ? '#FCEBCC' : '#FFFFFF',
+        dot: on ? ACC_DEEP : '#C3C9D0',
+        dim: on ? 1 : 0.78,
+        enter: () => this.setState({ cock: i })
+      };
+    });
+    const cockLines = cockData.map((c, i) => {
+      const on = i === ci;
+      let start, end, ctrl;
+      if (c.side === 'l') {
+        start = { x: c.x + 88, y: c.y };
+        end = { x: 404, y: Math.min(470, Math.max(90, c.y * 0.72 + 70)) };
+        ctrl = { x: (start.x + end.x) / 2 + 40, y: (start.y + end.y) / 2 };
+      } else if (c.side === 'r') {
+        start = { x: c.x - 88, y: c.y };
+        end = { x: 936, y: Math.min(470, Math.max(90, c.y * 0.72 + 70)) };
+        ctrl = { x: (start.x + end.x) / 2 - 40, y: (start.y + end.y) / 2 };
+      } else {
+        start = { x: c.x, y: c.y - 42 };
+        end = { x: 670, y: 488 };
+        ctrl = { x: 670, y: (start.y + end.y) / 2 };
+      }
+      return {
+        d: 'M' + start.x + ' ' + start.y + ' Q' + ctrl.x.toFixed(0) + ' ' + ctrl.y.toFixed(0) + ' ' + end.x + ' ' + end.y.toFixed(0),
+        stroke: on ? ACC : '#C3C9D0',
+        w: on ? 2.4 : 1.2,
+        o: on ? 1 : 0.55,
+        marker: on ? 'url(#bp-arrow-on)' : 'url(#bp-arrow)'
+      };
+    });
+
+    const modules = [
+      {
+        num: '01', label: 'Chiffrage & devis', bg: '#FFFFFF', dir: 'row',
+        title: "Construisez vos prix avant de construire le projet.",
+        text: "Structurez vos DPGF, calculez vos déboursés secs et vos frais, appliquez vos profils commerciaux et gardez la maîtrise de votre marge dès l'étude.",
+        tags: ['DPGF', 'Bibliothèque de prix', 'Déboursés secs', 'Frais', 'Profils commerciaux', 'Marges'],
+        cta: 'Découvrir le chiffrage →', frame: 'bopera · devis & chiffrage',
+        file: 'assets/ui-chiffrage-desktop.png', width: '1600 px', alt: 'Écran Bopera — devis : import DPGF, sous-détail de prix, prix de vente HT',
+        hasFlow: false, flow: [], hasImg2: false
+      },
+      {
+        num: '02', label: 'Achats & sous-traitance', bg: '#FBFBFC', dir: 'row-reverse',
+        title: "Du besoin chantier jusqu'à l'engagement.",
+        text: "Centralisez les demandes, consultations fournisseurs, comparatifs, validations, bons de commande et contrats dans un seul processus.",
+        tags: ['Demande d’achat', 'Consultation', 'Comparatif', 'Bon de commande', 'Contrat'],
+        cta: 'Découvrir les achats →', frame: 'bopera · demande d’achat',
+        file: 'assets/ui-achats-desktop.png', width: '1600 px', alt: 'Écran Bopera — demande d’achat et workflow de validation',
+        hasFlow: true,
+        flow: [
+          { label: 'Besoin', color: '#5B6675' }, { label: '→', color: '#C3C9D0' },
+          { label: 'DA', color: '#5B6675' }, { label: '→', color: '#C3C9D0' },
+          { label: 'Consultation', color: '#5B6675' }, { label: '→', color: '#C3C9D0' },
+          { label: 'Comparatif', color: '#5B6675' }, { label: '→', color: '#C3C9D0' },
+          { label: 'Validation', color: '#5B6675' }, { label: '→', color: '#C3C9D0' },
+          { label: 'BC / Contrat', color: '#C9820A' }
+        ],
+        hasImg2: false
+      },
+      {
+        num: '03', label: 'Stock & magasin', bg: '#FFFFFF', dir: 'row',
+        title: "Sachez ce qui entre, ce qui sort et où se trouve votre stock.",
+        text: "Gérez les réceptions fournisseurs, les sorties chantier, les transferts inter-affaires, le dépôt principal et les inventaires avec une traçabilité complète.",
+        tags: ['Réceptions', 'Sorties', 'Transferts', 'Inventaire', 'Stock par affaire', 'Dépôt principal'],
+        cta: 'Découvrir le stock →', frame: 'bopera · stock & flux magasin',
+        file: 'assets/ui-stock-desktop.png', width: '1600 px', alt: 'Écran Bopera — stock disponible, réservé et mouvements récents',
+        hasFlow: false, flow: [], hasImg2: false
+      },
+      {
+        num: '04', label: "Ressources & main-d'œuvre", bg: '#FBFBFC', dir: 'row-reverse',
+        title: "Mesurez les ressources réellement consommées.",
+        text: "Centralisez les ouvriers, les affectations et les pointages afin de rapprocher les heures réalisées des ressources prévues.",
+        tags: ['Ouvriers', 'Affectations', 'Pointage', 'Heures', 'Coût réel'],
+        cta: 'Découvrir les ressources →', frame: 'bopera · pointage des ressources',
+        file: 'assets/ui-ressources-desktop.png', width: '1600 px', alt: 'Écran Bopera — pointage quotidien, heures normales et supplémentaires',
+        hasFlow: false, flow: [], hasImg2: false
+      },
+      {
+        num: '05', label: 'Budget & avancement', bg: '#FFFFFF', dir: 'row',
+        title: "Détectez les écarts avant qu'ils ne deviennent des pertes.",
+        text: "Comparez le budget initial, les engagements, les consommations et les dépenses réelles avec l'avancement réellement exécuté.",
+        tags: ['Prévu', 'Engagé', 'Réel', 'Avancement', 'Écarts', 'WBS chantier'],
+        cta: 'Découvrir le budget →', frame: 'bopera · budget par activité',
+        file: 'assets/ui-budget-desktop.png', width: '1920 px', alt: 'Écran Bopera — budget, engagé, réalisé et écarts par activité',
+        hasFlow: false, flow: [], hasImg2: false
+      },
+      {
+        num: '06', label: 'Attachements & décomptes', bg: '#FBFBFC', dir: 'row-reverse',
+        title: "Reliez l'exécution terrain à la gestion financière.",
+        text: "Suivez les prestations exécutées, contrôlez les quantités attachées et préparez vos situations et décomptes à partir des données réelles du chantier.",
+        tags: ['Attachements', 'Situations', 'Décomptes', 'Sous-traitance'],
+        cta: 'Découvrir les décomptes →', frame: 'bopera · contrat de sous-traitance',
+        file: 'assets/ui-soustraitance-desktop.png', width: '1600 px', alt: 'Écran Bopera — contrat de sous-traitance, attachements et décomptes',
+        hasFlow: true,
+        flow: [
+          { label: 'Exécution', color: '#5B6675' }, { label: '→', color: '#C3C9D0' },
+          { label: 'Attachement', color: '#5B6675' }, { label: '→', color: '#C3C9D0' },
+          { label: 'Validation', color: '#5B6675' }, { label: '→', color: '#C3C9D0' },
+          { label: 'Décompte', color: '#C9820A' }
+        ],
+        hasImg2: false
+      }
+    ];
+
+    const wfData = [
+      ['Conducteur travaux', 'Crée la demande d’achat', 'Validé', '15/05 · 09:12'],
+      ['Demande d’achat DA-2026-045', 'Acier HA16 · 10 000 kg', 'Émise', '15/05 · 09:12'],
+      ['Responsable chantier', 'Contrôle le besoin et la ligne budgétaire', 'Validé', '15/05 · 11:40'],
+      ['Direction achats', 'Vérifie la consultation et le comparatif', 'Validé', '16/05 · 08:05'],
+      ['Direction', 'Autorise l’engagement', 'En attente', '—'],
+      ['Bon de commande', 'Émis au fournisseur retenu', 'À venir', '—']
+    ];
+    const wa = this.state.wfActive;
+    const wfSteps = wfData.map((w, i) => {
+      const done = i <= wa;
+      const current = i === wa + 1;
+      return {
+        role: w[0], action: w[1], time: done ? w[3] : '—',
+        status: done ? w[2] : (current ? 'En attente' : 'À venir'),
+        statusColor: done ? '#3E7A50' : (current ? '#C9820A' : '#B4BCC4'),
+        icon: done ? '✓' : String(i + 1),
+        dotBg: done ? '#F5A623' : '#FFFFFF',
+        dotBorder: done ? '#F5A623' : '#DDE1E6',
+        dotColor: done ? '#23292F' : '#8A949F',
+        titleColor: done || current ? '#1B1F24' : '#9AA4AF'
+      };
+    });
+
+    const personaData = [
+      {
+        label: 'Direction générale', num: '01',
+        headline: "Une vision consolidée de la performance de toutes vos affaires.",
+        text: "Le pilotage global s'appuie sur les mêmes données que les équipes opérationnelles : budget, engagements et avancement par affaire.",
+        points: ['Tableaux de bord multi-affaires', 'Comparaison budget / engagé / réel', 'Alertes sur écarts'],
+        file: 'assets/ui-pilotage-desktop.png', width: '1920 px', frame: 'bopera · pilotage & reporting',
+        alt: 'Écran Bopera — pilotage et reporting'
+      },
+      {
+        label: 'Direction travaux / chef de projet', num: '02',
+        headline: "Budget, ressources, achats et avancement au même endroit.",
+        text: "Chaque affaire regroupe son budget, ses engagements, ses ressources et son avancement, sans ressaisie.",
+        points: ['Budget par activité', 'Avancement des quantités', 'Suivi des demandes d’achat'],
+        file: 'assets/ui-budget-desktop.png', width: '1920 px', frame: 'bopera · budget par activité',
+        alt: 'Écran Bopera — budget par activité'
+      },
+      {
+        label: 'Achats', num: '03',
+        headline: "Des besoins chantier jusqu'aux commandes et contrats.",
+        text: "Demandes, consultations, comparatifs et validations restent rattachés à l'affaire et à la ligne budgétaire concernée.",
+        points: ['Consultations fournisseurs', 'Comparatif d’offres', 'Bons de commande et contrats'],
+        file: 'assets/ui-achats-desktop.png', width: '1600 px', frame: 'bopera · demande d’achat',
+        alt: 'Écran Bopera — demande d’achat'
+      },
+      {
+        label: 'Finance / contrôle de gestion', num: '04',
+        headline: "Comparez le prévu, l'engagé, le consommé et le réel.",
+        text: "Les factures et paiements s'appuient sur les engagements et réceptions déjà enregistrés.",
+        points: ['Factures fournisseurs et sous-traitants', 'Rapprochement avec les engagements', 'Suivi des paiements'],
+        file: 'assets/ui-finance-desktop.png', width: '1600 px', frame: 'bopera · comptabilité & finance',
+        alt: 'Écran Bopera — comptabilité et finance'
+      },
+      {
+        label: 'Magasin / chantier', num: '05',
+        headline: "Enregistrez les mouvements au plus près du terrain.",
+        text: "Entrées, sorties, transferts et inventaires sont saisis là où ils se produisent et alimentent la consommation de l'affaire.",
+        points: ['Entrées et sorties', 'Transferts inter-affaires', 'Alertes stock mini'],
+        file: 'assets/ui-stock-desktop.png', width: '1600 px', frame: 'bopera · stock & flux magasin',
+        alt: 'Écran Bopera — stock et flux magasin'
+      }
+    ];
+    this._personaFiles = personaData.map(p => p.file);
+    const pi = this.state.persona;
+    const personaTabs = personaData.map((p, i) => ({
+      label: p.label, num: p.num,
+      color: i === pi ? '#1B1F24' : '#8A949F',
+      line: i === pi ? '#F5A623' : 'transparent',
+      select: () => this.setState({ persona: i })
+    }));
+
+    const f = this.state.form || {}, er = this.state.errors || {};
+    const field = (id, label, span, kind, extra) => {
+      const e = er[id];
+      const filled = (f[id] || '').trim().length > 0;
+      return Object.assign({
+        id, label, span,
+        isText: kind === 'text', isSelect: kind === 'select', isArea: kind === 'area',
+        type: (extra && extra.type) || 'text',
+        placeholder: (extra && extra.placeholder) || '',
+        options: (extra && extra.options) || [],
+        onChange: this.setField(id),
+        border: e ? '#C05A45' : (filled ? '#3E7A50' : '#DDE1E6'),
+        hint: e ? e : (filled ? '✓' : ''),
+        hintColor: e ? '#C05A45' : '#3E7A50'
+      });
+    };
+
+    return Object.assign({}, {
+      steps,
+      benefits: [
+        { label: 'Centralisation des données', text: "Toutes les informations de l'affaire dans une source commune.", isData: true, isLink: false, isTime: false, isMargin: false },
+        { label: 'Processus connectés', text: "Chaque processus transmet ses informations aux étapes suivantes.", isData: false, isLink: true, isTime: false, isMargin: false },
+        { label: 'Pilotage en temps réel', text: "Suivez engagements, consommations, validations, écarts et avancement.", isData: false, isLink: false, isTime: true, isMargin: false },
+        { label: 'Contrôle des marges', text: "Reliez budget, dépenses et avancement pour détecter les dérives.", isData: false, isLink: false, isTime: false, isMargin: true }
+      ],
+      solNodes, solSpokes, solChords, solActive,
+      showPreviews: true,
+      previewSlots: [
+        { left: '9%', top: '8%', file: 'assets/ui-chiffrage-desktop.png' },
+        { left: '91%', top: '8%', file: 'assets/ui-achats-desktop.png' },
+        { left: '91%', top: '92%', file: 'assets/ui-pilotage-desktop.png' },
+        { left: '9%', top: '92%', file: 'assets/ui-stock-desktop.png' }
+      ],
+      cockNodes, cockLines,
+      cockCaption: captions[ci],
+      moduleTags: ['DPGF', 'Bibliothèque de prix', 'Déboursés secs', 'Frais', 'Profils commerciaux', 'Marges'],
+      assetManifest: [
+        { file: 'assets/ui-chiffrage-desktop.png', screen: 'Devis — DPGF, sous-détail de prix, prix de vente', width: '1600 px' },
+        { file: 'assets/ui-achats-desktop.png', screen: "Demande d'achat avec circuit de validation", width: '1600 px' },
+        { file: 'assets/ui-stock-desktop.png', screen: 'Stock & flux magasin — mouvements et inventaire', width: '1600 px' },
+        { file: 'assets/ui-ressources-desktop.png', screen: 'Pointage hebdomadaire des ressources', width: '1600 px' },
+        { file: 'assets/ui-budget-desktop.png', screen: 'Budget par activité — prévu, engagé, réel, écart', width: '1920 px' },
+        { file: 'assets/ui-soustraitance-desktop.png', screen: 'Contrat de sous-traitance, attachements, décomptes', width: '1600 px' },
+        { file: 'assets/ui-affaire-cockpit-desktop.png', screen: "Page affaire complète (cockpit)", width: '1920 px' },
+        { file: 'assets/ui-pilotage-desktop.png', screen: 'Pilotage & reporting — indicateurs et rentabilité', width: '1920 px' }
+      ],
+
+      modules: modules.map(m => Object.assign({ ready: true }, m)),
+      personaReady: true,
+      wfSteps,
+      wfStatus: wa >= 4 ? 'En attente · Direction' : (wa < 0 ? 'En attente' : 'En cours de validation'),
+      wfFacts: [
+        { label: 'Rôles & permissions', text: "Chaque profil ne voit et ne valide que ce qui relève de son périmètre." },
+        { label: 'Niveaux de validation', text: "Le nombre de niveaux et leur ordre se paramètrent par type de pièce et par montant." },
+        { label: 'Historique & traçabilité', text: "Chaque opération conserve son auteur, sa date et son statut." }
+      ],
+      personaTabs,
+      persona: personaData[pi],
+      journey: ['Affaire', 'Chiffrage', 'DA', 'BC', 'Réception', 'Stock', 'Avancement', 'Pilotage'],
+      formSent: this.state.sent,
+      formOpen: !this.state.sent,
+      submitForm: this.submitForm,
+      formPromises: [
+        "Démonstration guidée sur vos propres processus.",
+        "Aucune installation requise pour la présentation."
+      ],
+      formFields: [
+        field('prenom', 'Prénom', 'span 1', 'text', { placeholder: 'Prénom' }),
+        field('nom', 'Nom', 'span 1', 'text', { placeholder: 'Nom' }),
+        field('entreprise', 'Entreprise', 'span 1', 'text', { placeholder: 'Raison sociale' }),
+        field('fonction', 'Fonction', 'span 1', 'text', { placeholder: 'Directeur travaux…' }),
+        field('email', 'E-mail professionnel', 'span 1', 'text', { type: 'email', placeholder: 'nom@entreprise.com' }),
+        field('telephone', 'Téléphone', 'span 1', 'text', { type: 'tel', placeholder: '+212 …' }),
+        field('taille', "Taille de l'entreprise", 'span 1', 'select', { options: ['Moins de 50 collaborateurs', '50 à 200', '200 à 500', 'Plus de 500'] }),
+        field('secteur', 'Secteur BTP', 'span 1', 'select', { options: ['Bâtiment', 'Travaux publics', 'Génie civil & infrastructure'] }),
+        field('besoin', 'Votre besoin', 'span 2', 'area', { placeholder: 'Modules prioritaires, organisation, échéance…' })
+      ],
+      footerCols: [
+        { title: 'Produit', items: ['Chiffrage', 'Achats', 'Stock', 'Budget', 'Ressources', 'Avancement'] },
+        { title: 'Solutions', items: ['Bâtiment', 'Travaux publics', 'Génie civil & infrastructure'] },
+        { title: 'Bopera', items: ['À propos', 'Contact', 'Demander une démo', 'Connexion'] },
+        { title: 'Légal', items: ['Mentions légales', 'Confidentialité', 'Cookies'] }
+      ]
+    });
+  }
+}
+</script>
+</body>
+</html>

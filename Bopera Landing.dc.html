@@ -1,0 +1,1108 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="" />
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<style>
+  body { margin: 0; background: #FFFFFF; font-family: "IBM Plex Sans", system-ui, sans-serif; color: #23292F; -webkit-font-smoothing: antialiased; }
+  * { box-sizing: border-box; }
+  a { color: #23292F; text-decoration: none; }
+  a:hover { color: #C9820A; }
+  ::selection { background: #F5A62333; }
+  .rv { opacity: 0; transform: translateY(18px); transition: opacity .8s ease, transform .8s cubic-bezier(.2,.7,.2,1); }
+  .rv.in { opacity: 1; transform: none; }
+  @keyframes floaty { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
+  @media (prefers-reduced-motion: reduce) {
+    .rv { opacity: 1 !important; transform: none !important; transition: none; }
+    * { animation: none !important; }
+  }
+</style>
+</helmet>
+
+<header style="position: sticky; top: 0; z-index: 60; background: rgba(255,255,255,.94); backdropFilter: blur(8px); borderBottom: 1px solid #E7EAED;">
+  <div style="max-width: 1340px; margin: 0 auto; padding: 16px 40px; display: flex; alignItems: center; gap: 40px;">
+    <a href="#top" style="display: flex; alignItems: center; gap: 10px;">
+      <img src="assets/bopera-mark.png" alt="Bopera" style="height: 25px; width: auto; display: block;" />
+      <img src="assets/bopera-word.png" alt="" style="height: 18px; width: auto; display: block;" />
+    </a>
+    <nav style="display: flex; alignItems: center; gap: 28px;">
+      <a href="#produit" style="fontSize: 14.5px; fontWeight: 500; color: #4A5460;" style-hover="color: #23292F;">Produit</a>
+      <a href="#modules" style="fontSize: 14.5px; fontWeight: 500; color: #4A5460;" style-hover="color: #23292F;">Modules</a>
+      <a href="#pourqui" style="fontSize: 14.5px; fontWeight: 500; color: #4A5460;" style-hover="color: #23292F;">Pour qui ?</a>
+      <a href="#pourquoi" style="fontSize: 14.5px; fontWeight: 500; color: #4A5460;" style-hover="color: #23292F;">Pourquoi Bopera ?</a>
+      <a href="#tarifs" style="fontSize: 14.5px; fontWeight: 500; color: #4A5460;" style-hover="color: #23292F;">Tarifs</a>
+    </nav>
+    <div style="marginLeft: auto; display: flex; alignItems: center; gap: 22px;">
+      <a href="#login" style="fontSize: 14px; fontWeight: 500; color: #6B7684;" style-hover="color: #23292F;">Se connecter</a>
+      <a href="#demo" style="background: #F5A623; color: #23292F; fontSize: 14.5px; fontWeight: 600; padding: 12px 20px; borderRadius: 2px; boxShadow: inset 0 -2px 0 rgba(0,0,0,.10);" style-hover="background: #FFB93A;">Demander une démo</a>
+    </div>
+  </div>
+</header>
+
+<main id="top">
+
+  <section style="position: relative; padding: 84px 40px 96px; overflow: hidden;">
+    <svg viewBox="0 0 1440 900" preserveAspectRatio="xMidYMid slice" aria-hidden="true" style="position: absolute; inset: 0; width: 100%; height: 100%; pointerEvents: none;">
+      <defs><pattern id="bpgrid" width="88" height="88" patternUnits="userSpaceOnUse"><path d="M88 0H0V88" fill="none" stroke="#23292F" stroke-width="1" opacity="0.05" /></pattern></defs>
+      <rect width="1440" height="900" fill="url(#bpgrid)" />
+      <line x1="0" y1="264" x2="1440" y2="264" stroke="#F5A623" stroke-width="1" opacity="0.25" />
+      <line x1="1056" y1="0" x2="1056" y2="900" stroke="#23292F" stroke-width="1" opacity="0.08" />
+    </svg>
+    <div style="position: relative; max-width: 1340px; margin: 0 auto; display: grid; gridTemplateColumns: 45fr 55fr; gap: 48px; alignItems: center;">
+      <div class="rv">
+        <div style="display: flex; alignItems: center; gap: 10px; marginBottom: 28px;">
+          <span style="width: 22px; height: 2px; background: #F5A623; display: block;"></span>
+          <span style="fontFamily: 'IBM Plex Mono', monospace; fontSize: 11.5px; letterSpacing: 0.14em; textTransform: uppercase; color: #5B6675;">La plateforme de pilotage dédiée au BTP</span>
+        </div>
+        <h1 style="fontFamily: Archivo, sans-serif; fontWeight: 700; fontSize: 60px; lineHeight: 1.04; letterSpacing: -0.034em; margin: 0 0 26px; color: #1B1F24;">
+          Pilotez vos <span style="color: #C9820A;">chantiers</span>.<br />
+          Maîtrisez vos <span style="color: #C9820A;">coûts</span>.<br />
+          Protégez vos <span style="color: #C9820A;">marges</span>.
+        </h1>
+        <p style="fontSize: 18px; lineHeight: 1.62; color: #4A5460; margin: 0 0 14px; maxWidth: 548px; textWrap: pretty;">Bopera centralise le chiffrage, les achats, la sous-traitance, les ressources, les stocks, le budget et l'avancement de vos chantiers sur une seule plateforme.</p>
+        <p style="fontSize: 16px; lineHeight: 1.62; color: #6B7684; margin: 0 0 36px; maxWidth: 530px; textWrap: pretty;">Du bureau jusqu'au terrain, toute votre entreprise travaille avec la même information, en temps réel.</p>
+        <div style="display: flex; alignItems: center; gap: 14px; marginBottom: 28px;">
+          <a href="#demo" style="background: #F5A623; color: #23292F; fontSize: 16px; fontWeight: 600; padding: 16px 28px; borderRadius: 2px; boxShadow: inset 0 -2px 0 rgba(0,0,0,.10);" style-hover="background: #FFB93A;">Demander une démo</a>
+          <a href="#promesse" style="color: #23292F; fontSize: 16px; fontWeight: 600; padding: 16px 24px; borderRadius: 2px; border: 1px solid #D6DBE0; background: #FFFFFF;" style-hover="border: 1px solid #23292F; background: #F6F7F8;">Découvrir Bopera <span style="color: #C9820A;">↓</span></a>
+        </div>
+        <div style="display: flex; alignItems: center; gap: 13px; fontFamily: 'IBM Plex Mono', monospace; fontSize: 11.5px; letterSpacing: 0.11em; textTransform: uppercase; color: #5B6675;">
+          <span>Visibilité</span><span style="color: #F5A623;">•</span><span>Maîtrise</span><span style="color: #F5A623;">•</span><span>Performance</span>
+        </div>
+      </div>
+
+      <div class="rv" style="position: relative; paddingLeft: 200px; paddingTop: 40px; paddingBottom: 200px;">
+        <div style="border: 1px solid #DDE1E6; background: #FFFFFF; boxShadow: 0 30px 70px -34px rgba(27,31,36,.34);">
+          <div style="display: flex; alignItems: center; gap: 12px; padding: 10px 14px; borderBottom: 1px solid #E7EAED; background: #F6F7F8;">
+            <span style="display: flex; gap: 6px;">
+              <span style="width: 8px; height: 8px; borderRadius: 50%; background: #CFD5DB; display: block;"></span>
+              <span style="width: 8px; height: 8px; borderRadius: 50%; background: #CFD5DB; display: block;"></span>
+              <span style="width: 8px; height: 8px; borderRadius: 50%; background: #CFD5DB; display: block;"></span>
+            </span>
+            <span style="fontFamily: 'IBM Plex Mono', monospace; fontSize: 10.5px; color: #8A949F;">bopera · affaire / budget par activité</span>
+          </div>
+          <img src="assets/ui-budget.png" alt="Écran Bopera — budget par activité, engagé, réalisé et écarts" style="width: 100%; height: auto; display: block;" />
+        </div>
+        <div style="position: absolute; top: 22%; left: 0; width: 184px; border: 1px solid #DDE1E6; background: #FFFFFF; boxShadow: 0 18px 40px -22px rgba(27,31,36,.4); animation: floaty 9s ease-in-out infinite .6s;">
+          <div style="fontFamily: 'IBM Plex Mono', monospace; fontSize: 8.5px; letterSpacing: 0.12em; textTransform: uppercase; color: #8A949F; padding: 8px 10px 6px; borderBottom: 1px solid #E7EAED;">Avancement chantier · Bopera</div>
+          <img src="assets/ui-avancement2.png" alt="Écran Bopera — avancement chantier" style="width: 100%; height: auto; display: block;" />
+        </div>
+        <div style="position: absolute; bottom: 0; right: 0; width: 252px; border: 1px solid #DDE1E6; background: #FFFFFF; boxShadow: 0 18px 40px -22px rgba(27,31,36,.4); animation: floaty 8s ease-in-out infinite .2s;">
+          <div style="fontFamily: 'IBM Plex Mono', monospace; fontSize: 8.5px; letterSpacing: 0.12em; textTransform: uppercase; color: #8A949F; padding: 8px 10px 6px; borderBottom: 1px solid #E7EAED;">Pointage des ressources · Bopera</div>
+          <img src="assets/ui-ressources.png" alt="Écran Bopera — pointage des ressources" style="width: 100%; height: auto; display: block;" />
+        </div>
+        <div style="position: absolute; top: 0; left: 200px; background: #1B1F24; padding: 9px 13px; boxShadow: 0 18px 40px -22px rgba(27,31,36,.5);">
+          <span style="fontFamily: 'IBM Plex Mono', monospace; fontSize: 9.5px; letterSpacing: 0.12em; textTransform: uppercase; color: #F5A623;">Captures réelles Bopera</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="produit" style="padding: 42px 40px; borderTop: 1px solid #E7EAED; borderBottom: 1px solid #E7EAED; background: #FBFBFC;">
+    <div class="rv" style="max-width: 1340px; margin: 0 auto; display: flex; alignItems: center; gap: 56px; flexWrap: wrap;">
+      <h2 style="fontFamily: Archivo, sans-serif; fontWeight: 600; fontSize: 21px; letterSpacing: -0.025em; margin: 0; color: #1B1F24;">Conçu pour les entreprises qui construisent.</h2>
+      <div style="display: flex; alignItems: center; gap: 28px; marginLeft: auto; flexWrap: wrap;">
+        <span style="fontFamily: 'IBM Plex Mono', monospace; fontSize: 12px; letterSpacing: 0.12em; textTransform: uppercase; color: #3E4650;">Bâtiment</span>
+        <span style="width: 1px; height: 14px; background: #D6DBE0; display: block;"></span>
+        <span style="fontFamily: 'IBM Plex Mono', monospace; fontSize: 12px; letterSpacing: 0.12em; textTransform: uppercase; color: #3E4650;">Travaux publics</span>
+        <span style="width: 1px; height: 14px; background: #D6DBE0; display: block;"></span>
+        <span style="fontFamily: 'IBM Plex Mono', monospace; fontSize: 12px; letterSpacing: 0.12em; textTransform: uppercase; color: #3E4650;">Génie civil</span>
+        <span style="width: 1px; height: 14px; background: #D6DBE0; display: block;"></span>
+        <span style="fontFamily: 'IBM Plex Mono', monospace; fontSize: 12px; letterSpacing: 0.12em; textTransform: uppercase; color: #3E4650;">Infrastructure</span>
+      </div>
+    </div>
+  </section>
+
+  <section style="padding: 104px 40px 112px;">
+    <div style="max-width: 1340px; margin: 0 auto;">
+      <div class="rv" style="display: grid; gridTemplateColumns: 1fr 1fr; gap: 64px; alignItems: end; marginBottom: 64px;">
+        <div>
+          <div style="fontFamily: 'IBM Plex Mono', monospace; fontSize: 11.5px; letterSpacing: 0.14em; textTransform: uppercase; color: #8A949F; marginBottom: 20px;">Le problème</div>
+          <h2 style="fontFamily: Archivo, sans-serif; fontWeight: 700; fontSize: 45px; lineHeight: 1.08; letterSpacing: -0.03em; margin: 0; color: #1B1F24;">Votre chantier avance.<br />Vos données doivent suivre.</h2>
+        </div>
+        <p style="fontSize: 17.5px; lineHeight: 1.65; color: #5B6675; margin: 0; maxWidth: 520px; textWrap: pretty;">Excel, WhatsApp, e-mails, documents papier et logiciels déconnectés rendent le pilotage du chantier complexe.</p>
+      </div>
+
+      <div style="display: grid; gridTemplateColumns: 1fr 1fr; gap: 1px; background: #E7EAED; border: 1px solid #E7EAED;">
+
+        <div class="rv" style="background: #FFFFFF; padding: 36px 40px 32px;">
+          <div style="display: flex; alignItems: baseline; gap: 14px; marginBottom: 14px;">
+            <span style="fontFamily: 'IBM Plex Mono', monospace; fontSize: 12px; color: #C9820A;">01</span>
+            <h3 style="fontFamily: Archivo, sans-serif; fontWeight: 600; fontSize: 22px; letterSpacing: -0.022em; margin: 0; color: #1B1F24;">Informations dispersées</h3>
+          </div>
+          <p style="fontSize: 15.5px; lineHeight: 1.6; color: #5B6675; margin: 0 0 28px; maxWidth: 450px;">Les données commerciales, achats, stocks, ressources et chantier sont réparties entre plusieurs outils.</p>
+          <div style="position: relative; height: 140px;">
+            <sc-for list="{{ files }}" as="f" hint-placeholder-count="4">
+              <div style="position: absolute; left: {{ f.left }}; top: {{ f.top }}; transform: rotate({{ f.rot }}); width: 132px; border: 1px solid #DDE1E6; background: #FFFFFF; boxShadow: 0 10px 20px -14px rgba(27,31,36,.35);">
+                <div style="display: flex; alignItems: center; gap: 6px; padding: 5px 8px; borderBottom: 1px solid #E7EAED; background: #F6F7F8;">
+                  <span style="width: 6px; height: 6px; background: {{ f.tint }}; display: block;"></span>
+                  <span style="fontFamily: 'IBM Plex Mono', monospace; fontSize: 8.5px; color: #6B7684;">{{ f.name }}</span>
+                </div>
+                <div style="padding: 8px; display: grid; gap: 5px;">
+                  <span style="height: 3px; background: #E9ECEF; display: block; width: 88%;"></span>
+                  <span style="height: 3px; background: #E9ECEF; display: block; width: 64%;"></span>
+                  <span style="height: 3px; background: #E9ECEF; display: block; width: 76%;"></span>
+                </div>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+
+        <div class="rv" style="background: #FFFFFF; padding: 36px 40px 32px;">
+          <div style="display: flex; alignItems: baseline; gap: 14px; marginBottom: 14px;">
+            <span style="fontFamily: 'IBM Plex Mono', monospace; fontSize: 12px; color: #C9820A;">02</span>
+            <h3 style="fontFamily: Archivo, sans-serif; fontWeight: 600; fontSize: 22px; letterSpacing: -0.022em; margin: 0; color: #1B1F24;">Dépenses découvertes trop tard</h3>
+          </div>
+          <p style="fontSize: 15.5px; lineHeight: 1.6; color: #5B6675; margin: 0 0 28px; maxWidth: 450px;">Les écarts budgétaires apparaissent souvent après la consommation des ressources.</p>
+          <div style="border: 1px solid #E7EAED; padding: 14px 16px 10px;">
+            <div style="display: flex; justifyContent: space-between; fontFamily: 'IBM Plex Mono', monospace; fontSize: 9px; letterSpacing: 0.1em; textTransform: uppercase; color: #8A949F; marginBottom: 10px;">
+              <span>Budget prévisionnel</span><span style="color: #C9820A;">Dépenses réelles</span>
+            </div>
+            <svg viewBox="0 0 420 92" style="width: 100%; height: 92px; display: block;" aria-hidden="true">
+              <line x1="0" y1="46" x2="420" y2="46" stroke="#C3C9D0" stroke-width="1" stroke-dasharray="4 4" />
+              <polyline points="0,74 70,70 140,64 210,56 280,40 350,24 420,12" fill="none" stroke="#F5A623" stroke-width="2" />
+              <circle cx="280" cy="40" r="3.5" fill="#F5A623" />
+              <line x1="280" y1="40" x2="280" y2="46" stroke="#F5A623" stroke-width="1" />
+            </svg>
+            <div style="fontFamily: 'IBM Plex Mono', monospace; fontSize: 9.5px; color: #6B7684; marginTop: 4px;">Le dépassement est constaté après coup.</div>
+          </div>
+        </div>
+
+        <div class="rv" style="background: #FFFFFF; padding: 36px 40px 32px;">
+          <div style="display: flex; alignItems: baseline; gap: 14px; marginBottom: 14px;">
+            <span style="fontFamily: 'IBM Plex Mono', monospace; fontSize: 12px; color: #C9820A;">03</span>
+            <h3 style="fontFamily: Archivo, sans-serif; fontWeight: 600; fontSize: 22px; letterSpacing: -0.022em; margin: 0; color: #1B1F24;">Processus difficiles à tracer</h3>
+          </div>
+          <p style="fontSize: 15.5px; lineHeight: 1.6; color: #5B6675; margin: 0 0 28px; maxWidth: 470px;">Demandes, validations, consultations, commandes, contrats, réceptions et attachements se succèdent sans toujours partager la même donnée.</p>
+          <div style="display: flex; alignItems: center; gap: 10px; flexWrap: wrap;">
+            <sc-for list="{{ docs }}" as="d" hint-placeholder-count="5">
+              <div style="border: 1px dashed #C3C9D0; padding: 9px 12px; background: #FBFBFC;">
+                <div style="fontFamily: 'IBM Plex Mono', monospace; fontSize: 10.5px; color: #23292F; letterSpacing: 0.06em;">{{ d.ref }}</div>
+                <div style="fontFamily: 'IBM Plex Mono', monospace; fontSize: 8.5px; color: #9AA4AF; marginTop: 3px;">{{ d.note }}</div>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+
+        <div class="rv" style="background: #FFFFFF; padding: 36px 40px 32px;">
+          <div style="display: flex; alignItems: baseline; gap: 14px; marginBottom: 14px;">
+            <span style="fontFamily: 'IBM Plex Mono', monospace; fontSize: 12px; color: #C9820A;">04</span>
+            <h3 style="fontFamily: Archivo, sans-serif; fontWeight: 600; fontSize: 22px; letterSpacing: -0.022em; margin: 0; color: #1B1F24;">Décisions basées sur des données anciennes</h3>
+          </div>
+          <p style="fontSize: 15.5px; lineHeight: 1.6; color: #5B6675; margin: 0 0 28px; maxWidth: 450px;">Les équipes opérationnelles et la direction ne disposent pas toujours de la même vision.</p>
+          <div style="display: grid; gridTemplateColumns: 1fr 1fr; gap: 12px;">
+            <div style="border: 1px solid #E7EAED; padding: 12px 14px;">
+              <div style="fontFamily: 'IBM Plex Mono', monospace; fontSize: 9px; letterSpacing: 0.1em; textTransform: uppercase; color: #8A949F;">Terrain · aujourd'hui</div>
+              <div style="fontFamily: Archivo, sans-serif; fontWeight: 600; fontSize: 17px; color: #1B1F24; marginTop: 7px;">Avancement 68 %</div>
+            </div>
+            <div style="border: 1px solid #E7EAED; padding: 12px 14px; background: #F6F7F8;">
+              <div style="fontFamily: 'IBM Plex Mono', monospace; fontSize: 9px; letterSpacing: 0.1em; textTransform: uppercase; color: #8A949F;">Reporting · M-1</div>
+              <div style="fontFamily: Archivo, sans-serif; fontWeight: 600; fontSize: 17px; color: #9AA4AF; marginTop: 7px;">Avancement 54 %</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="rv" style="marginTop: 56px; display: flex; alignItems: center; gap: 22px;">
+        <span style="width: 56px; height: 2px; background: #F5A623; display: block; flexShrink: 0;"></span>
+        <p style="fontFamily: Archivo, sans-serif; fontWeight: 600; fontSize: 28px; letterSpacing: -0.028em; lineHeight: 1.28; margin: 0; color: #1B1F24; maxWidth: 900px;">Bopera reconnecte votre entreprise autour d'une seule chaîne de gestion.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="promesse" style="background: #1B1F24; padding: 104px 40px 108px; color: #FFFFFF;">
+    <div style="max-width: 1340px; margin: 0 auto;">
+      <div class="rv" style="display: grid; gridTemplateColumns: 1fr 1fr; gap: 64px; alignItems: end; marginBottom: 76px;">
+        <div>
+          <div style="fontFamily: 'IBM Plex Mono', monospace; fontSize: 11.5px; letterSpacing: 0.14em; textTransform: uppercase; color: #8A949F; marginBottom: 20px;">La promesse Bopera</div>
+          <h2 style="fontFamily: Archivo, sans-serif; fontWeight: 700; fontSize: 52px; lineHeight: 1.04; letterSpacing: -0.032em; margin: 0;">Une donnée.<br />Un processus.<br /><span style="color: #F5A623;">Une vision.</span></h2>
+        </div>
+        <p style="fontSize: 17px; lineHeight: 1.68; color: #A8B0B9; margin: 0; maxWidth: 470px; textWrap: pretty;">Chaque étape du projet alimente la suivante. L'information saisie au chiffrage se retrouve dans le budget, l'engagement, la consommation et l'analyse de performance.</p>
+      </div>
+
+      <div data-timeline="1" style="position: relative;">
+        <div style="position: absolute; left: 0; right: 0; top: 21px; height: 1px; background: #343B43;"></div>
+        <div data-timeline-fill="1" style="position: absolute; left: 0; top: 20px; height: 3px; width: 0%; background: #F5A623; transition: width .18s linear;"></div>
+        <div style="display: grid; gridTemplateColumns: repeat(5, 1fr); gap: 28px; position: relative;">
+          <sc-for list="{{ steps }}" as="st" hint-placeholder-count="5">
+            <div style="paddingTop: 54px; opacity: {{ st.opacity }}; transition: opacity .5s ease;">
+              <span style="position: absolute; top: 14px; width: 15px; height: 15px; borderRadius: 50%; background: {{ st.dotBg }}; border: 2px solid {{ st.dotBorder }}; display: block; transition: background .4s ease, border-color .4s ease;"></span>
+              <div style="fontFamily: 'IBM Plex Mono', monospace; fontSize: 11px; letterSpacing: 0.12em; color: {{ st.numColor }}; marginBottom: 12px; transition: color .4s ease;">{{ st.num }} — {{ st.title }}</div>
+              <p style="fontSize: 15.5px; lineHeight: 1.6; color: #C0C6CD; margin: 0;">{{ st.text }}</p>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section style="padding: 104px 40px 110px; background: #FBFBFC; borderBottom: 1px solid #E7EAED;">
+    <div style="max-width: 1340px; margin: 0 auto;">
+      <div class="rv" style="marginBottom: 20px; fontFamily: 'IBM Plex Mono', monospace; fontSize: 11.5px; letterSpacing: 0.14em; textTransform: uppercase; color: #8A949F;">La chaîne Bopera</div>
+      <h2 class="rv" style="fontFamily: Archivo, sans-serif; fontWeight: 700; fontSize: 45px; lineHeight: 1.1; letterSpacing: -0.03em; margin: 0 0 18px; color: #1B1F24; maxWidth: 900px;">Du chiffrage jusqu'au chantier, la donnée reste connectée.</h2>
+      <p class="rv" style="fontSize: 17px; lineHeight: 1.65; color: #5B6675; margin: 0 0 64px; maxWidth: 620px;">Survolez une étape pour voir ce qu'elle transmet à la suivante. Aucune étape n'existe seule : elles appartiennent toutes à la même chaîne.</p>
+
+      <div class="rv" style="position: relative;">
+        <div style="position: relative; overflowX: auto; paddingBottom: 4px;">
+        <div style="position: absolute; left: 0; right: 0; top: 30px; height: 2px; background: #F5A623; opacity: .35;"></div>
+        <div style="display: grid; gridTemplateColumns: repeat(10, minmax(104px, 1fr)); gap: 10px; position: relative; minWidth: 1120px;">
+          <sc-for list="{{ chain }}" as="c" hint-placeholder-count="10">
+            <div onMouseEnter="{{ c.enter }}" onMouseLeave="{{ c.leave }}" style="cursor: default;">
+              <div style="height: 62px; display: flex; alignItems: center;">
+                <span style="width: 14px; height: 14px; background: {{ c.dot }}; display: block; transform: rotate(45deg); border: 2px solid {{ c.dotBorder }}; transition: background .3s ease;"></span>
+              </div>
+              <div style="fontFamily: 'IBM Plex Mono', monospace; fontSize: 10.5px; letterSpacing: 0.08em; textTransform: uppercase; color: {{ c.labelColor }}; lineHeight: 1.5; transition: color .3s ease;">{{ c.label }}</div>
+            </div>
+          </sc-for>
+        </div>
+        </div>
+        <div style="marginTop: 40px; border: 1px solid #E7EAED; background: #FFFFFF; padding: 26px 30px; display: grid; gridTemplateColumns: 1fr 1.4fr; gap: 40px; alignItems: center; minHeight: 120px;">
+          <div>
+            <div style="fontFamily: 'IBM Plex Mono', monospace; fontSize: 10px; letterSpacing: 0.12em; textTransform: uppercase; color: #C9820A; marginBottom: 10px;">{{ activeChain.step }}</div>
+            <div style="fontFamily: Archivo, sans-serif; fontWeight: 600; fontSize: 22px; letterSpacing: -0.022em; color: #1B1F24;">{{ activeChain.label }}</div>
+          </div>
+          <div>
+            <p style="fontSize: 15.5px; lineHeight: 1.62; color: #5B6675; margin: 0 0 12px;">{{ activeChain.text }}</p>
+            <div style="fontFamily: 'IBM Plex Mono', monospace; fontSize: 11px; color: #23292F; letterSpacing: 0.04em;">→ transmet : <span style="color: #C9820A;">{{ activeChain.passes }}</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="modules" style="padding: 100px 40px 40px;">
+    <div style="max-width: 1340px; margin: 0 auto;">
+      <div class="rv" style="fontFamily: 'IBM Plex Mono', monospace; fontSize: 11.5px; letterSpacing: 0.14em; textTransform: uppercase; color: #8A949F; marginBottom: 20px;">Les modules</div>
+      <h2 class="rv" style="fontFamily: Archivo, sans-serif; fontWeight: 700; fontSize: 45px; lineHeight: 1.1; letterSpacing: -0.03em; margin: 0 0 16px; color: #1B1F24; maxWidth: 860px;">Six processus, un seul produit.</h2>
+      <p class="rv" style="fontSize: 17px; lineHeight: 1.65; color: #5B6675; margin: 0; maxWidth: 620px;">Les écrans présentés ci-dessous sont des captures réelles de la plateforme Bopera.</p>
+    </div>
+  </section>
+
+  <sc-for list="{{ modules }}" as="m" hint-placeholder-count="6">
+    <section style="padding: 60px 40px 64px; background: {{ m.bg }};">
+      <div class="rv" style="max-width: 1340px; margin: 0 auto; display: flex; flexDirection: {{ m.dir }}; gap: 72px; alignItems: center;">
+        <div style="flex: 1 1 0; minWidth: 0;">
+          <div style="display: flex; alignItems: center; gap: 12px; marginBottom: 22px;">
+            <span style="fontFamily: 'IBM Plex Mono', monospace; fontSize: 11.5px; letterSpacing: 0.14em; color: #C9820A;">{{ m.num }}</span>
+            <span style="width: 18px; height: 1px; background: #C3C9D0; display: block;"></span>
+            <span style="fontFamily: 'IBM Plex Mono', monospace; fontSize: 11.5px; letterSpacing: 0.14em; textTransform: uppercase; color: #5B6675;">{{ m.label }}</span>
+          </div>
+          <h3 style="fontFamily: Archivo, sans-serif; fontWeight: 700; fontSize: 34px; lineHeight: 1.14; letterSpacing: -0.028em; margin: 0 0 20px; color: #1B1F24; maxWidth: 520px; textWrap: pretty;">{{ m.title }}</h3>
+          <p style="fontSize: 16.5px; lineHeight: 1.66; color: #5B6675; margin: 0 0 26px; maxWidth: 520px; textWrap: pretty;">{{ m.text }}</p>
+          <div style="display: flex; flexWrap: wrap; gap: 8px; marginBottom: 24px;">
+            <sc-for list="{{ m.tags }}" as="t" hint-placeholder-count="5">
+              <span style="fontFamily: 'IBM Plex Mono', monospace; fontSize: 10.5px; letterSpacing: 0.08em; textTransform: uppercase; color: #3E4650; border: 1px solid #DDE1E6; padding: 7px 11px; background: #FFFFFF;">{{ t }}</span>
+            </sc-for>
+          </div>
+          <sc-if value="{{ m.hasFlow }}" hint-placeholder-val="{{ true }}">
+            <div style="display: flex; alignItems: center; flexWrap: wrap; gap: 10px; borderTop: 1px solid #E7EAED; paddingTop: 22px; marginBottom: 24px;">
+              <sc-for list="{{ m.flow }}" as="f" hint-placeholder-count="5">
+                <span style="fontFamily: 'IBM Plex Mono', monospace; fontSize: 10.5px; letterSpacing: 0.06em; textTransform: uppercase; color: {{ f.color }};">{{ f.label }}</span>
+              </sc-for>
+            </div>
+          </sc-if>
+          <a href="#demo" style="fontSize: 15px; fontWeight: 600; color: #23292F; borderBottom: 1px solid #F5A623; paddingBottom: 3px;" style-hover="color: #C9820A;">{{ m.cta }}</a>
+        </div>
+        <div style="flex: 1 1 0; minWidth: 0; display: flex; justifyContent: center;">
+          <div style="width: 100%; maxWidth: 560px;">
+            <div style="border: 1px solid #DDE1E6; background: #FFFFFF; boxShadow: 0 26px 60px -34px rgba(27,31,36,.3);">
+              <div style="display: flex; alignItems: center; gap: 10px; padding: 9px 13px; borderBottom: 1px solid #E7EAED; background: #F6F7F8;">
+                <span style="width: 7px; height: 7px; borderRadius: 50%; background: #CFD5DB; display: block;"></span>
+                <span style="width: 7px; height: 7px; borderRadius: 50%; background: #CFD5DB; display: block;"></span>
+                <span style="fontFamily: 'IBM Plex Mono', monospace; fontSize: 10px; color: #8A949F; marginLeft: 4px;">{{ m.frame }}</span>
+              </div>
+              <sc-if value="{{ m.ready }}" hint-placeholder-val="{{ false }}">
+                <img src="{{ m.img }}" alt="{{ m.alt }}" style="width: 100%; height: auto; display: block;" />
+              </sc-if>
+            </div>
+            <sc-if value="{{ m.hasImg2 }}" hint-placeholder-val="{{ false }}">
+              <div style="marginTop: 16px; display: flex; gap: 16px;">
+                <div style="flex: 1 1 0; border: 1px solid #DDE1E6; background: #FFFFFF;">
+                  <img src="{{ m.img2 }}" alt="{{ m.alt2 }}" style="width: 100%; height: auto; display: block;" />
+                </div>
+                <div style="flex: 1 1 0; border: 1px solid #DDE1E6; background: #FFFFFF;">
+                  <img src="{{ m.img3 }}" alt="{{ m.alt3 }}" style="width: 100%; height: auto; display: block;" />
+                </div>
+              </div>
+            </sc-if>
+          </div>
+        </div>
+      </div>
+    </section>
+  </sc-for>
+
+  <section id="workflows" style="padding: 104px 40px 108px; background: #FBFBFC; borderTop: 1px solid #E7EAED; borderBottom: 1px solid #E7EAED;">
+    <div style="max-width: 1340px; margin: 0 auto;">
+      <div class="rv" style="display: grid; gridTemplateColumns: 1fr 1fr; gap: 64px; alignItems: end; marginBottom: 56px;">
+        <div>
+          <div style="fontFamily: 'IBM Plex Mono', monospace; fontSize: 11.5px; letterSpacing: 0.14em; textTransform: uppercase; color: #8A949F; marginBottom: 20px;">Gouvernance</div>
+          <h2 style="fontFamily: Archivo, sans-serif; fontWeight: 700; fontSize: 45px; lineHeight: 1.08; letterSpacing: -0.03em; margin: 0; color: #1B1F24;">Vos processus suivent vos règles.</h2>
+        </div>
+        <p style="fontSize: 17px; lineHeight: 1.65; color: #5B6675; margin: 0; maxWidth: 520px;">Paramétrez les rôles, permissions et circuits de validation selon l'organisation de votre entreprise.</p>
+      </div>
+
+      <div style="display: grid; gridTemplateColumns: 1.35fr 1fr; gap: 64px; alignItems: start;">
+        <div class="rv" data-wf="1" style="border: 1px solid #E7EAED; background: #FFFFFF; padding: 30px 34px 34px;">
+          <div style="display: flex; alignItems: center; justifyContent: space-between; marginBottom: 26px;">
+            <span style="fontFamily: 'IBM Plex Mono', monospace; fontSize: 10.5px; letterSpacing: 0.12em; textTransform: uppercase; color: #8A949F;">Circuit de validation · DA-2026-045</span>
+            <span style="fontFamily: 'IBM Plex Mono', monospace; fontSize: 10px; letterSpacing: 0.08em; textTransform: uppercase; color: #23292F; border: 1px solid #DDE1E6; padding: 5px 9px;">{{ wfStatus }}</span>
+          </div>
+          <div style="position: relative;">
+            <div style="position: absolute; left: 17px; top: 12px; bottom: 12px; width: 2px; background: #E7EAED;"></div>
+            <div data-wf-fill="1" style="position: absolute; left: 17px; top: 12px; width: 2px; height: 0%; background: #F5A623; transition: height .3s linear;"></div>
+            <div style="display: grid; gap: 22px; position: relative;">
+              <sc-for list="{{ wfSteps }}" as="w" hint-placeholder-count="6">
+                <div style="display: flex; alignItems: center; gap: 18px;">
+                  <span style="width: 36px; height: 36px; flexShrink: 0; borderRadius: 50%; background: {{ w.dotBg }}; border: 1px solid {{ w.dotBorder }}; color: {{ w.dotColor }}; display: flex; alignItems: center; justifyContent: center; fontFamily: 'IBM Plex Mono', monospace; fontSize: 12px; transition: background .4s ease, color .4s ease;">{{ w.icon }}</span>
+                  <div style="flex: 1 1 0; minWidth: 0;">
+                    <div style="fontSize: 15.5px; fontWeight: 600; color: {{ w.titleColor }}; transition: color .4s ease;">{{ w.role }}</div>
+                    <div style="fontFamily: 'IBM Plex Mono', monospace; fontSize: 10.5px; color: #8A949F; marginTop: 3px;">{{ w.action }}</div>
+                  </div>
+                  <div style="textAlign: right; flexShrink: 0;">
+                    <div style="fontFamily: 'IBM Plex Mono', monospace; fontSize: 10px; letterSpacing: 0.08em; textTransform: uppercase; color: {{ w.statusColor }}; transition: color .4s ease;">{{ w.status }}</div>
+                    <div style="fontFamily: 'IBM Plex Mono', monospace; fontSize: 9.5px; color: #B4BCC4; marginTop: 3px;">{{ w.time }}</div>
+                  </div>
+                </div>
+              </sc-for>
+            </div>
+          </div>
+        </div>
+
+        <div class="rv" style="display: grid; gap: 1px; background: #E7EAED; border: 1px solid #E7EAED;">
+          <sc-for list="{{ wfFacts }}" as="g" hint-placeholder-count="4">
+            <div style="background: #FFFFFF; padding: 22px 24px;">
+              <div style="fontFamily: 'IBM Plex Mono', monospace; fontSize: 10.5px; letterSpacing: 0.12em; textTransform: uppercase; color: #C9820A; marginBottom: 9px;">{{ g.label }}</div>
+              <p style="fontSize: 15px; lineHeight: 1.6; color: #5B6675; margin: 0;">{{ g.text }}</p>
+            </div>
+          </sc-for>
+          <div style="background: #FFFFFF; padding: 22px 24px;">
+            <div style="fontFamily: 'IBM Plex Mono', monospace; fontSize: 10.5px; letterSpacing: 0.12em; textTransform: uppercase; color: #8A949F; marginBottom: 12px;">Statuts disponibles</div>
+            <div style="display: flex; flexWrap: wrap; gap: 8px;">
+              <span style="fontFamily: 'IBM Plex Mono', monospace; fontSize: 10px; letterSpacing: 0.08em; textTransform: uppercase; padding: 6px 10px; border: 1px solid #F5A623; color: #23292F;">En attente</span>
+              <span style="fontFamily: 'IBM Plex Mono', monospace; fontSize: 10px; letterSpacing: 0.08em; textTransform: uppercase; padding: 6px 10px; border: 1px solid #DDE1E6; color: #3E7A50;">Validé</span>
+              <span style="fontFamily: 'IBM Plex Mono', monospace; fontSize: 10px; letterSpacing: 0.08em; textTransform: uppercase; padding: 6px 10px; border: 1px solid #DDE1E6; color: #B4543C;">Rejeté</span>
+              <span style="fontFamily: 'IBM Plex Mono', monospace; fontSize: 10px; letterSpacing: 0.08em; textTransform: uppercase; padding: 6px 10px; border: 1px solid #DDE1E6; color: #5B6675;">Relancé</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="cockpit" style="padding: 104px 40px 112px;">
+    <div style="max-width: 1340px; margin: 0 auto;">
+      <div class="rv" style="marginBottom: 56px; maxWidth: 820px;">
+        <div style="fontFamily: 'IBM Plex Mono', monospace; fontSize: 11.5px; letterSpacing: 0.14em; textTransform: uppercase; color: #8A949F; marginBottom: 20px;">Cockpit affaire</div>
+        <h2 style="fontFamily: Archivo, sans-serif; fontWeight: 700; fontSize: 45px; lineHeight: 1.08; letterSpacing: -0.03em; margin: 0 0 18px; color: #1B1F24;">Chaque chantier devient un cockpit de pilotage.</h2>
+        <p style="fontSize: 17px; lineHeight: 1.65; color: #5B6675; margin: 0;">Une seule affaire. Une seule donnée. Tous les processus rattachés au même chantier.</p>
+      </div>
+      <div class="rv" style="display: grid; gridTemplateColumns: 1fr 1.5fr 1fr; gap: 40px; alignItems: center;">
+        <div style="display: grid; gap: 1px; background: #E7EAED; border: 1px solid #E7EAED;">
+          <sc-for list="{{ cockpitLeft }}" as="c" hint-placeholder-count="4">
+            <div style="background: #FFFFFF; padding: 16px 18px; display: flex; alignItems: center; gap: 12px;">
+              <span style="width: 6px; height: 6px; background: #F5A623; display: block; flexShrink: 0;"></span>
+              <div>
+                <div style="fontFamily: 'IBM Plex Mono', monospace; fontSize: 10.5px; letterSpacing: 0.1em; textTransform: uppercase; color: #23292F;">{{ c.label }}</div>
+                <div style="fontSize: 13px; color: #8A949F; marginTop: 3px;">{{ c.note }}</div>
+              </div>
+            </div>
+          </sc-for>
+        </div>
+        <div>
+          <div style="border: 1px solid #DDE1E6; background: #FFFFFF; boxShadow: 0 30px 70px -34px rgba(27,31,36,.32);">
+            <div style="display: flex; alignItems: center; gap: 10px; padding: 9px 13px; borderBottom: 1px solid #E7EAED; background: #F6F7F8;">
+              <span style="width: 7px; height: 7px; borderRadius: 50%; background: #CFD5DB; display: block;"></span>
+              <span style="width: 7px; height: 7px; borderRadius: 50%; background: #CFD5DB; display: block;"></span>
+              <span style="fontFamily: 'IBM Plex Mono', monospace; fontSize: 10px; color: #8A949F; marginLeft: 4px;">bopera · affaire</span>
+            </div>
+            <img src="assets/ui-affaire.png" alt="Écran Bopera — page affaire : informations projet, budget prévisionnel, équipe" style="width: 100%; height: auto; display: block;" />
+          </div>
+          <div style="marginTop: 16px; border: 1px solid #DDE1E6; background: #FFFFFF; padding: 14px 16px; display: flex; alignItems: center; gap: 18px;">
+            <img src="assets/ui-affaire-kpi.png" alt="Écran Bopera — budget, engagé et avancement de l'affaire" style="width: 168px; height: auto; display: block; border: 1px solid #E7EAED;" />
+            <p style="fontSize: 14px; lineHeight: 1.6; color: #5B6675; margin: 0;">Budget, engagements et avancement sont lus depuis la même affaire — pas depuis un fichier reconstruit.</p>
+          </div>
+        </div>
+        <div style="display: grid; gap: 1px; background: #E7EAED; border: 1px solid #E7EAED;">
+          <sc-for list="{{ cockpitRight }}" as="c" hint-placeholder-count="4">
+            <div style="background: #FFFFFF; padding: 16px 18px; display: flex; alignItems: center; gap: 12px;">
+              <span style="width: 6px; height: 6px; background: #F5A623; display: block; flexShrink: 0;"></span>
+              <div>
+                <div style="fontFamily: 'IBM Plex Mono', monospace; fontSize: 10.5px; letterSpacing: 0.1em; textTransform: uppercase; color: #23292F;">{{ c.label }}</div>
+                <div style="fontSize: 13px; color: #8A949F; marginTop: 3px;">{{ c.note }}</div>
+              </div>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="pourqui" style="padding: 100px 40px 108px; background: #FBFBFC; borderTop: 1px solid #E7EAED; borderBottom: 1px solid #E7EAED;">
+    <div style="max-width: 1340px; margin: 0 auto;">
+      <div class="rv" style="marginBottom: 44px;">
+        <div style="fontFamily: 'IBM Plex Mono', monospace; fontSize: 11.5px; letterSpacing: 0.14em; textTransform: uppercase; color: #8A949F; marginBottom: 20px;">Pour qui ?</div>
+        <h2 style="fontFamily: Archivo, sans-serif; fontWeight: 700; fontSize: 45px; lineHeight: 1.08; letterSpacing: -0.03em; margin: 0; color: #1B1F24;">Bopera accompagne chaque acteur du projet.</h2>
+      </div>
+      <div class="rv" style="display: flex; borderBottom: 1px solid #DDE1E6; marginBottom: 44px; flexWrap: wrap;">
+        <sc-for list="{{ personaTabs }}" as="p" hint-placeholder-count="5">
+          <button type="button" onClick="{{ p.select }}" style="background: transparent; border: none; borderBottom: 2px solid {{ p.line }}; padding: 14px 20px 14px 0; marginRight: 28px; cursor: pointer; fontFamily: 'IBM Plex Mono', monospace; fontSize: 11.5px; letterSpacing: 0.12em; textTransform: uppercase; color: {{ p.color }}; transition: color .3s ease, border-color .3s ease;">{{ p.num }} · {{ p.label }}</button>
+        </sc-for>
+      </div>
+      <div class="rv" style="display: grid; gridTemplateColumns: 1fr 1fr; gap: 64px; alignItems: center;">
+        <div>
+          <h3 style="fontFamily: Archivo, sans-serif; fontWeight: 700; fontSize: 32px; lineHeight: 1.16; letterSpacing: -0.028em; margin: 0 0 20px; color: #1B1F24; maxWidth: 480px; textWrap: pretty;">{{ persona.headline }}</h3>
+          <p style="fontSize: 16.5px; lineHeight: 1.66; color: #5B6675; margin: 0 0 26px; maxWidth: 480px;">{{ persona.text }}</p>
+          <div style="display: grid; gap: 10px;">
+            <sc-for list="{{ persona.points }}" as="pt" hint-placeholder-count="3">
+              <div style="display: flex; alignItems: baseline; gap: 12px;">
+                <span style="width: 5px; height: 5px; background: #F5A623; display: block; flexShrink: 0; transform: translateY(-3px);"></span>
+                <span style="fontSize: 15px; color: #3E4650;">{{ pt }}</span>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+        <div style="border: 1px solid #DDE1E6; background: #FFFFFF; boxShadow: 0 24px 56px -34px rgba(27,31,36,.28);">
+          <div style="display: flex; alignItems: center; gap: 10px; padding: 9px 13px; borderBottom: 1px solid #E7EAED; background: #F6F7F8;">
+            <span style="width: 7px; height: 7px; borderRadius: 50%; background: #CFD5DB; display: block;"></span>
+            <span style="fontFamily: 'IBM Plex Mono', monospace; fontSize: 10px; color: #8A949F; marginLeft: 4px;">{{ persona.frame }}</span>
+          </div>
+          <sc-if value="{{ personaReady }}" hint-placeholder-val="{{ false }}">
+            <img src="{{ persona.img }}" alt="{{ persona.alt }}" style="width: 100%; height: auto; display: block;" />
+          </sc-if>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="pourquoi" style="padding: 96px 40px 100px;">
+    <div style="max-width: 1340px; margin: 0 auto;">
+      <div class="rv" style="display: flex; alignItems: end; justifyContent: space-between; gap: 48px; marginBottom: 48px; flexWrap: wrap;">
+        <h2 style="fontFamily: Archivo, sans-serif; fontWeight: 700; fontSize: 42px; lineHeight: 1.08; letterSpacing: -0.03em; margin: 0; color: #1B1F24;">Un ERP pensé autour du chantier.</h2>
+        <span style="fontFamily: 'IBM Plex Mono', monospace; fontSize: 11.5px; letterSpacing: 0.14em; textTransform: uppercase; color: #8A949F;">Pourquoi Bopera</span>
+      </div>
+      <div class="rv" style="display: grid; gridTemplateColumns: repeat(5, 1fr); gap: 1px; background: #E7EAED; border: 1px solid #E7EAED;">
+        <sc-for list="{{ reasons }}" as="r" hint-placeholder-count="5">
+          <div style="background: #FFFFFF; padding: 28px 24px 30px;">
+            <div style="fontFamily: 'IBM Plex Mono', monospace; fontSize: 11px; letterSpacing: 0.12em; textTransform: uppercase; color: #23292F; marginBottom: 14px;">{{ r.label }}</div>
+            <p style="fontSize: 14.5px; lineHeight: 1.62; color: #6B7684; margin: 0;">{{ r.text }}</p>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+  </section>
+
+  <section id="preuve" style="padding: 96px 40px 104px; background: #FBFBFC; borderTop: 1px solid #E7EAED; borderBottom: 1px solid #E7EAED;">
+    <div style="max-width: 1340px; margin: 0 auto;">
+      <div class="rv" style="display: flex; alignItems: end; justifyContent: space-between; gap: 48px; marginBottom: 44px; flexWrap: wrap;">
+        <div>
+          <div style="fontFamily: 'IBM Plex Mono', monospace; fontSize: 11.5px; letterSpacing: 0.14em; textTransform: uppercase; color: #8A949F; marginBottom: 20px;">Preuve produit</div>
+          <h2 style="fontFamily: Archivo, sans-serif; fontWeight: 700; fontSize: 42px; lineHeight: 1.08; letterSpacing: -0.03em; margin: 0; color: #1B1F24;">Découvrez Bopera en conditions réelles.</h2>
+        </div>
+        <a href="#demo" style="fontSize: 15px; fontWeight: 600; color: #23292F; borderBottom: 1px solid #F5A623; paddingBottom: 3px;" style-hover="color: #C9820A;">Voir Bopera en action →</a>
+      </div>
+      <div class="rv" style="position: relative; border: 1px solid #DDE1E6; background: #1B1F24; aspectRatio: 16 / 9; overflow: hidden;">
+        <img src="assets/ui-pilotage.png" alt="Écran Bopera — tableau de bord de pilotage" style="position: absolute; inset: 0; width: 100%; height: 100%; objectFit: cover; opacity: .38;" />
+        <div style="position: absolute; inset: 0; display: flex; flexDirection: column; alignItems: center; justifyContent: center; gap: 22px;">
+          <span style="width: 74px; height: 74px; borderRadius: 50%; background: #F5A623; color: #23292F; display: flex; alignItems: center; justifyContent: center; fontSize: 22px; paddingLeft: 4px;">▶</span>
+          <span style="fontFamily: 'IBM Plex Mono', monospace; fontSize: 11.5px; letterSpacing: 0.14em; textTransform: uppercase; color: #FFFFFF;">Emplacement vidéo produit · 16:9</span>
+        </div>
+      </div>
+      <div class="rv" style="marginTop: 26px; display: flex; alignItems: center; flexWrap: wrap; gap: 12px;">
+        <sc-for list="{{ journey }}" as="j" hint-placeholder-count="8">
+          <span style="fontFamily: 'IBM Plex Mono', monospace; fontSize: 10.5px; letterSpacing: 0.08em; textTransform: uppercase; color: #5B6675; border: 1px solid #DDE1E6; background: #FFFFFF; padding: 8px 12px;">{{ j }}</span>
+        </sc-for>
+      </div>
+    </div>
+  </section>
+
+  <section id="demo" style="background: #1B1F24; color: #FFFFFF; padding: 128px 40px 132px;">
+    <div class="rv" style="max-width: 1340px; margin: 0 auto; display: grid; gridTemplateColumns: 1.2fr 1fr; gap: 96px; alignItems: end;">
+      <div>
+        <h2 style="fontFamily: Archivo, sans-serif; fontWeight: 700; fontSize: 50px; lineHeight: 1.08; letterSpacing: -0.032em; margin: 0 0 26px;">Vos chantiers génèrent déjà les données.<br /><span style="color: #F5A623;">Bopera vous aide à les transformer en décisions.</span></h2>
+        <p style="fontSize: 17.5px; lineHeight: 1.65; color: #A8B0B9; margin: 0; maxWidth: 560px;">Découvrez comment Bopera peut connecter les processus de votre entreprise.</p>
+      </div>
+      <div>
+        <div style="display: flex; alignItems: center; gap: 14px; marginBottom: 20px; flexWrap: wrap;">
+          <a href="#formulaire" style="background: #F5A623; color: #23292F; fontSize: 16px; fontWeight: 600; padding: 16px 28px; borderRadius: 2px; boxShadow: inset 0 -2px 0 rgba(0,0,0,.10);" style-hover="background: #FFB93A;">Demander une démo</a>
+          <a href="#contact" style="color: #FFFFFF; fontSize: 16px; fontWeight: 600; padding: 16px 24px; borderRadius: 2px; border: 1px solid #4A5460;" style-hover="border: 1px solid #FFFFFF;">Nous contacter</a>
+        </div>
+        <p style="fontFamily: 'IBM Plex Mono', monospace; fontSize: 11.5px; lineHeight: 1.7; color: #8A949F; margin: 0;">Démonstration personnalisée selon votre organisation et vos processus.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="formulaire" style="padding: 104px 40px 112px;">
+    <div style="max-width: 1340px; margin: 0 auto; display: grid; gridTemplateColumns: 1fr 1.3fr; gap: 96px; alignItems: start;">
+      <div class="rv">
+        <div style="fontFamily: 'IBM Plex Mono', monospace; fontSize: 11.5px; letterSpacing: 0.14em; textTransform: uppercase; color: #8A949F; marginBottom: 20px;">Demande de démo</div>
+        <h2 style="fontFamily: Archivo, sans-serif; fontWeight: 700; fontSize: 42px; lineHeight: 1.08; letterSpacing: -0.03em; margin: 0 0 20px; color: #1B1F24;">Parlez-nous de votre entreprise.</h2>
+        <p style="fontSize: 16.5px; lineHeight: 1.66; color: #5B6675; margin: 0 0 28px; maxWidth: 420px;">Nous préparons la démonstration à partir de votre organisation, de vos processus et de vos modules prioritaires.</p>
+        <div style="borderTop: 1px solid #E7EAED; paddingTop: 22px; display: grid; gap: 12px;">
+          <sc-for list="{{ formPromises }}" as="fp" hint-placeholder-count="3">
+            <div style="display: flex; alignItems: baseline; gap: 12px;">
+              <span style="width: 5px; height: 5px; background: #F5A623; display: block; flexShrink: 0; transform: translateY(-3px);"></span>
+              <span style="fontSize: 14.5px; color: #3E4650;">{{ fp }}</span>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+
+      <div class="rv" style="border: 1px solid #E7EAED; background: #FFFFFF; padding: 38px 40px 40px;">
+        <sc-if value="{{ formSent }}" hint-placeholder-val="{{ false }}">
+          <div style="padding: 28px 0;">
+            <div style="width: 40px; height: 40px; background: #1B1F24; color: #F5A623; display: flex; alignItems: center; justifyContent: center; fontSize: 18px; marginBottom: 20px;">✓</div>
+            <h3 style="fontFamily: Archivo, sans-serif; fontWeight: 700; fontSize: 26px; letterSpacing: -0.026em; margin: 0 0 12px; color: #1B1F24;">Demande envoyée.</h3>
+            <p style="fontSize: 15.5px; lineHeight: 1.65; color: #5B6675; margin: 0;">Nous revenons vers vous pour convenir d'un créneau de démonstration.</p>
+          </div>
+        </sc-if>
+        <sc-if value="{{ formOpen }}" hint-placeholder-val="{{ true }}">
+          <div>
+            <div style="display: grid; gridTemplateColumns: 1fr 1fr; gap: 18px;">
+              <sc-for list="{{ formFields }}" as="fd" hint-placeholder-count="9">
+                <div style="gridColumn: {{ fd.span }};">
+                  <label for="{{ fd.id }}" style="display: block; fontFamily: 'IBM Plex Mono', monospace; fontSize: 10px; letterSpacing: 0.12em; textTransform: uppercase; color: #5B6675; marginBottom: 7px;">{{ fd.label }}</label>
+                  <sc-if value="{{ fd.isSelect }}" hint-placeholder-val="{{ false }}">
+                    <select id="{{ fd.id }}" onChange="{{ fd.onChange }}" style="width: 100%; fontFamily: 'IBM Plex Sans', sans-serif; fontSize: 14.5px; color: #23292F; padding: 12px 12px; borderRadius: 2px; border: 1px solid {{ fd.border }}; background: #FFFFFF;" style-focus="border: 1px solid #F5A623; boxShadow: 0 0 0 3px rgba(245,166,35,.18);">
+                      <sc-for list="{{ fd.options }}" as="op" hint-placeholder-count="4">
+                        <option value="{{ op }}">{{ op }}</option>
+                      </sc-for>
+                    </select>
+                  </sc-if>
+                  <sc-if value="{{ fd.isText }}" hint-placeholder-val="{{ true }}">
+                    <input id="{{ fd.id }}" type="{{ fd.type }}" placeholder="{{ fd.placeholder }}" onInput="{{ fd.onChange }}" style="width: 100%; fontFamily: 'IBM Plex Sans', sans-serif; fontSize: 14.5px; color: #23292F; padding: 12px 12px; borderRadius: 2px; border: 1px solid {{ fd.border }}; background: #FFFFFF;" style-focus="border: 1px solid #F5A623; boxShadow: 0 0 0 3px rgba(245,166,35,.18);" />
+                  </sc-if>
+                  <sc-if value="{{ fd.isArea }}" hint-placeholder-val="{{ false }}">
+                    <textarea id="{{ fd.id }}" rows="3" placeholder="{{ fd.placeholder }}" onInput="{{ fd.onChange }}" style="width: 100%; fontFamily: 'IBM Plex Sans', sans-serif; fontSize: 14.5px; color: #23292F; padding: 12px 12px; borderRadius: 2px; border: 1px solid {{ fd.border }}; background: #FFFFFF; resize: vertical;" style-focus="border: 1px solid #F5A623; boxShadow: 0 0 0 3px rgba(245,166,35,.18);"></textarea>
+                  </sc-if>
+                  <div style="fontFamily: 'IBM Plex Mono', monospace; fontSize: 10px; color: {{ fd.hintColor }}; marginTop: 6px; minHeight: 13px;">{{ fd.hint }}</div>
+                </div>
+              </sc-for>
+            </div>
+            <div style="display: flex; alignItems: center; gap: 20px; marginTop: 22px; flexWrap: wrap;">
+              <button type="button" onClick="{{ submitForm }}" style="background: #F5A623; color: #23292F; fontSize: 15.5px; fontWeight: 600; padding: 15px 26px; borderRadius: 2px; border: none; cursor: pointer; boxShadow: inset 0 -2px 0 rgba(0,0,0,.10); fontFamily: 'IBM Plex Sans', sans-serif;" style-hover="background: #FFB93A;">Planifier ma démo</button>
+              <span style="fontFamily: 'IBM Plex Mono', monospace; fontSize: 10.5px; color: #8A949F; lineHeight: 1.6; maxWidth: 320px;">Vos informations sont utilisées uniquement pour traiter votre demande.</span>
+            </div>
+          </div>
+        </sc-if>
+      </div>
+    </div>
+  </section>
+
+  <footer style="background: #1B1F24; color: #FFFFFF; padding: 84px 40px 40px;">
+    <div style="max-width: 1340px; margin: 0 auto;">
+      <div style="display: grid; gridTemplateColumns: 1.4fr repeat(4, 1fr); gap: 56px; paddingBottom: 56px; borderBottom: 1px solid #343B43;">
+        <div>
+          <div style="display: flex; alignItems: center; gap: 10px; marginBottom: 20px;">
+            <img src="assets/bopera-mark.png" alt="Bopera" style="height: 28px; width: auto; display: block;" />
+            <img src="assets/bopera-word-light.png" alt="" style="height: 20px; width: auto; display: block;" />
+          </div>
+          <p style="fontSize: 15px; lineHeight: 1.66; color: #A8B0B9; margin: 0; maxWidth: 320px;">Bopera — La plateforme de pilotage dédiée au BTP.</p>
+        </div>
+        <sc-for list="{{ footerCols }}" as="col" hint-placeholder-count="4">
+          <div>
+            <div style="fontFamily: 'IBM Plex Mono', monospace; fontSize: 10.5px; letterSpacing: 0.14em; textTransform: uppercase; color: #F5A623; marginBottom: 18px;">{{ col.title }}</div>
+            <div style="display: grid; gap: 11px;">
+              <sc-for list="{{ col.items }}" as="it" hint-placeholder-count="5">
+                <a href="#top" style="fontSize: 14.5px; color: #A8B0B9;" style-hover="color: #FFFFFF;">{{ it }}</a>
+              </sc-for>
+            </div>
+          </div>
+        </sc-for>
+      </div>
+      <div style="paddingTop: 26px; display: flex; justifyContent: space-between; gap: 24px; flexWrap: wrap; fontFamily: 'IBM Plex Mono', monospace; fontSize: 10.5px; color: #7C858F;">
+        <span>© 2026 Bopera. Tous droits réservés.</span>
+        <span>Visibilité · Maîtrise · Performance</span>
+      </div>
+    </div>
+  </footer>
+
+  <section id="ds" style="background: #1B1F24; padding: 92px 40px 104px; color: #FFFFFF;">
+    <div style="max-width: 1340px; margin: 0 auto;">
+      <div class="rv" style="fontFamily: 'IBM Plex Mono', monospace; fontSize: 11.5px; letterSpacing: 0.14em; textTransform: uppercase; color: #8A949F; marginBottom: 18px;">Design system Bopera — v0.1</div>
+      <h2 class="rv" style="fontFamily: Archivo, sans-serif; fontWeight: 700; fontSize: 38px; lineHeight: 1.1; letterSpacing: -0.03em; margin: 0 0 56px;">La direction artistique, en pièces détachées.</h2>
+
+      <div class="rv" style="display: grid; gridTemplateColumns: 1fr 1fr; gap: 56px; marginBottom: 56px;">
+        <div>
+          <div style="fontFamily: 'IBM Plex Mono', monospace; fontSize: 10.5px; letterSpacing: 0.12em; textTransform: uppercase; color: #8A949F; marginBottom: 18px;">Palette</div>
+          <div style="display: grid; gridTemplateColumns: repeat(4, 1fr); gap: 12px;">
+            <sc-for list="{{ palette }}" as="p" hint-placeholder-count="8">
+              <div>
+                <div style="height: 64px; background: {{ p.hex }}; border: 1px solid #343B43;"></div>
+                <div style="fontFamily: 'IBM Plex Mono', monospace; fontSize: 9.5px; color: #C0C6CD; marginTop: 8px;">{{ p.name }}</div>
+                <div style="fontFamily: 'IBM Plex Mono', monospace; fontSize: 9.5px; color: #7C858F;">{{ p.hex }}</div>
+              </div>
+            </sc-for>
+          </div>
+          <p style="fontSize: 13.5px; lineHeight: 1.65; color: #A8B0B9; marginTop: 20px;">Règle du jaune : accents, CTA principal, état actif, ligne de flux. Jamais en fond de grande surface, jamais sur du texte long.</p>
+        </div>
+        <div>
+          <div style="fontFamily: 'IBM Plex Mono', monospace; fontSize: 10.5px; letterSpacing: 0.12em; textTransform: uppercase; color: #8A949F; marginBottom: 18px;">Typographie</div>
+          <div style="borderTop: 1px solid #343B43;">
+            <div style="padding: 14px 0; borderBottom: 1px solid #343B43; display: flex; alignItems: baseline; gap: 20px;">
+              <span style="fontFamily: 'IBM Plex Mono', monospace; fontSize: 9.5px; color: #7C858F; width: 90px; flexShrink: 0;">H1 / 60 · 700</span>
+              <span style="fontFamily: Archivo, sans-serif; fontWeight: 700; fontSize: 30px; letterSpacing: -0.033em;">Archivo</span>
+            </div>
+            <div style="padding: 14px 0; borderBottom: 1px solid #343B43; display: flex; alignItems: baseline; gap: 20px;">
+              <span style="fontFamily: 'IBM Plex Mono', monospace; fontSize: 9.5px; color: #7C858F; width: 90px; flexShrink: 0;">H2 / 45 · 700</span>
+              <span style="fontFamily: Archivo, sans-serif; fontWeight: 700; fontSize: 24px; letterSpacing: -0.03em;">Titres éditoriaux, serrés</span>
+            </div>
+            <div style="padding: 14px 0; borderBottom: 1px solid #343B43; display: flex; alignItems: baseline; gap: 20px;">
+              <span style="fontFamily: 'IBM Plex Mono', monospace; fontSize: 9.5px; color: #7C858F; width: 90px; flexShrink: 0;">Corps / 17 · 400</span>
+              <span style="fontSize: 16px; color: #C0C6CD;">IBM Plex Sans — corps de texte technique et lisible.</span>
+            </div>
+            <div style="padding: 14px 0; borderBottom: 1px solid #343B43; display: flex; alignItems: baseline; gap: 20px;">
+              <span style="fontFamily: 'IBM Plex Mono', monospace; fontSize: 9.5px; color: #7C858F; width: 90px; flexShrink: 0;">Label / 11.5</span>
+              <span style="fontFamily: 'IBM Plex Mono', monospace; fontSize: 11.5px; letterSpacing: 0.14em; textTransform: uppercase; color: #C0C6CD;">IBM Plex Mono · labels</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="rv" style="display: grid; gridTemplateColumns: repeat(4, 1fr); gap: 32px;">
+        <div>
+          <div style="fontFamily: 'IBM Plex Mono', monospace; fontSize: 10.5px; letterSpacing: 0.12em; textTransform: uppercase; color: #8A949F; marginBottom: 16px;">Boutons</div>
+          <div style="display: grid; gap: 10px; justifyItems: start;">
+            <span style="background: #F5A623; color: #23292F; fontSize: 14px; fontWeight: 600; padding: 12px 20px; borderRadius: 2px; boxShadow: inset 0 -2px 0 rgba(0,0,0,.10);">Demander une démo</span>
+            <span style="border: 1px solid #4A5460; color: #FFFFFF; fontSize: 14px; fontWeight: 600; padding: 12px 20px; borderRadius: 2px;">Découvrir Bopera</span>
+            <span style="color: #F5A623; fontSize: 14px; fontWeight: 600; borderBottom: 1px solid #F5A623; paddingBottom: 2px;">Découvrir le chiffrage →</span>
+          </div>
+        </div>
+        <div>
+          <div style="fontFamily: 'IBM Plex Mono', monospace; fontSize: 10.5px; letterSpacing: 0.12em; textTransform: uppercase; color: #8A949F; marginBottom: 16px;">Champ · états</div>
+          <div style="display: grid; gap: 10px;">
+            <input type="text" placeholder="E-mail professionnel" style="background: #23292F; border: 1px solid #4A5460; color: #FFFFFF; fontSize: 13.5px; padding: 11px 12px; borderRadius: 2px; fontFamily: 'IBM Plex Sans', sans-serif;" style-focus="border: 1px solid #F5A623; boxShadow: 0 0 0 3px rgba(245,166,35,.22);" />
+            <div style="border: 1px solid #E06C4F; background: #23292F; color: #FFFFFF; fontSize: 13.5px; padding: 11px 12px; borderRadius: 2px;">nom@</div>
+            <div style="fontFamily: 'IBM Plex Mono', monospace; fontSize: 10px; color: #E06C4F;">Adresse professionnelle requise</div>
+          </div>
+        </div>
+        <div>
+          <div style="fontFamily: 'IBM Plex Mono', monospace; fontSize: 10.5px; letterSpacing: 0.12em; textTransform: uppercase; color: #8A949F; marginBottom: 16px;">Tags &amp; statuts</div>
+          <div style="display: flex; flexWrap: wrap; gap: 8px;">
+            <sc-for list="{{ tags }}" as="t" hint-placeholder-count="6">
+              <span style="fontFamily: 'IBM Plex Mono', monospace; fontSize: 10px; letterSpacing: 0.08em; textTransform: uppercase; padding: 6px 10px; color: {{ t.color }}; border: 1px solid {{ t.border }}; background: {{ t.bg }};">{{ t.label }}</span>
+            </sc-for>
+          </div>
+        </div>
+        <div>
+          <div style="fontFamily: 'IBM Plex Mono', monospace; fontSize: 10.5px; letterSpacing: 0.12em; textTransform: uppercase; color: #8A949F; marginBottom: 16px;">KPI card &amp; noeud workflow</div>
+          <div style="border: 1px solid #343B43; background: #23292F; padding: 14px 16px; marginBottom: 12px;">
+            <div style="fontFamily: 'IBM Plex Mono', monospace; fontSize: 9px; letterSpacing: 0.11em; textTransform: uppercase; color: #8A949F;">Engagé</div>
+            <div style="fontFamily: Archivo, sans-serif; fontWeight: 600; fontSize: 20px; marginTop: 6px; letterSpacing: -0.025em;">1 246 800 €</div>
+            <div style="height: 3px; background: #343B43; marginTop: 10px;"><div style="height: 3px; width: 72%; background: #F5A623;"></div></div>
+          </div>
+          <div style="display: flex; alignItems: center; gap: 10px; border: 1px solid #343B43; background: #23292F; padding: 11px 13px;">
+            <span style="width: 18px; height: 18px; background: #F5A623; color: #23292F; fontSize: 11px; display: flex; alignItems: center; justifyContent: center;">✓</span>
+            <span style="fontSize: 13px; fontWeight: 500;">Direction achats</span>
+            <span style="fontFamily: 'IBM Plex Mono', monospace; fontSize: 9px; color: #8A949F; marginLeft: auto;">Validé</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="rv" style="marginTop: 48px; display: grid; gridTemplateColumns: repeat(3, 1fr); gap: 32px; borderTop: 1px solid #343B43; paddingTop: 28px; fontFamily: 'IBM Plex Mono', monospace; fontSize: 11px; color: #A8B0B9; lineHeight: 1.9;">
+        <div><span style="color: #7C858F;">Spacing</span> — base 8 · sections 96/104 · gouttières 32/40/64</div>
+        <div><span style="color: #7C858F;">Rayons</span> — 0 par défaut · 2 sur boutons et champs · jamais au-delà de 4</div>
+        <div><span style="color: #7C858F;">Ombres</span> — une seule : 0 18px 40px -22px rgba(27,31,36,.35), réservée aux éléments flottants</div>
+      </div>
+    </div>
+  </section>
+</main>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1440}}">
+class Component extends DCLogic {
+  state = { active: -1, chainHover: 0, wfActive: -1, persona: 0, form: {}, errors: {}, sent: false };
+
+  setField = (k) => (e) => {
+    const v = e.target.value;
+    this.setState(s => {
+      const form = Object.assign({}, s.form, { [k]: v });
+      const errors = Object.assign({}, s.errors);
+      if (errors[k]) delete errors[k];
+      return { form, errors };
+    });
+  };
+
+  submitForm = () => {
+    const f = this.state.form || {};
+    const errors = {};
+    ['prenom', 'nom', 'entreprise'].forEach(k => { if (!(f[k] || '').trim()) errors[k] = 'Champ requis'; });
+    const mail = (f.email || '').trim();
+    if (!mail) errors.email = 'Champ requis';
+    else if (!/^[^@\s]+@[^@\s]+\.[a-z]{2,}$/i.test(mail)) errors.email = 'Adresse professionnelle invalide';
+    if (Object.keys(errors).length) { this.setState({ errors }); return; }
+    this.setState({ sent: true, errors: {} });
+  };
+
+  componentDidMount() {
+    this._tl = document.querySelector('[data-timeline]');
+    this._fill = document.querySelector('[data-timeline-fill]');
+    const io = new IntersectionObserver((es) => {
+      es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+    }, { threshold: 0.14, rootMargin: '0px 0px -8% 0px' });
+    document.querySelectorAll('.rv').forEach(n => io.observe(n));
+    setTimeout(() => document.querySelectorAll('.rv').forEach(n => n.classList.add('in')), 1600);
+
+    this._onScroll = () => {
+      const el = this._tl || (this._tl = document.querySelector('[data-timeline]'));
+      if (!el) return;
+      const r = el.getBoundingClientRect();
+      const vh = window.innerHeight;
+      const start = vh * 0.86, end = vh * 0.28;
+      const p = Math.max(0, Math.min(1, (start - r.top) / (start - end)));
+      const f = this._fill || (this._fill = document.querySelector('[data-timeline-fill]'));
+      if (f) f.style.width = (p * 100).toFixed(1) + '%';
+      const active = p <= 0.02 ? -1 : Math.min(4, Math.floor(p * 5.4));
+      if (active !== this.state.active) this.setState({ active });
+
+      const wf = this._wf || (this._wf = document.querySelector('[data-wf]'));
+      if (wf) {
+        const wr = wf.getBoundingClientRect();
+        const wp = Math.max(0, Math.min(1, (vh * 0.82 - wr.top) / (vh * 0.62)));
+        const wa = wp <= 0.02 ? -1 : Math.min(5, Math.floor(wp * 6.4));
+        const f2 = this._wfFill || (this._wfFill = document.querySelector('[data-wf-fill]'));
+        if (f2) f2.style.height = Math.max(0, (wa + 1) / 6 * 100 - 6).toFixed(1) + '%';
+        if (wa !== this.state.wfActive) this.setState({ wfActive: wa });
+      }
+    };
+    window.addEventListener('scroll', this._onScroll, { passive: true });
+    this._onScroll();
+  }
+
+  componentWillUnmount() { window.removeEventListener('scroll', this._onScroll); }
+
+  renderVals() {
+    const stepData = [
+      ['01', 'CHIFFRER', "Préparez vos prix, déboursés secs, frais et marges."],
+      ['02', 'ENGAGER', "Transformez les besoins chantier en demandes, consultations, commandes et contrats."],
+      ['03', 'EXÉCUTER', "Suivez les réceptions, stocks, ressources, prestations et avancement."],
+      ['04', 'CONTRÔLER', "Comparez budget, engagements, consommations, dépenses et avancement réel."],
+      ['05', 'PILOTER', "Détectez les écarts suffisamment tôt pour agir avant qu'ils n'impactent votre résultat."]
+    ];
+    const steps = stepData.map((s, i) => {
+      const on = i <= this.state.active;
+      return {
+        num: s[0], title: s[1], text: s[2],
+        opacity: on ? 1 : 0.42,
+        dotBg: on ? '#F5A623' : '#1B1F24',
+        dotBorder: on ? '#F5A623' : '#4A5460',
+        numColor: on ? '#F5A623' : '#8A949F'
+      };
+    });
+
+    const chainData = [
+      ['Chiffrage', "DPGF, déboursés secs, frais et marges structurent le prix de vente.", 'lignes de prix → budget'],
+      ['Budget', "Le chiffrage validé devient le budget de référence de l'affaire.", 'budget de référence → DA'],
+      ["Demande d'achat", "Le besoin chantier est exprimé sur une ligne budgétaire identifiée.", 'besoin qualifié → consultation'],
+      ['Consultation', "Les fournisseurs répondent, les offres sont comparées ligne à ligne.", 'offre retenue → BC / contrat'],
+      ['BC / Contrat', "L'engagement est rattaché à l'affaire et au budget concerné.", 'montant engagé → réception'],
+      ['Réception / Attachement', "Les quantités reçues ou attachées confirment la réalité terrain.", 'quantités réelles → stock'],
+      ['Stock / Consommation', "Entrées, sorties et transferts alimentent la consommation par affaire.", 'consommation → dépenses'],
+      ['Dépenses réelles', "Les dépenses réelles se confrontent au budget et aux engagements.", 'coût réel → avancement'],
+      ['Avancement', "L'avancement physique des activités est mesuré et daté.", 'avancement → performance'],
+      ['Performance', "Écarts, marge prévisionnelle et rentabilité par affaire.", 'analyse → décision']
+    ];
+    const hi = this.state.chainHover;
+    const chain = chainData.map((c, i) => {
+      const on = i === hi;
+      return {
+        label: c[0],
+        dot: on ? '#F5A623' : '#FFFFFF',
+        dotBorder: on ? '#F5A623' : '#C3C9D0',
+        labelColor: on ? '#1B1F24' : '#6B7684',
+        enter: () => this.setState({ chainHover: i }),
+        leave: () => {}
+      };
+    });
+    const a = chainData[hi];
+
+    const modules = [
+      {
+        num: '01', label: 'Chiffrage & devis', bg: '#FFFFFF', dir: 'row',
+        title: "Construisez vos prix avant de construire le projet.",
+        text: "Structurez vos DPGF, calculez vos déboursés secs et vos frais, appliquez vos profils commerciaux et gardez la maîtrise de votre marge dès l'étude.",
+        tags: ['DPGF', 'Bibliothèque de prix', 'Déboursés secs', 'Frais', 'Profils commerciaux', 'Marges'],
+        cta: 'Découvrir le chiffrage →', frame: 'bopera · devis & chiffrage',
+        img: 'assets/ui-devis.png', alt: 'Écran Bopera — devis : import DPGF, sous-détail de prix, prix de vente HT',
+        hasFlow: false, flow: [], hasImg2: false
+      },
+      {
+        num: '02', label: 'Achats & sous-traitance', bg: '#FBFBFC', dir: 'row-reverse',
+        title: "Du besoin chantier jusqu'à l'engagement.",
+        text: "Centralisez les demandes, consultations fournisseurs, comparatifs, validations, bons de commande et contrats dans un seul processus.",
+        tags: ['Demande d’achat', 'Consultation', 'Comparatif', 'Bon de commande', 'Contrat'],
+        cta: 'Découvrir les achats →', frame: 'bopera · demande d’achat',
+        img: 'assets/ui-achats.png', alt: 'Écran Bopera — demande d’achat et workflow de validation',
+        hasFlow: true,
+        flow: [
+          { label: 'Besoin', color: '#5B6675' }, { label: '→', color: '#C3C9D0' },
+          { label: 'DA', color: '#5B6675' }, { label: '→', color: '#C3C9D0' },
+          { label: 'Consultation', color: '#5B6675' }, { label: '→', color: '#C3C9D0' },
+          { label: 'Comparatif', color: '#5B6675' }, { label: '→', color: '#C3C9D0' },
+          { label: 'Validation', color: '#5B6675' }, { label: '→', color: '#C3C9D0' },
+          { label: 'BC / Contrat', color: '#C9820A' }
+        ],
+        hasImg2: false
+      },
+      {
+        num: '03', label: 'Stock & magasin', bg: '#FFFFFF', dir: 'row',
+        title: "Sachez ce qui entre, ce qui sort et où se trouve votre stock.",
+        text: "Gérez les réceptions fournisseurs, les sorties chantier, les transferts inter-affaires, le dépôt principal et les inventaires avec une traçabilité complète.",
+        tags: ['Réceptions', 'Sorties', 'Transferts', 'Inventaire', 'Stock par affaire', 'Dépôt principal'],
+        cta: 'Découvrir le stock →', frame: 'bopera · stock & flux magasin',
+        img: 'assets/ui-stock.png', alt: 'Écran Bopera — stock disponible, réservé et mouvements récents',
+        hasFlow: false, flow: [], hasImg2: false
+      },
+      {
+        num: '04', label: "Ressources & main-d'œuvre", bg: '#FBFBFC', dir: 'row-reverse',
+        title: "Mesurez les ressources réellement consommées.",
+        text: "Centralisez les ouvriers, les affectations et les pointages afin de rapprocher les heures réalisées des ressources prévues.",
+        tags: ['Ouvriers', 'Affectations', 'Pointage', 'Heures', 'Coût réel'],
+        cta: 'Découvrir les ressources →', frame: 'bopera · pointage des ressources',
+        img: 'assets/ui-ressources.png', alt: 'Écran Bopera — pointage quotidien, heures normales et supplémentaires',
+        hasFlow: false, flow: [], hasImg2: false
+      },
+      {
+        num: '05', label: 'Budget & avancement', bg: '#FFFFFF', dir: 'row',
+        title: "Détectez les écarts avant qu'ils ne deviennent des pertes.",
+        text: "Comparez le budget initial, les engagements, les consommations et les dépenses réelles avec l'avancement réellement exécuté.",
+        tags: ['Prévu', 'Engagé', 'Réel', 'Avancement', 'Écarts', 'WBS chantier'],
+        cta: 'Découvrir le budget →', frame: 'bopera · budget par activité',
+        img: 'assets/ui-budget.png', alt: 'Écran Bopera — budget, engagé, réalisé et écarts par activité',
+        hasFlow: false, flow: [], hasImg2: true,
+        img2: 'assets/ui-avancement2.png', alt2: 'Écran Bopera — avancement chantier',
+        img3: 'assets/ui-pilotage.png', alt3: 'Écran Bopera — tableau de bord de pilotage'
+      },
+      {
+        num: '06', label: 'Attachements & décomptes', bg: '#FBFBFC', dir: 'row-reverse',
+        title: "Reliez l'exécution terrain à la gestion financière.",
+        text: "Suivez les prestations exécutées, contrôlez les quantités attachées et préparez vos situations et décomptes à partir des données réelles du chantier.",
+        tags: ['Attachements', 'Situations', 'Décomptes', 'Sous-traitance'],
+        cta: 'Découvrir les décomptes →', frame: 'bopera · contrat de sous-traitance',
+        img: 'assets/ui-soustraitance.png', alt: 'Écran Bopera — contrat de sous-traitance, attachements et décomptes',
+        hasFlow: true,
+        flow: [
+          { label: 'Exécution', color: '#5B6675' }, { label: '→', color: '#C3C9D0' },
+          { label: 'Attachement', color: '#5B6675' }, { label: '→', color: '#C3C9D0' },
+          { label: 'Validation', color: '#5B6675' }, { label: '→', color: '#C3C9D0' },
+          { label: 'Décompte', color: '#C9820A' }
+        ],
+        hasImg2: false
+      }
+    ];
+
+    const wfData = [
+      ['Conducteur travaux', 'Crée la demande d’achat', 'Validé', '15/05 · 09:12'],
+      ['Demande d’achat DA-2026-045', 'Acier HA16 · 10 000 kg', 'Émise', '15/05 · 09:12'],
+      ['Responsable chantier', 'Contrôle le besoin et la ligne budgétaire', 'Validé', '15/05 · 11:40'],
+      ['Direction achats', 'Vérifie la consultation et le comparatif', 'Validé', '16/05 · 08:05'],
+      ['Direction', 'Autorise l’engagement', 'En attente', '—'],
+      ['Bon de commande', 'Émis au fournisseur retenu', 'À venir', '—']
+    ];
+    const wa = this.state.wfActive;
+    const wfSteps = wfData.map((w, i) => {
+      const done = i <= wa;
+      const current = i === wa + 1;
+      return {
+        role: w[0], action: w[1], time: done ? w[3] : '—',
+        status: done ? w[2] : (current ? 'En attente' : 'À venir'),
+        statusColor: done ? '#3E7A50' : (current ? '#C9820A' : '#B4BCC4'),
+        icon: done ? '✓' : String(i + 1),
+        dotBg: done ? '#F5A623' : '#FFFFFF',
+        dotBorder: done ? '#F5A623' : '#DDE1E6',
+        dotColor: done ? '#23292F' : '#8A949F',
+        titleColor: done || current ? '#1B1F24' : '#9AA4AF'
+      };
+    });
+
+    const personaData = [
+      {
+        label: 'Direction générale', num: '01',
+        headline: "Une vision consolidée de la performance de toutes vos affaires.",
+        text: "Le pilotage global s'appuie sur les mêmes données que les équipes opérationnelles : budget, engagements, avancement et rentabilité par affaire.",
+        points: ['Tableaux de bord multi-affaires', 'Rentabilité prévisionnelle', 'Alertes sur écarts'],
+        img: 'assets/ui-pilotage.png', frame: 'bopera · pilotage & reporting',
+        alt: 'Écran Bopera — pilotage et reporting'
+      },
+      {
+        label: 'Direction travaux / chef de projet', num: '02',
+        headline: "Budget, ressources, achats et avancement au même endroit.",
+        text: "Chaque affaire regroupe son budget, ses engagements, ses ressources et son avancement, sans ressaisie.",
+        points: ['Budget par activité', 'Avancement des quantités', 'Suivi des demandes d’achat'],
+        img: 'assets/ui-budget.png', frame: 'bopera · budget par activité',
+        alt: 'Écran Bopera — budget par activité'
+      },
+      {
+        label: 'Achats', num: '03',
+        headline: "Des besoins chantier jusqu'aux commandes et contrats.",
+        text: "Demandes, consultations, comparatifs et validations restent rattachés à l'affaire et à la ligne budgétaire concernée.",
+        points: ['Consultations fournisseurs', 'Comparatif d’offres', 'Bons de commande et contrats'],
+        img: 'assets/ui-achats.png', frame: 'bopera · demande d’achat',
+        alt: 'Écran Bopera — demande d’achat'
+      },
+      {
+        label: 'Finance / contrôle de gestion', num: '04',
+        headline: "Comparez le prévu, l'engagé, le consommé et le réel.",
+        text: "Les factures, paiements et rapprochements s'appuient sur les engagements et réceptions déjà enregistrés.",
+        points: ['Factures fournisseurs et ST', 'Rapprochement BC / livraison', 'Imputation analytique'],
+        img: 'assets/ui-compta.png', frame: 'bopera · comptabilité & finance',
+        alt: 'Écran Bopera — comptabilité et finance'
+      },
+      {
+        label: 'Magasin / chantier', num: '05',
+        headline: "Enregistrez les mouvements au plus près du terrain.",
+        text: "Entrées, sorties, transferts et inventaires sont saisis là où ils se produisent et alimentent la consommation de l'affaire.",
+        points: ['Entrées et sorties', 'Transferts inter-affaires', 'Alertes stock mini'],
+        img: 'assets/ui-stock.png', frame: 'bopera · stock & flux magasin',
+        alt: 'Écran Bopera — stock et flux magasin'
+      }
+    ];
+    const pi = this.state.persona;
+    const personaTabs = personaData.map((p, i) => ({
+      label: p.label, num: p.num,
+      color: i === pi ? '#1B1F24' : '#8A949F',
+      line: i === pi ? '#F5A623' : 'transparent',
+      select: () => this.setState({ persona: i })
+    }));
+
+    const f = this.state.form || {}, er = this.state.errors || {};
+    const field = (id, label, span, kind, extra) => {
+      const e = er[id];
+      const filled = (f[id] || '').trim().length > 0;
+      return Object.assign({
+        id, label, span,
+        isText: kind === 'text', isSelect: kind === 'select', isArea: kind === 'area',
+        type: (extra && extra.type) || 'text',
+        placeholder: (extra && extra.placeholder) || '',
+        options: (extra && extra.options) || [],
+        onChange: this.setField(id),
+        border: e ? '#C05A45' : (filled ? '#3E7A50' : '#DDE1E6'),
+        hint: e ? e : (filled ? '✓' : ''),
+        hintColor: e ? '#C05A45' : '#3E7A50'
+      });
+    };
+
+    return {
+      steps,
+      chain,
+      modules: modules.map(m => Object.assign({ ready: true }, m)),
+      personaReady: true,
+      wfSteps,
+      wfStatus: wa >= 4 ? 'En attente · Direction' : (wa < 0 ? 'En attente' : 'En cours de validation'),
+      wfFacts: [
+        { label: 'Rôles & permissions', text: "Chaque profil ne voit et ne valide que ce qui relève de son périmètre." },
+        { label: 'Niveaux de validation', text: "Le nombre de niveaux et leur ordre se paramètrent par type de pièce et par montant." },
+        { label: 'Historique & traçabilité', text: "Chaque opération conserve son auteur, sa date et son statut." }
+      ],
+      cockpitLeft: [
+        { label: 'Budget', note: 'prévu, engagé, réalisé' },
+        { label: 'Achats', note: 'DA, consultations, BC' },
+        { label: 'Sous-traitance', note: 'contrats, attachements' },
+        { label: 'Stock', note: 'entrées, sorties, transferts' }
+      ],
+      cockpitRight: [
+        { label: 'Ressources', note: 'affectations, pointage' },
+        { label: 'Avancement', note: 'quantités réalisées' },
+        { label: 'Finance', note: 'factures, paiements' },
+        { label: 'Performance', note: 'écarts, rentabilité' }
+      ],
+      personaTabs,
+      persona: personaData[pi],
+      reasons: [
+        { label: 'Métier BTP', text: "Des processus construits autour des réalités du chantier." },
+        { label: 'Donnée connectée', text: "La même information circule d'une étape à l'autre." },
+        { label: 'Traçabilité', text: "Chaque opération conserve son historique, son auteur et son statut." },
+        { label: 'Vision en temps réel', text: "Les décisions s'appuient sur les données opérationnelles disponibles." },
+        { label: 'Configuration', text: "Rôles, permissions, workflows et modèles adaptés à l'organisation." }
+      ],
+      journey: ['Affaire', 'Chiffrage', 'DA', 'BC', 'Réception', 'Stock', 'Avancement', 'Pilotage'],
+      formSent: this.state.sent,
+      formOpen: !this.state.sent,
+      submitForm: this.submitForm,
+      formPromises: [
+        "Démonstration guidée sur vos propres processus.",
+        "Aucune installation requise pour la présentation.",
+        "Réponse sous deux jours ouvrés."
+      ],
+      formFields: [
+        field('prenom', 'Prénom', 'span 1', 'text', { placeholder: 'Prénom' }),
+        field('nom', 'Nom', 'span 1', 'text', { placeholder: 'Nom' }),
+        field('entreprise', 'Entreprise', 'span 1', 'text', { placeholder: 'Raison sociale' }),
+        field('fonction', 'Fonction', 'span 1', 'text', { placeholder: 'Directeur travaux…' }),
+        field('email', 'E-mail professionnel', 'span 1', 'text', { type: 'email', placeholder: 'nom@entreprise.com' }),
+        field('telephone', 'Téléphone', 'span 1', 'text', { type: 'tel', placeholder: '+212 …' }),
+        field('taille', "Taille de l'entreprise", 'span 1', 'select', { options: ['Moins de 50 collaborateurs', '50 à 200', '200 à 500', 'Plus de 500'] }),
+        field('secteur', 'Secteur BTP', 'span 1', 'select', { options: ['Bâtiment', 'Travaux publics', 'Génie civil', 'Infrastructure'] }),
+        field('besoin', 'Votre besoin', 'span 2', 'area', { placeholder: 'Modules prioritaires, organisation, échéance…' })
+      ],
+      footerCols: [
+        { title: 'Produit', items: ['Chiffrage', 'Achats', 'Stock', 'Budget', 'Ressources', 'Avancement'] },
+        { title: 'Solutions', items: ['Bâtiment', 'Travaux publics', 'Génie civil', 'Infrastructure'] },
+        { title: 'Bopera', items: ['À propos', 'Contact', 'Demander une démo', 'Connexion'] },
+        { title: 'Légal', items: ['Mentions légales', 'Confidentialité', 'Cookies'] }
+      ],
+      activeChain: {
+        step: 'Étape ' + String(hi + 1).padStart(2, '0') + ' / 10',
+        label: a[0], text: a[1], passes: a[2]
+      },
+      segments: [
+        { label: 'Bâtiment', radius: '0' },
+        { label: 'Travaux publics', radius: '0' },
+        { label: 'Génie civil', radius: '50%' },
+        { label: 'Infrastructure', radius: '1px' }
+      ],
+      files: [
+        { name: 'budget_chantier.xlsx', left: '0', top: '0', rot: '-2.4deg', tint: '#4A8A5C' },
+        { name: 'suivi_achats_v7.xlsx', left: '96px', top: '26px', rot: '1.8deg', tint: '#4A8A5C' },
+        { name: 'pointage_mars.pdf', left: '206px', top: '4px', rot: '-1.2deg', tint: '#C05A45' },
+        { name: 'stock_depot.xlsx', left: '306px', top: '34px', rot: '2.6deg', tint: '#4A8A5C' }
+      ],
+      docs: [
+        { ref: 'DA-118', note: 'Excel' },
+        { ref: 'CONSULT-42', note: 'e-mail' },
+        { ref: 'BC-0931', note: 'papier' },
+        { ref: 'BL-2210', note: 'photo' },
+        { ref: 'ATT-07', note: 'WhatsApp' }
+      ],
+      outline: [
+        { num: '08', title: 'Modules', text: "Six grandes sections alternées texte / interface réelle : chiffrage, achats, stock, ressources, budget, attachements." },
+        { num: '09', title: 'Workflows et validations', text: "Circuit de validation vertical, rôles, permissions, statuts en attente / validé / rejeté / relancé, historique." },
+        { num: '10', title: 'Cockpit affaire', text: "Une affaire au centre, ses processus rattachés autour : budget, achats, stock, ressources, avancement, performance." },
+        { num: '11', title: 'Pour qui ?', text: "Tabs par persona : direction générale, travaux, achats, finance, magasin — un bénéfice par profil." },
+        { num: '12', title: 'Pourquoi Bopera ?', text: "Cinq bénéfices sobres : métier BTP, donnée connectée, traçabilité, temps réel, configuration." },
+        { num: '13', title: 'Preuve produit', text: "Grand emplacement vidéo / démonstration : création d'affaire → chiffrage → DA → BC → réception → dashboard." },
+        { num: '14', title: 'CTA final', text: "Fond anthracite, promesse forte, démonstration personnalisée selon l'organisation du visiteur." },
+        { num: '15', title: 'Formulaire de démo', text: "Neuf champs, états normal / hover / focus / erreur / succès, ton rassurant et court." },
+        { num: '16', title: 'Footer', text: "Anthracite, logo, quatre colonnes : produit, solutions, Bopera, légal." }
+      ],
+      palette: [
+        { name: 'Ink', hex: '#1B1F24' },
+        { name: 'Anthracite', hex: '#23292F' },
+        { name: 'Slate', hex: '#5B6675' },
+        { name: 'Line', hex: '#E7EAED' },
+        { name: 'Paper', hex: '#FFFFFF' },
+        { name: 'Off-white', hex: '#FBFBFC' },
+        { name: 'Bopera Yellow', hex: '#F5A623' },
+        { name: 'Yellow deep', hex: '#C9820A' }
+      ],
+      tags: [
+        { label: 'DPGF', color: '#C0C6CD', border: '#4A5460', bg: 'transparent' },
+        { label: 'Déboursés secs', color: '#C0C6CD', border: '#4A5460', bg: 'transparent' },
+        { label: 'En attente', color: '#23292F', border: '#F5A623', bg: '#F5A623' },
+        { label: 'Validé', color: '#8FCBA4', border: '#3E6B4E', bg: 'transparent' },
+        { label: 'Rejeté', color: '#E58C74', border: '#7A4436', bg: 'transparent' },
+        { label: 'Relancé', color: '#C0C6CD', border: '#4A5460', bg: '#2B3138' }
+      ]
+    };
+  }
+}
+
+</script>
+</body>
+</html>
